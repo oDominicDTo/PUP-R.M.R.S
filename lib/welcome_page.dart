@@ -1,8 +1,9 @@
 import 'package:appdevelopment/constants.dart';
-import 'package:appdevelopment/secondPage.dart';
+import 'package:appdevelopment/second_page.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,12 +52,12 @@ class WelcomeScreen extends StatelessWidget {
                   onPressed: () {
                     // Button action goes here
                     Navigator.push(
-                      context,MaterialPageRoute(builder: (context) => SecondPage()),
+                      context,MaterialPageRoute(builder: (context) => const SecondPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 16),
-                    side: BorderSide(width: 1.5, color: kBackgroundColor),
+                    side: const BorderSide(width: 1.5, color: kBackgroundColor),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25),
                     ),

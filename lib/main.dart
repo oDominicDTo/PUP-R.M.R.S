@@ -1,5 +1,5 @@
 import 'package:appdevelopment/constants.dart';
-import 'package:appdevelopment/welcomePage.dart';
+import 'package:appdevelopment/welcome_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: kBackgroundColor,
         useMaterial3: true,
       ),
-      home: WelcomeScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }

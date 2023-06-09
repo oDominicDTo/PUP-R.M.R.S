@@ -31,7 +31,7 @@ class SecondPage extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 16),
-                    side: BorderSide(width: 1.5, color: kBackgroundColor),
+                    side: const BorderSide(width: 1.5, color: kBackgroundColor),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25),
                     ),
@@ -44,14 +44,14 @@ class SecondPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 30,),
+                const SizedBox(height: 30,),
                 ElevatedButton(
                   onPressed: () {
                     // Button action goes here
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 16),
-                    side: BorderSide(width: 1.5, color: kBackgroundColor),
+                    side: const BorderSide(width: 1.5, color: kBackgroundColor),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25),
                     ),
