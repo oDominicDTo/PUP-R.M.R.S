@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: kBackgroundColor,
         useMaterial3: true,
       ),
-      home: const WelcomeScreen(),
+      home: const ProfHomeDB(),
     );
   }
 }
