@@ -18,7 +18,7 @@ class WelcomeScreen extends StatelessWidget {
             ),
           ),
           Container(
-            color: Colors.red.withOpacity(0.25),
+            color: kDarkRed.withOpacity(0.5),
           ),
           Center(
             child: Column(

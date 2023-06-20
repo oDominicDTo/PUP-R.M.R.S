@@ -1,3 +1,4 @@
+import 'package:appdevelopment/login_page.dart';
 import 'package:flutter/material.dart';
 import 'constants.dart';
 
@@ -18,7 +19,7 @@ class SecondPage extends StatelessWidget {
             ),
           ),
           Container(
-            color: Colors.red.withOpacity(0.25),
+            color: kDarkRed.withOpacity(0.5),
           ),
           Center(
             child: Column(
@@ -28,6 +29,9 @@ class SecondPage extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     // Button action goes here
+                    Navigator.push(
+                        context,MaterialPageRoute(builder: (context) => const LoginScreen()),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 16),
@@ -48,6 +52,9 @@ class SecondPage extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     // Button action goes here
+                    Navigator.push(
+                      context,MaterialPageRoute(builder: (context) => const LoginScreen()),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 16),

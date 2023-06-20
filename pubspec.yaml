@@ -77,8 +77,17 @@ flutter:
   fonts:
     - family: Poppins
       fonts:
-         - asset: assets/Poppins/Poppins-SemiBold.ttf
-         - asset: assets/Poppins/Poppins-Light.ttf
+          - asset: assets/Poppins/Poppins-Regular.ttf
+            weight: 500
+          - asset: assets/Poppins/Poppins-SemiBold.ttf
+          - asset: assets/Poppins/Poppins-Light.ttf
+            weight: 300
+
+    - family: Inter
+      fonts:
+          - asset: assets/Inter/static/Inter-SemiBold.ttf
+            weight: 300
+
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
