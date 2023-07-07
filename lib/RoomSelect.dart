@@ -80,7 +80,7 @@ class _RoomSelectState extends State<RoomSelect> {
                 child: Column(
                     children:[
                       SizedBox(
-                       height: 34,
+                        height: 34,
                       ),
                       Text(
                         '1st',
@@ -134,7 +134,7 @@ class _RoomSelectState extends State<RoomSelect> {
                     ]
                 ),
 
-          ),
+              ),
             ),
           ),
           Positioned(
