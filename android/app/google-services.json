@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "432415461669",
+    "project_id": "pup-rmrs-bb1e5",
+    "storage_bucket": "pup-rmrs-bb1e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:432415461669:android:c09d1cf2d98af9b98f0acc",
+        "android_client_info": {
+          "package_name": "com.pup.appdevelopment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "432415461669-r6mptmka9i5a5aod8s3m4ps75a6tv8t8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQ2s6AvkqOM1y4JdKvsjp3Srk93tVidHM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "432415461669-r6mptmka9i5a5aod8s3m4ps75a6tv8t8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
