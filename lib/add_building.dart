@@ -75,13 +75,21 @@ class _AddBuildingState extends State<AddBuilding> {
                       decoration: BoxDecoration(
                         color: Color(0xFF5B0101), // Change the color here
                         borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 10),
+                          ),
+                        ],
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(
-                            width: 270, // Adjust the width here
-                            height: 220, // Adjust the height here
+                            width: 270,
+                            height: 220,
                             child: Image.asset(
                               'assets/pupbuilding1.png',
                               fit: BoxFit.cover,
@@ -93,7 +101,7 @@ class _AddBuildingState extends State<AddBuilding> {
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white, // Change the text color here
+                              color: Colors.white,
                             ),
                           ),
                         ],
@@ -110,15 +118,23 @@ class _AddBuildingState extends State<AddBuilding> {
                       width: 300,
                       height: 300,
                       decoration: BoxDecoration(
-                        color: Color(0xFF5B0101), // Change the color here
+                        color: Color(0xFF5B0101),
                         borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 10),
+                          ),
+                        ],
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(
-                            width: 270, // Adjust the width here
-                            height: 220, // Adjust the height here
+                            width: 270,
+                            height: 220,
                             child: Image.asset(
                               'assets/pupbuilding2.png',
                               fit: BoxFit.cover,
@@ -130,7 +146,7 @@ class _AddBuildingState extends State<AddBuilding> {
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white, // Change the text color here
+                              color: Colors.white,
                             ),
                           ),
                         ],
@@ -146,10 +162,10 @@ class _AddBuildingState extends State<AddBuilding> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex = 1,
         onTap: _onItemTapped,
-        selectedItemColor: Color(0xFF7E0001), // Color of the selected icon and label
-        unselectedItemColor: Colors.grey, // Color of the unselected icons and labels
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold), // Style for the selected label
-        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal), // Style for the unselected labels
+        selectedItemColor: Color(0xFF7E0001),
+        unselectedItemColor: Colors.grey,
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
