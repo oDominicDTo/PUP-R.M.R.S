@@ -336,7 +336,7 @@ class _RoomSelectState extends State<RoomSelect> {
                                 height: 5,
                               ),
                               Text(
-                                'Comlab\n\t\t\t1-3',
+                                'Comlab\n\t\t\t\t1-3',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 14,
