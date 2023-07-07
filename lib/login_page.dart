@@ -9,7 +9,8 @@ class LoginScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Container(
+      body:
+      Container(
         color: kMainPrimaryColor,
         child: Stack(
             children: [

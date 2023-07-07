@@ -1,4 +1,6 @@
 import 'package:appdevelopment/constants.dart';
+import 'package:appdevelopment/login_page.dart';
+import 'package:appdevelopment/prof_sub_select.dart';
 import 'package:appdevelopment/welcome_page.dart';
 import 'package:flutter/material.dart';
 //try
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: kBackgroundColor,
         useMaterial3: true,
       ),
-      home: const WelcomeScreen(),
+      home: const ProfSubSelect(),
     );
   }
 }
