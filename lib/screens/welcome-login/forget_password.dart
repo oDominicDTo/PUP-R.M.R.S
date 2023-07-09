@@ -106,10 +106,11 @@ class ForgetPasswordScreen extends StatelessWidget {
                               'assets/loginLogo.png',
                               width: 150,
                               height: 63,
+                              color: Colors.blueGrey,
                             ),
                           ),
                           Positioned(
-                            top: 110,
+                            top: 140,
                             left: 20,
                             child: Column(
                               children: [
@@ -145,7 +146,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                             ),
                           ),
                           Positioned(
-                            top: 310,
+                            top: 250,
                             left: 80,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
