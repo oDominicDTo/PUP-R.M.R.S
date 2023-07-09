@@ -1,10 +1,12 @@
 import 'package:appdevelopment/constants.dart';
-import 'package:appdevelopment/login_page.dart';
-import 'package:appdevelopment/prof_sub_select.dart';
-import 'package:appdevelopment/welcome_page.dart';
+import 'package:appdevelopment/firebase_options.dart';
+import 'package:appdevelopment/screens/welcome-login/welcome_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 //try
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: kBackgroundColor,
         useMaterial3: true,
       ),
-      home: const ProfSubSelect(),
+      home: const WelcomeScreen(),
     );
   }
 }

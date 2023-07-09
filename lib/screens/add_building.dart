@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import '../constants.dart';
 
 class AddBuilding extends StatefulWidget {
   const AddBuilding({Key? key}) : super(key: key);
