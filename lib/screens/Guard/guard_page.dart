@@ -7,14 +7,14 @@ import 'settings_page.dart';
 import 'home_page.dart';
 
 
-class FacultyPage extends StatefulWidget {
-  const FacultyPage({Key? key}) : super(key: key);
+class GuardPage extends StatefulWidget {
+  const GuardPage({Key? key}) : super(key: key);
 
   @override
-  State<FacultyPage> createState() => _FacultyPageState();
+  State<GuardPage> createState() => _GuardPageState();
 }
 
-class _FacultyPageState extends State<FacultyPage> {
+class _GuardPageState extends State<GuardPage> {
 int index = 0;
   final screens = [
     const FacultyHomePage(),

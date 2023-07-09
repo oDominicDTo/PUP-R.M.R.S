@@ -1,6 +1,6 @@
 import 'package:appdevelopment/constants.dart';
 import 'package:appdevelopment/firebase_options.dart';
-import 'package:appdevelopment/screens/faculty/faculty_page.dart';
+import 'package:appdevelopment/screens/Guard/guard_page.dart';
 import 'package:appdevelopment/screens/welcome-login/welcome_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: kBackgroundColor,
         useMaterial3: true,
       ),
-      home: const FacultyPage(),
+      home: const GuardPage(),
     );
   }
 }

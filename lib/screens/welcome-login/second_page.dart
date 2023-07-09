@@ -41,7 +41,7 @@ class SecondPage extends StatelessWidget {
                     ),
                   ),
                   child: const Text(
-                    "Admin",
+                    "Guard",
                     style: TextStyle(
                       fontSize: 18,
                       color: kBackgroundColor,
