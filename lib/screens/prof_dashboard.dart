@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../constants.dart';
+import 'package:appdevelopment/constants.dart';
 
 class ProfHomeDB extends StatefulWidget {
   const ProfHomeDB({Key? key}) : super(key: key);
@@ -9,13 +9,9 @@ class ProfHomeDB extends StatefulWidget {
 }
 
 class _ProfHomeDBState extends State<ProfHomeDB> {
-  int _selectedIndex = 0;
+  int index = 0;
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -99,33 +95,25 @@ class _ProfHomeDBState extends State<ProfHomeDB> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        selectedItemColor: Color(0xFF7E0001), // Color of the selected icon and label
-        unselectedItemColor: Colors.grey, // Color of the unselected icons and labels
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold), // Style for the selected label
-        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal), // Style for the unselected labels
-        showUnselectedLabels: true,
-        type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'Add',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Notifications',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
+      bottomNavigationBar: NavigationBarTheme(
+        data: const NavigationBarThemeData(
+          indicatorColor: Colors.white10,
+          labelTextStyle: MaterialStatePropertyAll(TextStyle(fontSize: 12, fontFamily: 'Poppins', fontWeight: FontWeight.normal)),
+
+
+        ),
+        child: NavigationBar(
+          height: 92,
+          backgroundColor: Colors.white,
+          selectedIndex: index,
+          onDestinationSelected: (index)=> setState(()=> this.index=index),
+          destinations: const [
+            NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home, color: kDarkRed,), label: 'Home'),
+            NavigationDestination(icon: Icon(Icons.history_outlined), selectedIcon: Icon(Icons.history, color: kDarkRed,),label: 'History'),
+            NavigationDestination(icon: Icon(Icons.notifications_outlined), selectedIcon: Icon(Icons.notifications, color: kDarkRed,), label: 'Notification'),
+            NavigationDestination(icon: Icon(Icons.settings_outlined), selectedIcon: Icon(Icons.settings, color: kDarkRed,), label: 'Settings'),
+          ],
+        ),
       ),
     );
   }
