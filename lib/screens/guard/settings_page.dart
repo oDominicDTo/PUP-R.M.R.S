@@ -45,7 +45,7 @@ class SettingsPage extends StatelessWidget {
             top: 90,
             left: 120,
             child: Text(
-              'User Name',
+              'User name',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.normal,
