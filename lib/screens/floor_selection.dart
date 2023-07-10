@@ -76,7 +76,7 @@ class _floor_selectionState extends State<floor_selection> {
                         topLeft: Radius.circular(20),
                         topRight: Radius.circular(20),
                       ),
-                      color: Color(0xFF6D1E1E),
+                      color: Color(0xFF5B0101),
                     ),
                     child: Column(
                       children: [
@@ -155,7 +155,7 @@ class _floor_selectionState extends State<floor_selection> {
                         topLeft: Radius.circular(20),
                         topRight: Radius.circular(20),
                       ),
-                      color: Color(0xFF6D1E1E),
+                      color: Color(0xFF5B0101),
                     ),
                     child: Column(
                       children: [
@@ -235,7 +235,7 @@ class _floor_selectionState extends State<floor_selection> {
                         topLeft: Radius.circular(20),
                         topRight: Radius.circular(20),
                       ),
-                      color: Color(0xFF6D1E1E),
+                      color: Color(0xFF5B0101),
                     ),
                     child: Column(
                       children: [
@@ -316,7 +316,7 @@ class _floor_selectionState extends State<floor_selection> {
                         topLeft: Radius.circular(20),
                         topRight: Radius.circular(20),
                       ),
-                      color: Color(0xFF6D1E1E),
+                      color: Color(0xFF5B0101),
                     ),
                     child: Column(
                       children: [
