@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:appdevelopment/constants.dart';
-
+import 'package:appdevelopment/widgets/app_bar_widget.dart';
 class prof_settings extends StatefulWidget {
   const prof_settings({Key? key}) : super(key: key);
 
@@ -15,7 +15,7 @@ class _prof_settingsState extends State<prof_settings> {
 
   @override
   Widget build(BuildContext context) {
-
+    appBar: const AppBarWidget();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -100,7 +100,7 @@ class _prof_settingsState extends State<prof_settings> {
                           ),
                           child: CircleAvatar(
                             radius: 32,
-                            backgroundImage: AssetImage('assets/profile_image.png'), // Replace with your own image
+                            backgroundImage: AssetImage('assets/profile_image.png'), // Replace with your own image //make it dynamically replace user image
                           ),
                         ),
                         SizedBox(width: 16),
@@ -289,7 +289,7 @@ class _prof_settingsState extends State<prof_settings> {
       bottomNavigationBar: NavigationBarTheme(
         data: const NavigationBarThemeData(
           indicatorColor: Colors.white10,
-          labelTextStyle: MaterialStatePropertyAll(TextStyle(fontSize: 12, fontFamily: 'Poppins', fontWeight: FontWeight.normal)),
+          labelTextStyle: MaterialStatePropertyAll(TextStyle(fontSize: 12, fontFamily: 'Poppins', fontWeight: FontWeight.normal, color: Color(0xFF5B0101))),
 
 
         ),

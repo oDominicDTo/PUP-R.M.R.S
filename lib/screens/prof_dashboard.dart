@@ -98,7 +98,7 @@ class _ProfHomeDBState extends State<ProfHomeDB> {
       bottomNavigationBar: NavigationBarTheme(
         data: const NavigationBarThemeData(
           indicatorColor: Colors.white10,
-          labelTextStyle: MaterialStatePropertyAll(TextStyle(fontSize: 12, fontFamily: 'Poppins', fontWeight: FontWeight.normal)),
+          labelTextStyle: MaterialStatePropertyAll(TextStyle(fontSize: 12, fontFamily: 'Poppins', fontWeight: FontWeight.normal,color: Color(0xFF5B0101))),
 
 
         ),
