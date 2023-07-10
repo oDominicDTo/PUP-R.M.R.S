@@ -17,7 +17,7 @@ class GuardPage extends StatefulWidget {
 class _GuardPageState extends State<GuardPage> {
 int index = 0;
   final screens = [
-    const FacultyHomePage(),
+    const GuardHomePage(),
     const HistoryPage(),
     const NotificationPage(),
     const SettingsPage(),

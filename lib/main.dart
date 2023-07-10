@@ -1,6 +1,6 @@
 import 'package:appdevelopment/constants.dart';
 import 'package:appdevelopment/firebase_options.dart';
-import 'package:appdevelopment/screens/Guard/guard_page.dart';
+import 'package:appdevelopment/screens/guard/guard_page.dart';
 import 'package:appdevelopment/screens/welcome-login/welcome_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

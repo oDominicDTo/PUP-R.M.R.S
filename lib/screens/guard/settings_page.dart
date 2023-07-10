@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:appdevelopment/constants.dart';
-import 'package:appdevelopment/widgets/app_bar_widget.dart';
 
 
 class SettingsPage extends StatelessWidget {
