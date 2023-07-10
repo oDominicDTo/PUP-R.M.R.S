@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:appdevelopment/constants.dart';
+import 'package:appdevelopment/widgets/app_bar_widget.dart';
 class floor_selection extends StatefulWidget {
   const floor_selection({Key? key}) : super(key: key);
 
@@ -15,39 +16,14 @@ class _floor_selectionState extends State<floor_selection> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Row(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(top: 7.0, left: 5.0),
-              child: Image.asset(
-                'assets/puplogo.png',
-                width: 45,
-                height: 45,
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 10.0, left: 13.0),
-              child: const Text(
-                'PUP R.M.R.S',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Color(0xFF7E0001),
-                  fontWeight: FontWeight.w200,
-                  fontFamily: 'Poppins',
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      backgroundColor: kMainPrimaryColor,
+      appBar: const AppBarWidget(),
+      backgroundColor: Color(0xFFF0F0F0),
+
       body: Stack(
         alignment: Alignment.center,
         children: [
           Positioned(
-            top: 30,
+            top: 20,
             child: Text(
               'Building A',
               style: TextStyle(
@@ -231,7 +207,7 @@ class _floor_selectionState extends State<floor_selection> {
             child: Stack(
               children: [
                 Positioned(
-                  bottom: 145,
+                  bottom: 135,
                   left: 20,
                   child: Container(
                     width: 150,
@@ -315,7 +291,7 @@ class _floor_selectionState extends State<floor_selection> {
             child: Stack(
               children: [
                 Positioned(
-                  bottom: 145,
+                  bottom: 135,
                   right: 20,
                   child: Container(
                     width: 150,
