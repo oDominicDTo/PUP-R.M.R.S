@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:appdevelopment/constants.dart';
-
+import 'package:appdevelopment/widgets/app_bar_widget.dart';
 class ProfHomeDB extends StatefulWidget {
   const ProfHomeDB({Key? key}) : super(key: key);
 
@@ -24,34 +24,9 @@ class _ProfHomeDBState extends State<ProfHomeDB> {
     final formattedDate = '${monthNames[currentDate.month]} ${currentDate.day}, ${currentDate.year}';
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Row(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(top: 7.0, left: 5.0),
-              child: Image.asset(
-                'assets/puplogo.png',
-                width: 45,
-                height: 45,
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 10.0, left: 13.0),
-              child: const Text(
-                'PUP R.M.R.S',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Color(0xFF7E0001),
-                  fontWeight: FontWeight.w200,
-                  fontFamily: 'Poppins',
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      backgroundColor: kMainPrimaryColor,
+      appBar: const AppBarWidget(),
+      backgroundColor: Color(0xFFF0F0F0),
+
       body: Stack(
         alignment: Alignment.center,
         children: [
@@ -98,7 +73,7 @@ class _ProfHomeDBState extends State<ProfHomeDB> {
       bottomNavigationBar: NavigationBarTheme(
         data: const NavigationBarThemeData(
           indicatorColor: Colors.white10,
-          labelTextStyle: MaterialStatePropertyAll(TextStyle(fontSize: 12, fontFamily: 'Poppins', fontWeight: FontWeight.normal)),
+          labelTextStyle: MaterialStatePropertyAll(TextStyle(fontSize: 12, fontFamily: 'Poppins', fontWeight: FontWeight.normal,color: Color(0xFF5B0101))),
 
 
         ),

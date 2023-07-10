@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:appdevelopment/constants.dart';
+import 'package:appdevelopment/widgets/app_bar_widget.dart';
 class floor_selection extends StatefulWidget {
   const floor_selection({Key? key}) : super(key: key);
 
@@ -15,45 +16,20 @@ class _floor_selectionState extends State<floor_selection> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Row(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(top: 7.0, left: 5.0),
-              child: Image.asset(
-                'assets/puplogo.png',
-                width: 45,
-                height: 45,
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 10.0, left: 13.0),
-              child: const Text(
-                'PUP R.M.R.S',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Color(0xFF7E0001),
-                  fontWeight: FontWeight.w200,
-                  fontFamily: 'Poppins',
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      backgroundColor: kMainPrimaryColor,
+      appBar: const AppBarWidget(),
+      backgroundColor: Color(0xFFF0F0F0),
+
       body: Stack(
         alignment: Alignment.center,
         children: [
           Positioned(
-            top: 30,
+            top: 25,
             child: Text(
               'Building A',
               style: TextStyle(
-                fontSize: 25,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
-                fontFamily: 'Poppins',
+                fontFamily: 'Inter',
               ),
             ),
           ),
@@ -81,13 +57,14 @@ class _floor_selectionState extends State<floor_selection> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 34,
+                          height: 32,
                         ),
                         Text(
                           '1st',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
                             fontSize: 45,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.bold,
                             height: 1,
                           ),
@@ -96,7 +73,8 @@ class _floor_selectionState extends State<floor_selection> {
                           'FLOOR',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
-                            fontSize: 24,
+                            fontSize: 25,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.normal,
                           ),
                         ),
@@ -123,7 +101,8 @@ class _floor_selectionState extends State<floor_selection> {
                                 'Multimedia \n \t \t Room',
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 14,
+                                  fontSize: 15,
+                                  fontFamily: 'Poppins',
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -160,13 +139,14 @@ class _floor_selectionState extends State<floor_selection> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 34,
+                          height: 32,
                         ),
                         Text(
                           '2nd',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
                             fontSize: 45,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.bold,
                             height: 1,
                           ),
@@ -175,7 +155,8 @@ class _floor_selectionState extends State<floor_selection> {
                           'FLOOR',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
-                            fontSize: 24,
+                            fontSize: 25,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.normal,
                           ),
                         ),
@@ -202,7 +183,8 @@ class _floor_selectionState extends State<floor_selection> {
                                 '\t\tRoom\n201-205',
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 14,
+                                  fontSize: 15,
+                                  fontFamily: 'Poppins',
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -225,7 +207,7 @@ class _floor_selectionState extends State<floor_selection> {
             child: Stack(
               children: [
                 Positioned(
-                  bottom: 145,
+                  bottom: 135,
                   left: 20,
                   child: Container(
                     width: 150,
@@ -240,13 +222,14 @@ class _floor_selectionState extends State<floor_selection> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 34,
+                          height: 32,
                         ),
                         Text(
                           '3rd',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
                             fontSize: 45,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.bold,
                             height: 1,
                           ),
@@ -255,7 +238,8 @@ class _floor_selectionState extends State<floor_selection> {
                           'FLOOR',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
-                            fontSize: 24,
+                            fontSize: 25,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.normal,
                           ),
                         ),
@@ -282,7 +266,8 @@ class _floor_selectionState extends State<floor_selection> {
                                 '\t\tRoom\n301-305',
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 14,
+                                  fontSize: 15,
+                                  fontFamily: 'Poppins',
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -306,7 +291,7 @@ class _floor_selectionState extends State<floor_selection> {
             child: Stack(
               children: [
                 Positioned(
-                  bottom: 145,
+                  bottom: 135,
                   right: 20,
                   child: Container(
                     width: 150,
@@ -321,13 +306,14 @@ class _floor_selectionState extends State<floor_selection> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 34,
+                          height: 32,
                         ),
                         Text(
                           '4th',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
                             fontSize: 45,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.bold,
                             height: 1,
                           ),
@@ -336,7 +322,8 @@ class _floor_selectionState extends State<floor_selection> {
                           'FLOOR',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
-                            fontSize: 24,
+                            fontSize: 25,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.normal,
                           ),
                         ),
@@ -363,7 +350,8 @@ class _floor_selectionState extends State<floor_selection> {
                                 'Comlab\n\t\t\t\t1-3',
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 14,
+                                  fontSize: 15,
+                                  fontFamily: 'Poppins',
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -384,7 +372,7 @@ class _floor_selectionState extends State<floor_selection> {
       bottomNavigationBar: NavigationBarTheme(
         data: const NavigationBarThemeData(
           indicatorColor: Colors.white10,
-          labelTextStyle: MaterialStatePropertyAll(TextStyle(fontSize: 12, fontFamily: 'Poppins', fontWeight: FontWeight.normal)),
+          labelTextStyle: MaterialStatePropertyAll(TextStyle(fontSize: 12, fontFamily: 'Poppins', fontWeight: FontWeight.normal,color: Color(0xFF5B0101))),
 
 
         ),
