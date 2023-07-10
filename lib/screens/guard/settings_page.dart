@@ -90,21 +90,23 @@ class SettingsPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: const Row(
-                        children: [
-                          SizedBox(width: 10),
-                          Icon(Icons.camera_alt, color: Colors.black),
-                          SizedBox(width: 10),
-                          Text(
-                            'Change Profile Picture',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Poppins',
-                              color: Colors.black,
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Row(
+                          children: [
+                            Icon(Icons.camera_alt, color: Colors.black),
+                            SizedBox(width: 10),
+                            Text(
+                              'Change Profile Picture',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Poppins',
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -127,21 +129,23 @@ class SettingsPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: const Row(
-                        children: [
-                          SizedBox(width: 10),
-                          Icon(Icons.people, color: Colors.black),
-                          SizedBox(width: 10),
-                          Text(
-                            'View Users',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Poppins',
-                              color: Colors.black,
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Row(
+                          children: [
+                            Icon(Icons.people, color: Colors.black),
+                            SizedBox(width: 10),
+                            Text(
+                              'View Users',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Poppins',
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -164,21 +168,23 @@ class SettingsPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: const Row(
-                        children: [
-                          SizedBox(width: 10),
-                          Icon(Icons.policy, color: Colors.black),
-                          SizedBox(width: 10),
-                          Text(
-                            'Privacy Policy',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Poppins',
-                              color: Colors.black,
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Row(
+                          children: [
+                            Icon(Icons.policy, color: Colors.black),
+                            SizedBox(width: 10),
+                            Text(
+                              'Privacy Policy',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Poppins',
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -201,21 +207,23 @@ class SettingsPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: const Row(
-                        children: [
-                          SizedBox(width: 10),
-                          Icon(Icons.logout, color: Colors.black),
-                          SizedBox(width: 10),
-                          Text(
-                            'Log out',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Poppins',
-                              color: Colors.black,
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Row(
+                          children: [
+                            Icon(Icons.logout, color: Colors.black),
+                            SizedBox(width: 10),
+                            Text(
+                              'Log out',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Poppins',
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),

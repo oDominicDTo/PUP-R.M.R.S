@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'room.dart';
 
 class GuardHomePage extends StatefulWidget {
   const GuardHomePage({Key? key}) : super(key: key);
@@ -9,7 +10,7 @@ class GuardHomePage extends StatefulWidget {
 }
 
 class _GuardHomePageState extends State<GuardHomePage> {
-   List<Room> rooms = [
+  List<Room> rooms = [
     Room(
       roomName: 'Room A',
       subjectName: 'Mathematics',
@@ -38,6 +39,30 @@ class _GuardHomePageState extends State<GuardHomePage> {
       courseColor: Colors.yellow,
     ),
   ];
+
+  List<Room> filteredRooms = []; // Filtered list of rooms
+  String searchQuery = '';
+
+  @override
+  void initState() {
+    super.initState();
+    filterRooms();
+  }
+
+  void filterRooms() {
+    filteredRooms = rooms.where((room) {
+      final roomName = room.roomName.toLowerCase();
+      final subjectName = room.subjectName.toLowerCase();
+      final course = room.course.toLowerCase();
+      final professorName = room.professorName.toLowerCase();
+      final searchLowerCase = searchQuery.toLowerCase();
+
+      return roomName.contains(searchLowerCase) ||
+          subjectName.contains(searchLowerCase) ||
+          course.contains(searchLowerCase) ||
+          professorName.contains(searchLowerCase);
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +135,12 @@ class _GuardHomePageState extends State<GuardHomePage> {
                         color: const Color(0xFFC5C5C5).withOpacity(0.2),
                         fontFamily: 'Poppins',
                       ),
+                      onChanged: (value) {
+                        setState(() {
+                          searchQuery = value;
+                          filterRooms();
+                        });
+                      },
                       decoration: const InputDecoration(
                         hintText: 'Name, Subject, Course',
                         border: InputBorder.none,
@@ -147,49 +178,10 @@ class _GuardHomePageState extends State<GuardHomePage> {
                 ),
               ),
               child: ListView.builder(
-                itemCount: rooms.length,
+                itemCount: filteredRooms.length,
                 itemBuilder: (context, index) {
-                  final room = rooms[index];
-                  return Card(
-                   // Set your desired card color here
-                    elevation: 4, // Adjust the elevation value for the shadow
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10), // Set your desired border radius
-                    ),
-                    child: ClipPath(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white, // Set the same color as the card color
-                          border: Border(
-                            bottom: BorderSide(color: room.courseColor ?? Colors.transparent, width: 10),
-                          ),
-                        ),
-                        child: Container(
-                          padding: EdgeInsets.all(16),
-                          height: 200,
-                          child: Center(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Room: ${room.roomName}',
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                Text('Subject: ${room.subjectName}'),
-                                Text('Course: ${room.course}'),
-                                Text('Professor: ${room.professorName}'),
-                                Text('Time: ${room.initialTime} - ${room.finalTime}'),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
+                  final room = filteredRooms[index];
+                  return RoomCard(room: room);
                 },
               ),
             ),
@@ -198,24 +190,4 @@ class _GuardHomePageState extends State<GuardHomePage> {
       ),
     );
   }
-}
-
-class Room {
-  final String roomName;
-  final String subjectName;
-  final String course;
-  final String professorName;
-  final String initialTime;
-  final String finalTime;
-  final Color courseColor;
-
-  Room({
-    required this.roomName,
-    required this.subjectName,
-    required this.course,
-    required this.professorName,
-    required this.initialTime,
-    required this.finalTime,
-    required this.courseColor,
-  });
 }
