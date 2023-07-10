@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:appdevelopment/constants.dart';
+import 'forget_password.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -31,7 +32,7 @@ class LoginScreen extends StatelessWidget {
                     child: Image.asset(
                       'assets/pupbg2.png',
                       fit: BoxFit.cover,
-                      height: size.height * 0.3,
+                      height: size.height * 0.34,
                     ),
                   ),
                 ),
@@ -180,17 +181,64 @@ class LoginScreen extends StatelessWidget {
                               ),
                             ),
                             Positioned(
-                              top: 270,
+                              top: 250,
                               left: 20,
                               child: SizedBox(
                                 width: size.width * .8,
-                                child: const Row(
+
+                                child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      'Forgot Password?',
-                                      style: TextStyle(
-                                        color: Colors.black54,
+                                    TextButton(
+                                      onPressed: () {
+                                        showModalBottomSheet(context: context,
+                                          builder: (context) => FractionallySizedBox(heightFactor: 0.6, child: Container(
+                                          padding: const EdgeInsets.all(30),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [Text("Reset Password", style: Theme.of(context).textTheme.headlineMedium),
+                                                const SizedBox(height: 10.0,),
+                                                Text("Select the option given below to reset your password.", style: Theme.of(context).textTheme.bodyMedium,),
+                                                const SizedBox(height: 30.0,),
+                                                GestureDetector(
+
+                                                  onTap: (){
+                                                    Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(builder: (context) => const ForgetPasswordScreen()),
+                                                  );},
+                                                  child: Container(
+                                                    padding: const EdgeInsets.all(20.0),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(10.0),
+                                                      color: Colors.grey.shade200
+                                                    ),
+                                                    child: Row(
+                                                      children: [
+                                                        const Icon(Icons.mail_outline_rounded, size:60.0),
+                                                        const SizedBox(width: 10.0),
+                                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            Text("E-Mail", style: Theme.of(context).textTheme.titleLarge),
+                                                            Text("Reset via E-Mail Verification", style: Theme.of(context).textTheme.bodyMedium),
+                                                          ],
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                        ),
+                                          ),
+                                        );
+                                      },
+                                      child: const Text(
+                                        'Forgot Password?',
+                                        style: TextStyle(
+                                          color: Colors.black54,
+                                        ),
                                       ),
                                     ),
                                   ],

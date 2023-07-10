@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import '../constants.dart';
 
-class ProfHomeDB extends StatefulWidget {
-  const ProfHomeDB({Key? key}) : super(key: key);
+class ProfSubSelect extends StatefulWidget {
+  const ProfSubSelect({Key? key}) : super(key: key);
 
   @override
-  _ProfHomeDBState createState() => _ProfHomeDBState();
+  _ProfSubSelectState createState() => _ProfSubSelectState();
 }
 
-class _ProfHomeDBState extends State<ProfHomeDB> {
+class _ProfSubSelectState extends State<ProfSubSelect> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -19,13 +19,8 @@ class _ProfHomeDBState extends State<ProfHomeDB> {
 
   @override
   Widget build(BuildContext context) {
-    final currentDate = DateTime.now();
-    final monthNames = [
-      '', // Leave an empty string at index 0 to align with month numbers
-      'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
-      'September', 'October', 'November', 'December'
-    ];
-    final formattedDate = '${monthNames[currentDate.month]} ${currentDate.day}, ${currentDate.year}';
+
+    Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
@@ -55,50 +50,40 @@ class _ProfHomeDBState extends State<ProfHomeDB> {
           ],
         ),
       ),
+
       backgroundColor: kMainPrimaryColor,
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          const Positioned(
-            top: 10,
-            left: 35,
-            child: Text(
-              'Home',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          const Positioned(
-            top: 45,
-            left: 20,
-            child: Column(
-              children: [
-                Text(
-                  'Your Schedule',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
+      body:Container(
+        color: kMainPrimaryColor,
+        child: Stack(
+          children: [
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                  kDarkRed.withOpacity(0.5), // Adjust the opacity as desired
+                  BlendMode.srcATop,
+                ),
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(14),
+                    bottomRight: Radius.circular(14),
+                  ),
+                  child: Image.asset(
+                    'assets/pupbg.png',
+                    fit: BoxFit.cover,
+                    height: size.height * 0.4,
                   ),
                 ),
-                SizedBox(height: 10),
-              ],
-            ),
-          ),
-          Positioned(
-            top: 65,
-            left: 20,
-            child: Text(
-              'Today: $formattedDate',
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w400,
               ),
             ),
-          ),
-        ],
+          ],
+        ),
+
       ),
+
+
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,

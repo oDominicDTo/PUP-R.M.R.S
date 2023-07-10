@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import '../constants.dart';
 
 class RoomSelect extends StatefulWidget {
   const RoomSelect({Key? key}) : super(key: key);
