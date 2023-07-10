@@ -15,36 +15,10 @@ class _prof_settingsState extends State<prof_settings> {
 
   @override
   Widget build(BuildContext context) {
-    appBar: const AppBarWidget();
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Row(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(top: 7.0, left: 5.0),
-              child: Image.asset(
-                'assets/puplogo.png',
-                width: 45,
-                height: 45,
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 10.0, left: 13.0),
-              child: const Text(
-                'PUP R.M.R.S',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Color(0xFF7E0001),
-                  fontWeight: FontWeight.w200,
-                  fontFamily: 'Poppins',
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      backgroundColor: kMainPrimaryColor,
+      appBar: const AppBarWidget(),
+      backgroundColor: Color(0xFFF0F0F0),
 
       body: Stack(
         children: [
