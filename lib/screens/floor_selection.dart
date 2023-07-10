@@ -86,7 +86,7 @@ class _floor_selectionState extends State<floor_selection> {
                         Text(
                           '1st',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Color(0xF0F0F0F0),
                             fontSize: 45,
                             fontWeight: FontWeight.bold,
                             height: 1,
@@ -95,7 +95,7 @@ class _floor_selectionState extends State<floor_selection> {
                         Text(
                           'FLOOR',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Color(0xF0F0F0F0),
                             fontSize: 24,
                             fontWeight: FontWeight.normal,
                           ),
@@ -165,7 +165,7 @@ class _floor_selectionState extends State<floor_selection> {
                         Text(
                           '2nd',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Color(0xF0F0F0F0),
                             fontSize: 45,
                             fontWeight: FontWeight.bold,
                             height: 1,
@@ -174,7 +174,7 @@ class _floor_selectionState extends State<floor_selection> {
                         Text(
                           'FLOOR',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Color(0xF0F0F0F0),
                             fontSize: 24,
                             fontWeight: FontWeight.normal,
                           ),
@@ -245,7 +245,7 @@ class _floor_selectionState extends State<floor_selection> {
                         Text(
                           '3rd',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Color(0xF0F0F0F0),
                             fontSize: 45,
                             fontWeight: FontWeight.bold,
                             height: 1,
@@ -254,7 +254,7 @@ class _floor_selectionState extends State<floor_selection> {
                         Text(
                           'FLOOR',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Color(0xF0F0F0F0),
                             fontSize: 24,
                             fontWeight: FontWeight.normal,
                           ),
@@ -326,7 +326,7 @@ class _floor_selectionState extends State<floor_selection> {
                         Text(
                           '4th',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Color(0xF0F0F0F0),
                             fontSize: 45,
                             fontWeight: FontWeight.bold,
                             height: 1,
@@ -335,7 +335,7 @@ class _floor_selectionState extends State<floor_selection> {
                         Text(
                           'FLOOR',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Color(0xF0F0F0F0),
                             fontSize: 24,
                             fontWeight: FontWeight.normal,
                           ),
