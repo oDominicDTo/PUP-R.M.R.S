@@ -140,7 +140,7 @@ class _prof_settingsState extends State<prof_settings> {
             left: 10,
             child: Column(
               children: [
-                SizedBox(height: 15),
+                SizedBox(height: 14),
                 GestureDetector(
                   onTap: () {
                     // Handle onTap for the first rectangle
@@ -186,7 +186,7 @@ class _prof_settingsState extends State<prof_settings> {
                     ),
                   ),
                 ),
-                SizedBox(height: 15),
+                SizedBox(height: 14),
                 GestureDetector(
                   onTap: () {
                     // Handle onTap for the second rectangle
@@ -232,7 +232,7 @@ class _prof_settingsState extends State<prof_settings> {
                     ),
                   ),
                 ),
-                SizedBox(height: 15),
+                SizedBox(height: 14),
                 GestureDetector(
                   onTap: () {
                     // Handle onTap for the third rectangle
