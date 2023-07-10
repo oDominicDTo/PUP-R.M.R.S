@@ -51,9 +51,9 @@ class _floor_selectionState extends State<floor_selection> {
             child: Text(
               'Building A',
               style: TextStyle(
-                fontSize: 25,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
-                fontFamily: 'Poppins',
+                fontFamily: 'Inter',
               ),
             ),
           ),
@@ -81,13 +81,14 @@ class _floor_selectionState extends State<floor_selection> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 34,
+                          height: 32,
                         ),
                         Text(
                           '1st',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
                             fontSize: 45,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.bold,
                             height: 1,
                           ),
@@ -96,7 +97,8 @@ class _floor_selectionState extends State<floor_selection> {
                           'FLOOR',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
-                            fontSize: 24,
+                            fontSize: 25,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.normal,
                           ),
                         ),
@@ -123,7 +125,8 @@ class _floor_selectionState extends State<floor_selection> {
                                 'Multimedia \n \t \t Room',
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 14,
+                                  fontSize: 15,
+                                  fontFamily: 'Poppins',
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -160,13 +163,14 @@ class _floor_selectionState extends State<floor_selection> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 34,
+                          height: 32,
                         ),
                         Text(
                           '2nd',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
                             fontSize: 45,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.bold,
                             height: 1,
                           ),
@@ -175,7 +179,8 @@ class _floor_selectionState extends State<floor_selection> {
                           'FLOOR',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
-                            fontSize: 24,
+                            fontSize: 25,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.normal,
                           ),
                         ),
@@ -202,7 +207,8 @@ class _floor_selectionState extends State<floor_selection> {
                                 '\t\tRoom\n201-205',
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 14,
+                                  fontSize: 15,
+                                  fontFamily: 'Poppins',
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -240,13 +246,14 @@ class _floor_selectionState extends State<floor_selection> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 34,
+                          height: 32,
                         ),
                         Text(
                           '3rd',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
                             fontSize: 45,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.bold,
                             height: 1,
                           ),
@@ -255,7 +262,8 @@ class _floor_selectionState extends State<floor_selection> {
                           'FLOOR',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
-                            fontSize: 24,
+                            fontSize: 25,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.normal,
                           ),
                         ),
@@ -282,7 +290,8 @@ class _floor_selectionState extends State<floor_selection> {
                                 '\t\tRoom\n301-305',
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 14,
+                                  fontSize: 15,
+                                  fontFamily: 'Poppins',
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -321,13 +330,14 @@ class _floor_selectionState extends State<floor_selection> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 34,
+                          height: 32,
                         ),
                         Text(
                           '4th',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
                             fontSize: 45,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.bold,
                             height: 1,
                           ),
@@ -336,7 +346,8 @@ class _floor_selectionState extends State<floor_selection> {
                           'FLOOR',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
-                            fontSize: 24,
+                            fontSize: 25,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.normal,
                           ),
                         ),
@@ -363,7 +374,8 @@ class _floor_selectionState extends State<floor_selection> {
                                 'Comlab\n\t\t\t\t1-3',
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 14,
+                                  fontSize: 15,
+                                  fontFamily: 'Poppins',
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
