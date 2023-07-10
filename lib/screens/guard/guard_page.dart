@@ -6,7 +6,6 @@ import 'notification_page.dart';
 import 'settings_page.dart';
 import 'home_page.dart';
 
-
 class GuardPage extends StatefulWidget {
   const GuardPage({Key? key}) : super(key: key);
 
@@ -15,41 +14,81 @@ class GuardPage extends StatefulWidget {
 }
 
 class _GuardPageState extends State<GuardPage> {
-int index = 0;
+  int index = 0;
   final screens = [
     const GuardHomePage(),
     const HistoryPage(),
     const NotificationPage(),
     const SettingsPage(),
-];
+  ];
+
   @override
   Widget build(BuildContext context) {
-
-    return  Scaffold(
+    return Scaffold(
       appBar: const AppBarWidget(),
       body: screens[index],
-      bottomNavigationBar: NavigationBarTheme(
-        data: const NavigationBarThemeData(
-            indicatorColor: Colors.white10,
-            labelTextStyle: MaterialStatePropertyAll(TextStyle(fontSize: 12, fontFamily: 'Poppins', fontWeight: FontWeight.normal)),
-
-
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              color: Colors.grey.shade200,  // Replace with the color you desire for the stroke
+              width: 1,  // Adjust the width as needed
+            ),
+          ),
         ),
-        child: NavigationBar(
-          height: 92,
-          backgroundColor: Colors.white,
-          selectedIndex: index,
-            onDestinationSelected: (index)=> setState(()=> this.index=index),
+        child: NavigationBarTheme(
+          data: const NavigationBarThemeData(
+            indicatorColor: Colors.white10,
+            labelTextStyle: MaterialStatePropertyAll(
+              TextStyle(
+                fontSize: 12,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ),
+          child: NavigationBar(
+            height: 92,
+            backgroundColor: Colors.white,
+            selectedIndex: index,
+            onDestinationSelected: (index) => setState(() => this.index = index),
             destinations: const [
-              NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home, color: kDarkRed,), label: 'Home'),
-              NavigationDestination(icon: Icon(Icons.history_outlined), selectedIcon: Icon(Icons.history, color: kDarkRed,),label: 'History'),
-              NavigationDestination(icon: Icon(Icons.notifications_outlined), selectedIcon: Icon(Icons.notifications, color: kDarkRed,), label: 'Notification'),
-              NavigationDestination(icon: Icon(Icons.settings_outlined), selectedIcon: Icon(Icons.settings, color: kDarkRed,), label: 'Settings'),
+              NavigationDestination(
+                icon: Icon(Icons.home_outlined),
+                selectedIcon: Icon(
+                  Icons.home,
+                  color: kDarkRed,
+                ),
+                label: 'Home',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.history_outlined),
+                selectedIcon: Icon(
+                  Icons.history,
+                  color: kDarkRed,
+                ),
+                label: 'History',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.notifications_outlined),
+                selectedIcon: Icon(
+                  Icons.notifications,
+                  color: kDarkRed,
+                ),
+                label: 'Notification',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.settings_outlined),
+                selectedIcon: Icon(
+                  Icons.settings,
+                  color: kDarkRed,
+                ),
+                label: 'Settings',
+              ),
             ],
+          ),
         ),
       ),
     );
   }
 }
-
-
