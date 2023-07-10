@@ -231,6 +231,51 @@ class _prof_settingsState extends State<prof_settings> {
                         Padding(
                           padding: const EdgeInsets.only(left: 20.0),
                           child: Icon(
+                            Icons.description,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 15.0),
+                            child: Text(
+                              'Terms & Conditions',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 14),
+                GestureDetector(
+                  onTap: () {
+                    // Handle onTap for the third rectangle
+                    print('Fourth rectangle tapped');
+                  },
+                  child: Container(
+                    width: 345,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFFFFFFF),
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 4,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Icon(
                             Icons.logout,
                             color: Colors.black,
                           ),
