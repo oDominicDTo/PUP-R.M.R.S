@@ -23,7 +23,7 @@ class _floor_selectionState extends State<floor_selection> {
         alignment: Alignment.center,
         children: [
           Positioned(
-            top: 20,
+            top: 25,
             child: Text(
               'Building A',
               style: TextStyle(
