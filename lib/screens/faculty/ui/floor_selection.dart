@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:appdevelopment/constants.dart';
 import 'package:appdevelopment/widgets/app_bar_widget.dart';
-class floor_selection extends StatefulWidget {
-  const floor_selection({Key? key}) : super(key: key);
+class FloorSelection extends StatefulWidget {
+  const FloorSelection({Key? key}) : super(key: key);
 
   @override
-  _floor_selectionState createState() => _floor_selectionState();
+  _FloorSelectionState createState() => _FloorSelectionState();
 }
 
-class _floor_selectionState extends State<floor_selection> {
+class _FloorSelectionState extends State<FloorSelection> {
   int index = 1;
 
 
@@ -16,7 +16,7 @@ class _floor_selectionState extends State<floor_selection> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget(),
+
       backgroundColor: Color(0xFFF0F0F0),
 
       body: Stack(
@@ -367,27 +367,6 @@ class _floor_selectionState extends State<floor_selection> {
           ),
 
         ],
-      ),
-
-      bottomNavigationBar: NavigationBarTheme(
-        data: const NavigationBarThemeData(
-          indicatorColor: Colors.white10,
-          labelTextStyle: MaterialStatePropertyAll(TextStyle(fontSize: 12, fontFamily: 'Poppins', fontWeight: FontWeight.normal,color: Color(0xFF5B0101))),
-
-
-        ),
-        child: NavigationBar(
-          height: 92,
-          backgroundColor: Colors.white,
-          selectedIndex: index,
-          onDestinationSelected: (index)=> setState(()=> this.index=index),
-          destinations: const [
-            NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home, color: kDarkRed,), label: 'Home'),
-            NavigationDestination(icon: Icon(Icons.add_outlined), selectedIcon: Icon(Icons.add, color: kDarkRed,),label: 'Add'),
-            NavigationDestination(icon: Icon(Icons.notifications_outlined), selectedIcon: Icon(Icons.notifications, color: kDarkRed,), label: 'Notification'),
-            NavigationDestination(icon: Icon(Icons.settings_outlined), selectedIcon: Icon(Icons.settings, color: kDarkRed,), label: 'Settings'),
-          ],
-        ),
       ),
     );
   }

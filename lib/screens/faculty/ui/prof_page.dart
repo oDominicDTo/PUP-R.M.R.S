@@ -1,25 +1,26 @@
+import 'package:appdevelopment/screens/faculty/ui/add_building.dart';
+import 'package:appdevelopment/screens/faculty/ui/prof_dashboard.dart';
+import 'package:appdevelopment/screens/faculty/ui/prof_notification_page.dart';
+import 'package:appdevelopment/screens/faculty/ui/prof_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:appdevelopment/constants.dart';
 import 'package:appdevelopment/widgets/app_bar_widget.dart';
-import 'ui/history_page.dart';
-import 'notification_page.dart';
-import 'settings_page.dart';
-import 'ui/home_page.dart';
 
-class GuardPage extends StatefulWidget {
-  const GuardPage({Key? key}) : super(key: key);
+
+class ProfPage extends StatefulWidget {
+  const ProfPage({Key? key}) : super(key: key);
 
   @override
-  State<GuardPage> createState() => _GuardPageState();
+  State<ProfPage> createState() => _ProfPageState();
 }
 
-class _GuardPageState extends State<GuardPage> {
+class _ProfPageState extends State<ProfPage> {
   int index = 0;
   final screens = [
-    const GuardHomePage(),
-    const HistoryPage(),
-    const NotificationPage(),
-    const SettingsPage(),
+    const ProfHomeDB(),
+    const AddBuilding(),
+    const ProfNotificationPage(),
+    const ProfSettings(),
   ];
 
   @override
@@ -62,12 +63,12 @@ class _GuardPageState extends State<GuardPage> {
                 label: 'Home',
               ),
               NavigationDestination(
-                icon: Icon(Icons.history_outlined),
+                icon: Icon(Icons.add_box_outlined),
                 selectedIcon: Icon(
-                  Icons.history,
+                  Icons.add_box_rounded,
                   color: kDarkRed,
                 ),
-                label: 'History',
+                label: 'Add',
               ),
               NavigationDestination(
                 icon: Icon(Icons.notifications_outlined),

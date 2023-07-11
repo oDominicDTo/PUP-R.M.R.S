@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:appdevelopment/constants.dart';
 import 'package:appdevelopment/widgets/app_bar_widget.dart';
-class prof_settings extends StatefulWidget {
-  const prof_settings({Key? key}) : super(key: key);
+class ProfSettings extends StatefulWidget {
+  const ProfSettings({Key? key}) : super(key: key);
 
   @override
-  _prof_settingsState createState() => _prof_settingsState();
+  _ProfSettingsState createState() => _ProfSettingsState();
 }
 
-class _prof_settingsState extends State<prof_settings> {
+class _ProfSettingsState extends State<ProfSettings> {
   int index = 3;
 
 
@@ -17,7 +17,6 @@ class _prof_settingsState extends State<prof_settings> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: const AppBarWidget(),
       backgroundColor: Color(0xFFF0F0F0),
 
       body: Stack(
@@ -302,28 +301,6 @@ class _prof_settingsState extends State<prof_settings> {
 
         ],
 
-      ),
-
-
-      bottomNavigationBar: NavigationBarTheme(
-        data: const NavigationBarThemeData(
-          indicatorColor: Colors.white10,
-          labelTextStyle: MaterialStatePropertyAll(TextStyle(fontSize: 12, fontFamily: 'Poppins', fontWeight: FontWeight.normal, color: Color(0xFF5B0101))),
-
-
-        ),
-        child: NavigationBar(
-          height: 92,
-          backgroundColor: Colors.white,
-          selectedIndex: index,
-          onDestinationSelected: (index)=> setState(()=> this.index=index),
-          destinations: const [
-            NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home, color: kDarkRed,), label: 'Home'),
-            NavigationDestination(icon: Icon(Icons.add_outlined), selectedIcon: Icon(Icons.add, color: kDarkRed,),label: 'Add'),
-            NavigationDestination(icon: Icon(Icons.notifications_outlined), selectedIcon: Icon(Icons.notifications, color: kDarkRed,), label: 'Notification'),
-            NavigationDestination(icon: Icon(Icons.settings_outlined), selectedIcon: Icon(Icons.settings, color: kDarkRed,), label: 'Settings'),
-          ],
-        ),
       ),
     );
   }
