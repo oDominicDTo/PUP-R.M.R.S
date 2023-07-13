@@ -11,7 +11,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(LoginController());
-
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
         color: kMainPrimaryColor,
@@ -34,7 +34,7 @@ class LoginPage extends StatelessWidget {
                   child: Image.asset(
                     'assets/pupbg2.png',
                     fit: BoxFit.cover,
-                    height: MediaQuery.of(context).size.height * 0.34,
+                    height: size.height * 0.34,
                   ),
                 ),
               ),
@@ -61,7 +61,7 @@ class LoginPage extends StatelessWidget {
                         fontWeight: FontWeight.w100,
                         fontFamily: 'Poppins',
                       ),
-                    ),
+                    )
                   ],
                 ),
               ),
@@ -69,14 +69,14 @@ class LoginPage extends StatelessWidget {
             SingleChildScrollView(
               child: Container(
                 padding: const EdgeInsets.all(18),
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
+                height: size.height,
+                width: size.width,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const SizedBox(height: 50),
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.5,
+                      height: size.height * 0.5,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -86,7 +86,7 @@ class LoginPage extends StatelessWidget {
                             spreadRadius: 2,
                             blurRadius: 20,
                             offset: const Offset(0, 0),
-                          ),
+                          )
                         ],
                       ),
                       child: Form(
@@ -114,15 +114,15 @@ class LoginPage extends StatelessWidget {
                                         Icons.mail_outline,
                                         color: Colors.grey,
                                       ),
-                                      const SizedBox(width: 10),
-                                      SizedBox(
+                                      Container(
+                                        padding: const EdgeInsets.only(left: 10),
                                         width: 300,
                                         child: TextFormField(
-                                          controller: controller.email,
                                           cursorColor: Colors.grey,
                                           style: const TextStyle(
                                             color: Colors.black54,
                                           ),
+                                          controller: controller.email,
                                           decoration: const InputDecoration(
                                             border: InputBorder.none,
                                             hintText: 'example@gmail.com',
@@ -131,17 +131,17 @@ class LoginPage extends StatelessWidget {
                                             if (value == null || value.isEmpty) {
                                               return 'Please enter an email';
                                             }
-                                            if (!value.contains('@')) {
-                                              return 'Please enter a valid email';
-                                            }
                                             return null;
                                           },
                                         ),
                                       ),
                                     ],
                                   ),
-                                  const Divider(
-                                    color: Colors.grey,
+                                  SizedBox(
+                                    width: size.width * .8,
+                                    child: const Divider(
+                                      color: Colors.grey,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -157,11 +157,10 @@ class LoginPage extends StatelessWidget {
                                         Icons.password_sharp,
                                         color: Colors.grey,
                                       ),
-                                      const SizedBox(width: 10),
-                                      SizedBox(
+                                      Container(
+                                        padding: const EdgeInsets.only(left: 10),
                                         width: 300,
                                         child: TextFormField(
-                                          controller: controller.password,
                                           obscureText: !controller.showPassword.value,
                                           cursorColor: Colors.grey,
                                           style: const TextStyle(
@@ -169,6 +168,7 @@ class LoginPage extends StatelessWidget {
                                             fontSize: 20,
                                             letterSpacing: 1.4,
                                           ),
+                                          controller: controller.password,
                                           decoration: InputDecoration(
                                             border: InputBorder.none,
                                             hintText: '...........',
@@ -194,8 +194,11 @@ class LoginPage extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  const Divider(
-                                    color: Colors.grey,
+                                  SizedBox(
+                                    width: size.width * .8,
+                                    child: const Divider(
+                                      color: Colors.grey,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -204,7 +207,7 @@ class LoginPage extends StatelessWidget {
                               top: 250,
                               left: 20,
                               child: SizedBox(
-                                width: MediaQuery.of(context).size.width * .8,
+                                width: size.width * .8,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -219,7 +222,10 @@ class LoginPage extends StatelessWidget {
                                               child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  Text("Reset Password", style: Theme.of(context).textTheme.titleLarge),
+                                                  Text(
+                                                    "Reset Password",
+                                                    style: Theme.of(context).textTheme.headlineMedium,
+                                                  ),
                                                   const SizedBox(height: 10.0),
                                                   Text(
                                                     "Select the option given below to reset your password.",
@@ -230,7 +236,9 @@ class LoginPage extends StatelessWidget {
                                                     onTap: () {
                                                       Navigator.push(
                                                         context,
-                                                        MaterialPageRoute(builder: (context) => const ForgetPasswordScreen()),
+                                                        MaterialPageRoute(
+                                                          builder: (context) => const ForgetPasswordScreen(),
+                                                        ),
                                                       );
                                                     },
                                                     child: Container(
@@ -246,10 +254,10 @@ class LoginPage extends StatelessWidget {
                                                           Column(
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: [
-                                                              Text("E-Mail", style: Theme.of(context).textTheme.headlineMedium),
+                                                              Text("E-Mail", style: Theme.of(context).textTheme.titleLarge),
                                                               Text("Reset via E-Mail Verification", style: Theme.of(context).textTheme.bodyMedium),
                                                             ],
-                                                          ),
+                                                          )
                                                         ],
                                                       ),
                                                     ),
@@ -276,7 +284,7 @@ class LoginPage extends StatelessWidget {
                               left: 20,
                               child: Container(
                                 alignment: Alignment.center,
-                                width: MediaQuery.of(context).size.width * .8,
+                                width: size.width * .8,
                                 child: ElevatedButton(
                                   onPressed: () => controller.login(),
                                   style: ElevatedButton.styleFrom(
