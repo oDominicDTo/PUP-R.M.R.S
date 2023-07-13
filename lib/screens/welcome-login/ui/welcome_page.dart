@@ -1,5 +1,5 @@
 import 'package:appdevelopment/constants.dart';
-import 'package:appdevelopment/screens/welcome-login/second_page.dart';
+import 'package:appdevelopment/screens/welcome-login/ui/second_page.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatelessWidget {

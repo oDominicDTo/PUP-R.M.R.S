@@ -1,3 +1,4 @@
+import 'package:appdevelopment/repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:appdevelopment/constants.dart';
 
@@ -191,7 +192,7 @@ class SettingsPage extends StatelessWidget {
                   const SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {
-                      // Perform action for button 4
+                      AuthenticationRepository.instance.logout();
                     },
                     child: Container(
                       width: 372, // Adjust the width as needed

@@ -1,6 +1,6 @@
-import 'package:appdevelopment/screens/welcome-login/login_page.dart';
+import 'package:appdevelopment/screens/welcome-login/ui/login_page.dart';
 import 'package:flutter/material.dart';
-import '../../constants.dart';
+import '../../../constants.dart';
 
 class SecondPage extends StatelessWidget {
   const SecondPage({Key? key}) : super(key: key);
@@ -30,7 +30,7 @@ class SecondPage extends StatelessWidget {
                   onPressed: () {
                     // Button action goes here
                     Navigator.push(
-                        context,MaterialPageRoute(builder: (context) => const LoginScreen()),
+                        context,MaterialPageRoute(builder: (context) => const LoginPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -53,7 +53,7 @@ class SecondPage extends StatelessWidget {
                   onPressed: () {
                     // Button action goes here
                     Navigator.push(
-                      context,MaterialPageRoute(builder: (context) => const LoginScreen()),
+                      context,MaterialPageRoute(builder: (context) => const LoginPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
