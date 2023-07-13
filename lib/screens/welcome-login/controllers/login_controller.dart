@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:appdevelopment/repository/authentication_repository.dart';
@@ -7,6 +8,7 @@ class LoginController extends GetxController {
 
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
   final RxBool showPassword = false.obs;
   final FocusNode passwordFocusNode = FocusNode();
@@ -50,11 +52,26 @@ class LoginController extends GetxController {
     }
   }
 
+  Future<void> resetPassword() async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(
+        email: emailController.text.trim());
+      Get.back(); // Close the dialog
+      Get.snackbar('Success!', 'Password Reset Email Sent', snackPosition: SnackPosition.BOTTOM);
+      Get.until((route) => route.isFirst);
+    } on FirebaseAuthException catch (e) {
+
+      Get.snackbar('Error', e.message ?? 'Unknown error occurred', snackPosition: SnackPosition.BOTTOM);
+
+    }
+  }
+
   @override
   void dispose() {
     email.dispose();
     password.dispose();
     passwordFocusNode.dispose();
+    emailController.dispose();
     super.dispose();
   }
 }

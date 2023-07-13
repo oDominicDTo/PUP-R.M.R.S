@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:appdevelopment/constants.dart';
+import 'package:appdevelopment/screens/welcome-login/controllers/login_controller.dart';
+
 
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    @override
-    Size size = MediaQuery
-        .of(context)
-        .size;
-
+    final controller = Get.put(LoginController());
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body:
-      Container(
+      body: Container(
         color: kMainPrimaryColor,
         child: Stack(
           children: [
@@ -23,7 +22,7 @@ class ForgetPasswordScreen extends StatelessWidget {
               right: 0,
               child: ColorFiltered(
                 colorFilter: ColorFilter.mode(
-                  kDarkRed.withOpacity(0.5), // Adjust the opacity as desired
+                  kDarkRed.withOpacity(0.5),
                   BlendMode.srcATop,
                 ),
                 child: ClipRRect(
@@ -39,34 +38,30 @@ class ForgetPasswordScreen extends StatelessWidget {
                 ),
               ),
             ),
-
             Positioned(
-              top: 150, // Adjust the top value to move the text upwards
-              left: 70, // Adjust the left value to move the text horizontally
-              child: SizedBox(
-                width: 250,
-                child: RichText(
-                  textAlign: TextAlign.center,
-                  text: const TextSpan(
-                    text: 'Forget Password!\n',
-                    style: TextStyle(
-                      fontSize: 25,
-                      color: kPrimaryColor,
-                      fontWeight: FontWeight.w100,
-                      fontFamily: 'Inter',
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: 'Enter your email',
-                        style: TextStyle(
-                          color: kPrimaryColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w100,
-                          fontFamily: 'Poppins',
-                        ),
-                      )
-                    ],
+              top: 150,
+              left: 100,
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: const TextSpan(
+                  text: 'Forget Password!\n',
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: kPrimaryColor,
+                    fontWeight: FontWeight.w100,
+                    fontFamily: 'Inter',
                   ),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Enter your Email',
+                      style: TextStyle(
+                        color: kPrimaryColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w100,
+                        fontFamily: 'Poppins',
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
@@ -77,16 +72,13 @@ class ForgetPasswordScreen extends StatelessWidget {
                 width: size.width,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
-                    const SizedBox(height: 0),
+                    const SizedBox(height: 50),
                     Container(
-                      height: size.height * 0.45,
+                      height: size.height * 0.5,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: const BorderRadius.all(
-                            Radius.circular(20)),
+                        borderRadius: const BorderRadius.all(Radius.circular(20)),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.withOpacity(.2),
@@ -96,85 +88,84 @@ class ForgetPasswordScreen extends StatelessWidget {
                           )
                         ],
                       ),
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Positioned(
-                            top: 20,
-                            left: 110,
-                            child: Image.asset(
-                              'assets/loginLogo.png',
-                              width: 150,
-                              height: 63,
-                              color: Colors.blueGrey,
+                      child: Form(
+                        key: controller.formKey,
+                        child: Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            Positioned(
+                              top: 20,
+                              left: 110,
+                              child: Image.asset(
+                                'assets/loginLogo.png',
+                                width: 150,
+                                height: 63,
+                              ),
                             ),
-                          ),
-                          Positioned(
-                            top: 140,
-                            left: 20,
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.mail_outline,
-                                      color: Colors.grey,
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      width: 300,
-                                      child: const TextField(
-                                        cursorColor: Colors.grey,
-                                        style: TextStyle(
-                                          color: Colors.black54,
-                                        ),
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          hintText: 'example@gmail.com',
+                            Positioned(
+                              top: 110,
+                              left: 20,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.mail_outline,
+                                        color: Colors.grey,
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.only(left: 10),
+                                        width: 300,
+                                        child: TextFormField(
+                                          cursorColor: Colors.grey,
+                                          style: const TextStyle(
+                                            color: Colors.black54,
+                                          ),
+                                          controller: controller.emailController,
+                                          decoration: const InputDecoration(
+                                            border: InputBorder.none,
+                                            hintText: 'example@gmail.com',
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: size.width * .8,
-                                  child: const Divider(
-                                    color: Colors.grey,
+                                    ],
                                   ),
-                                ),
-                              ],
+                                  SizedBox(
+                                    width: size.width * .8,
+                                    child: const Divider(
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Positioned(
-                            top: 250,
-                            left: 80,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ElevatedButton(
-                                  onPressed: () {
-                                    // Button action goes here
-                                  },
+                            Positioned(
+                              top: 310,
+                              left: 20,
+                              child: Container(
+                                alignment: Alignment.center,
+                                width: size.width * .8,
+                                child: ElevatedButton(
+                                  onPressed: () => controller.resetPassword(),
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: kDarkRed,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 80, vertical: 16),
+                                    padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30),
                                     ),
                                   ),
                                   child: const Text(
-                                    "Next",
+                                    "Reset",
                                     style: TextStyle(
                                       fontSize: 18,
                                       color: kPrimaryColor,
                                     ),
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
