@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:appdevelopment/screens/welcome-login/ui/welcome_page.dart';
 import 'package:appdevelopment/screens/guard/guard_page.dart';
@@ -37,11 +36,11 @@ class AuthenticationRepository extends GetxController {
     if (documentSnapshot.exists) {
       String role = documentSnapshot.get('userType');
       if (role == "guard") {
-        Get.offAll(() => GuardPage());
+        Get.offAll(() => const GuardPage());
       } else if (role == "professor") {
-        Get.offAll(() => ProfPage());
+        Get.offAll(() => const ProfPage());
       } else {
-        Get.offAll(() => WelcomeScreen());
+        Get.offAll(() => const WelcomeScreen());
       }
     } else {
       print('Document does not exist in the database');

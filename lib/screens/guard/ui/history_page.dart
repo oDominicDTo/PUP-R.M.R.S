@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:appdevelopment/screens/guard/logic/history_page_logic.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key}) : super(key: key);
 
   @override
-  _HistoryPageState createState() => _HistoryPageState();
+  State<HistoryPage> createState() => _HistoryPageState();
 }
 
 class _HistoryPageState extends State<HistoryPage> {
@@ -42,9 +41,10 @@ class _HistoryPageState extends State<HistoryPage> {
           Positioned(
             top: 120,
             left: 10,
+            right: 10,
             child: Container(
-              width: 372.5,
-              height: 30,
+              height: 30, // Set the desired height
+              width: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: const BorderRadius.only(
@@ -57,18 +57,22 @@ class _HistoryPageState extends State<HistoryPage> {
                 ),
               ),
               child: Center(
-                child: Text(
-                  HistoryPageLogic.getCurrentDate(selectedDate),
-                  style: const TextStyle(
-                    fontSize: 13,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'Poppins',
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    HistoryPageLogic.getCurrentDate(selectedDate),
+                    style: const TextStyle(
+                      fontSize: 13,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Poppins',
+                    ),
                   ),
                 ),
               ),
             ),
           ),
+
           const Positioned(
             top: 5,
             left: 30,
@@ -88,7 +92,7 @@ class _HistoryPageState extends State<HistoryPage> {
             child: GestureDetector(
               onTap: () => _selectDate(context),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 height: 48,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -96,13 +100,15 @@ class _HistoryPageState extends State<HistoryPage> {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.calendar_today_outlined),
+                    const Icon(Icons.calendar_today_outlined),
                     const SizedBox(width: 10),
-                    Text(
-                      HistoryPageLogic.getCurrentDate(selectedDate),
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                    Expanded(
+                      child: Text(
+                        HistoryPageLogic.getCurrentDate(selectedDate),
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],
@@ -116,6 +122,7 @@ class _HistoryPageState extends State<HistoryPage> {
             right: 10,
             bottom: -1,
             child: Container(
+              width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(
