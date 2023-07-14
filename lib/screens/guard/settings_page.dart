@@ -1,4 +1,5 @@
 import 'package:appdevelopment/repository/authentication_repository.dart';
+import 'package:appdevelopment/screens/guard/ui/view_users.dart';
 import 'package:flutter/material.dart';
 import 'package:appdevelopment/constants.dart';
 
@@ -10,66 +11,55 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: kMainPrimaryColor,
       body: Stack(
-        alignment: Alignment.center,
         children: [
           Positioned(
             top: 0,
             left: 0,
             right: 0,
-            child: Container(
-              height: 174,
-              decoration: BoxDecoration(
-                color: kDarkRed,
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.5),
-                    blurRadius: 15,
-                    offset: const Offset(0, 4),
+            child: Material(
+              color: Colors.transparent,
+              elevation: 10, // Add the desired elevation value for the box shadow
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.23, // 30% of the screen height
+                decoration: const BoxDecoration(
+                  color: kDarkRed,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
                   ),
-                ],
+                ),
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 40),
+                    CircleAvatar(
+                      radius: 34,
+                      backgroundImage: AssetImage('assets/professor_image.png'),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'User name',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal,
+                        fontFamily: 'Poppins',
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-          const Positioned(
-            top: 70,
-            left: 30,
-            child: CircleAvatar(
-              radius: 34,
-              backgroundImage: AssetImage('assets/professor_image.png'),
-            ),
-          ),
-          const Positioned(
-            top: 90,
-            left: 120,
-            child: Text(
-              'User name',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.normal,
-                fontFamily: 'Poppins',
-                color: Colors.white,
-              ),
-            ),
-          ),
-          const Positioned(
-            top: 5,
-            left: 30,
-            child: Text(
-              'Settings',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.normal,
-                fontFamily: 'Poppins',
-                color: Colors.white,
-              ),
-            ),
-          ),
-          Positioned.fill(
-            child: Center(
+
+          Positioned(
+            top: MediaQuery.of(context).size.height * 0.12, // Top part height
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -78,7 +68,7 @@ class SettingsPage extends StatelessWidget {
                       // Perform action for button 1
                     },
                     child: Container(
-                      width: 372, // Adjust the width as needed
+                      width: double.infinity,
                       height: 50, // Adjust the height as needed
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -114,10 +104,11 @@ class SettingsPage extends StatelessWidget {
                   const SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {
-                      // Perform action for button 2
+                      Navigator.push(
+                          context,MaterialPageRoute(builder: (context) => ViewUsersPage()));// Perform action for button 2
                     },
                     child: Container(
-                      width: 372, // Adjust the width as needed
+                      width: double.infinity,
                       height: 50, // Adjust the height as needed
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -156,7 +147,7 @@ class SettingsPage extends StatelessWidget {
                       // Perform action for button 3
                     },
                     child: Container(
-                      width: 372, // Adjust the width as needed
+                      width: double.infinity,
                       height: 50, // Adjust the height as needed
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -195,7 +186,7 @@ class SettingsPage extends StatelessWidget {
                       AuthenticationRepository.instance.logout();
                     },
                     child: Container(
-                      width: 372, // Adjust the width as needed
+                      width: double.infinity,
                       height: 50, // Adjust the height as needed
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -237,139 +228,3 @@ class SettingsPage extends StatelessWidget {
     );
   }
 }
-
-
-
-/*
-Positioned.fill(
-child: Center(
-child: Column(
-mainAxisAlignment: MainAxisAlignment.center,
-children: [
-GestureDetector(
-onTap: () {
-// Perform action for button 1
-},
-child: Container(
-width: 372, // Adjust the width as needed
-height: 50, // Adjust the height as needed
-decoration: BoxDecoration(
-color: Colors.blue,
-borderRadius: BorderRadius.circular(8),
-boxShadow: [
-BoxShadow(
-color: Colors.black.withOpacity(0.5),
-blurRadius: 5,
-offset: const Offset(0, 2),
-),
-],
-),
-child: Center(
-child: Text(
-'Button 1',
-style: TextStyle(
-fontSize: 15,
-fontWeight: FontWeight.bold,
-color: Colors.white,
-),
-),
-),
-),
-),
-SizedBox(height: 15),
-GestureDetector(
-onTap: () {
-// Perform action for button 2
-},
-child: Container(
-width: 372, // Adjust the width as needed
-height: 50, // Adjust the height as needed
-decoration: BoxDecoration(
-color: Colors.green,
-borderRadius: BorderRadius.circular(8),
-boxShadow: [
-BoxShadow(
-color: Colors.black.withOpacity(0.5),
-blurRadius: 5,
-offset: const Offset(0, 2),
-),
-],
-),
-child: Center(
-child: Text(
-'Button 2',
-style: TextStyle(
-fontSize: 15,
-fontWeight: FontWeight.bold,
-color: Colors.white,
-),
-),
-),
-),
-),
-SizedBox(height: 15),
-GestureDetector(
-onTap: () {
-// Perform action for button 3
-},
-child: Container(
-width: 372, // Adjust the width as needed
-height: 50, // Adjust the height as needed
-decoration: BoxDecoration(
-color: Colors.red,
-borderRadius: BorderRadius.circular(8),
-boxShadow: [
-BoxShadow(
-color: Colors.black.withOpacity(0.5),
-blurRadius: 5,
-offset: const Offset(0, 2),
-),
-],
-),
-child: Center(
-child: Text(
-'Button 3',
-style: TextStyle(
-fontSize: 15,
-fontWeight: FontWeight.bold,
-color: Colors.white,
-),
-),
-),
-),
-),
-SizedBox(height: 15),
-GestureDetector(
-onTap: () {
-// Perform action for button 4
-},
-child: Container(
-width: 372, // Adjust the width as needed
-height: 50, // Adjust the height as needed
-decoration: BoxDecoration(
-color: Colors.orange,
-borderRadius: BorderRadius.circular(20),
-boxShadow: [
-BoxShadow(
-color: Colors.black.withOpacity(0.5),
-blurRadius: 5,
-offset: const Offset(0, 2),
-),
-],
-),
-child: Center(
-child: Text(
-'Button 4',
-style: TextStyle(
-fontSize: 15,
-fontWeight: FontWeight.bold,
-color: Colors.white,
-),
-),
-),
-),
-),
-],
-),
-),
-),*/

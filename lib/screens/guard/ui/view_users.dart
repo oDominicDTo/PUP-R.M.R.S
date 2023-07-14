@@ -1,17 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:appdevelopment/screens/guard/models/room.dart';
+import 'package:appdevelopment/screens/guard/controller/controller.dart';
+import 'package:appdevelopment/constants.dart';
 
-class ViewUsers extends StatefulWidget {
-  const ViewUsers({Key? key}) : super(key: key);
-
+class ViewUsersPage extends StatefulWidget {
   @override
-  State<ViewUsers> createState() => _ViewUsersState();
+  _ViewUsersPageState createState() => _ViewUsersPageState();
 }
 
-class _ViewUsersState extends State<ViewUsers> {
+class _ViewUsersPageState extends State<ViewUsersPage> {
+  UserController _userController = UserController();
+  List<User> _professors = [];
 
+  @override
+  void initState() {
+    super.initState();
+    _loadProfessors();
+  }
+
+  Future<void> _loadProfessors() async {
+    List<User> professors = await _userController.getProfessors();
+    setState(() {
+      _professors = professors;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('View Professors'),
+      ),
+      body: Container(
+        color: kMainPrimaryColor,
+        child: ListView.builder(
+          itemCount: _professors.length,
+          itemBuilder: (context, index) {
+            User professor = _professors[index];
+            return ListTile(
+              leading: CircleAvatar(
+                // Set the profile picture here
+                child: Text('P'),
+              ),
+              title: Text(professor.name),
+              subtitle: Text(professor.email),
+            );
+          },
+        ),
+      ),
+    );
   }
 }

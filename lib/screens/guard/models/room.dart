@@ -21,6 +21,19 @@ class Room {
     required this.date,
   });
 }
+class User {
+  final String id;
+  final String name;
+  final String email;
+  final String userType;
+
+  User({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.userType,
+  });
+}
 
 List<Room> rooms = [
 Room(
