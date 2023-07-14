@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:appdevelopment/constants.dart';
 import 'package:appdevelopment/widgets/app_bar_widget.dart';
+import '../../../repository/authentication_repository.dart';
 class ProfSettings extends StatefulWidget {
   const ProfSettings({Key? key}) : super(key: key);
 
@@ -253,8 +254,7 @@ class _ProfSettingsState extends State<ProfSettings> {
                 SizedBox(height: 14),
                 GestureDetector(
                   onTap: () {
-                    // Handle onTap for the third rectangle
-                    print('Fourth rectangle tapped');
+                    AuthenticationRepository.instance.logout();
                   },
                   child: Container(
                     width: 345,

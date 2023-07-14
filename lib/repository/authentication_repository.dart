@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:appdevelopment/screens/welcome-login/ui/welcome_page.dart';
 import 'package:appdevelopment/screens/guard/guard_page.dart';
+import 'package:appdevelopment/screens/faculty/ui/prof_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
@@ -20,13 +23,35 @@ class AuthenticationRepository extends GetxController {
     if (user == null) {
       Get.offAll(() => const WelcomeScreen());
     } else {
-      Get.offAll(() => const GuardPage());
+      route();
+    }
+  }
+
+  void route() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user!.uid)
+        .get();
+
+    if (documentSnapshot.exists) {
+      String role = documentSnapshot.get('userType');
+      if (role == "guard") {
+        Get.offAll(() => GuardPage());
+      } else if (role == "professor") {
+        Get.offAll(() => ProfPage());
+      } else {
+        Get.offAll(() => WelcomeScreen());
+      }
+    } else {
+      print('Document does not exist in the database');
     }
   }
 
   Future<String?> loginWithEmailAndPassword(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
+      route();
       return null; // Return null when login is successful
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

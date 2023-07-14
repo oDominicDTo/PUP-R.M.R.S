@@ -128,8 +128,10 @@ class LoginPage extends StatelessWidget {
                                             hintText: 'example@gmail.com',
                                           ),
                                           validator: (value) {
-                                            if (value == null || value.isEmpty) {
+                                            if (value == null || value.isEmpty ) {
                                               return 'Please enter an email';
+                                            } if (!value.contains('@')) {
+                                              return 'Please enter a valid email';
                                             }
                                             return null;
                                           },

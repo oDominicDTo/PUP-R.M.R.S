@@ -1,6 +1,6 @@
-import 'package:appdevelopment/screens/welcome-login/ui/login_page.dart';
 import 'package:flutter/material.dart';
 import '../../../constants.dart';
+import 'login_page.dart';
 
 class SecondPage extends StatelessWidget {
   const SecondPage({Key? key}) : super(key: key);
@@ -57,7 +57,7 @@ class SecondPage extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 85, vertical: 16),
                     side: const BorderSide(width: 1.5, color: kBackgroundColor),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25),
@@ -65,7 +65,7 @@ class SecondPage extends StatelessWidget {
 
                   ),
                   child: const Text(
-                    "Faculty",
+                    "Professor",
                     style: TextStyle(
                       fontSize: 18,
                       color: kBackgroundColor,

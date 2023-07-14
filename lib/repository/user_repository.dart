@@ -7,6 +7,9 @@ class UserRepository extends GetxController{
   static UserRepository get instance => Get.find();
   final _db = FirebaseFirestore.instance;
 
+createUser(UserModel user) async{
+ await _db.collection("Users").add(user.toJson());
+}
 
   Future<UserModel> getUserDetails(String email) async {
     final snapshot = await _db.collection("Users").where("Email", isEqualTo: email).get();
@@ -17,5 +20,15 @@ class UserRepository extends GetxController{
     final snapshot = await _db.collection("Users").get();
     final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).toList();
     return userData;
+  }
+  Future<String?> getUserType(String userId) async {
+    try {
+      final snapshot = await _db.collection("Users").doc(userId).get();
+      final userType = snapshot.data()?['userType'] as String?;
+      return userType;
+    } catch (e) {
+      print("Failed to retrieve userType: $e");
+      return null;
+    }
   }
 }
