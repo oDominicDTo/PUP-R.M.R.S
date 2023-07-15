@@ -1,5 +1,6 @@
 import 'package:appdevelopment/repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:appdevelopment/screens/faculty/ui/ui settings/prof_terms_and_conditions.dart';
 import 'package:appdevelopment/constants.dart';
 
 class ProfSettings extends StatelessWidget {
@@ -115,6 +116,8 @@ class ProfSettings extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       // Perform action for button 2
+                      Navigator.push(
+                          context,MaterialPageRoute(builder: (context) => TermsandConditions()));// Perform action for button 2
                     },
                     child: Container(
                       width: 372, // Adjust the width as needed
@@ -154,7 +157,7 @@ class ProfSettings extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       // Perform action for button 3
-                    },
+                     },
                     child: Container(
                       width: 372, // Adjust the width as needed
                       height: 50, // Adjust the height as needed
@@ -237,139 +240,3 @@ class ProfSettings extends StatelessWidget {
     );
   }
 }
-
-
-
-/*
-Positioned.fill(
-child: Center(
-child: Column(
-mainAxisAlignment: MainAxisAlignment.center,
-children: [
-GestureDetector(
-onTap: () {
-// Perform action for button 1
-},
-child: Container(
-width: 372, // Adjust the width as needed
-height: 50, // Adjust the height as needed
-decoration: BoxDecoration(
-color: Colors.blue,
-borderRadius: BorderRadius.circular(8),
-boxShadow: [
-BoxShadow(
-color: Colors.black.withOpacity(0.5),
-blurRadius: 5,
-offset: const Offset(0, 2),
-),
-],
-),
-child: Center(
-child: Text(
-'Button 1',
-style: TextStyle(
-fontSize: 15,
-fontWeight: FontWeight.bold,
-color: Colors.white,
-),
-),
-),
-),
-),
-SizedBox(height: 15),
-GestureDetector(
-onTap: () {
-// Perform action for button 2
-},
-child: Container(
-width: 372, // Adjust the width as needed
-height: 50, // Adjust the height as needed
-decoration: BoxDecoration(
-color: Colors.green,
-borderRadius: BorderRadius.circular(8),
-boxShadow: [
-BoxShadow(
-color: Colors.black.withOpacity(0.5),
-blurRadius: 5,
-offset: const Offset(0, 2),
-),
-],
-),
-child: Center(
-child: Text(
-'Button 2',
-style: TextStyle(
-fontSize: 15,
-fontWeight: FontWeight.bold,
-color: Colors.white,
-),
-),
-),
-),
-),
-SizedBox(height: 15),
-GestureDetector(
-onTap: () {
-// Perform action for button 3
-},
-child: Container(
-width: 372, // Adjust the width as needed
-height: 50, // Adjust the height as needed
-decoration: BoxDecoration(
-color: Colors.red,
-borderRadius: BorderRadius.circular(8),
-boxShadow: [
-BoxShadow(
-color: Colors.black.withOpacity(0.5),
-blurRadius: 5,
-offset: const Offset(0, 2),
-),
-],
-),
-child: Center(
-child: Text(
-'Button 3',
-style: TextStyle(
-fontSize: 15,
-fontWeight: FontWeight.bold,
-color: Colors.white,
-),
-),
-),
-),
-),
-SizedBox(height: 15),
-GestureDetector(
-onTap: () {
-// Perform action for button 4
-},
-child: Container(
-width: 372, // Adjust the width as needed
-height: 50, // Adjust the height as needed
-decoration: BoxDecoration(
-color: Colors.orange,
-borderRadius: BorderRadius.circular(20),
-boxShadow: [
-BoxShadow(
-color: Colors.black.withOpacity(0.5),
-blurRadius: 5,
-offset: const Offset(0, 2),
-),
-],
-),
-child: Center(
-child: Text(
-'Button 4',
-style: TextStyle(
-fontSize: 15,
-fontWeight: FontWeight.bold,
-color: Colors.white,
-),
-),
-),
-),
-),
-],
-),
-),
-),*/
