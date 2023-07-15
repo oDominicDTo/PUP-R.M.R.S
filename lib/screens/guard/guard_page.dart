@@ -48,7 +48,7 @@ class _GuardPageState extends State<GuardPage> {
             ),
           ),
           child: NavigationBar(
-            height: 92,
+            height: 75,
             backgroundColor: Colors.white,
             selectedIndex: index,
             onDestinationSelected: (index) => setState(() => this.index = index),

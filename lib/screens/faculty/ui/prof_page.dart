@@ -5,6 +5,7 @@ import 'package:appdevelopment/screens/faculty/ui/prof_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:appdevelopment/constants.dart';
 import 'package:appdevelopment/widgets/app_bar_widget.dart';
+import 'package:appdevelopment/screens/faculty/ui/floor_selection.dart';
 
 
 class ProfPage extends StatefulWidget {
@@ -21,6 +22,7 @@ class _ProfPageState extends State<ProfPage> {
     const AddBuilding(),
     const ProfNotificationPage(),
     const ProfSettings(),
+    const FloorSelection(),
   ];
 
   @override
@@ -49,7 +51,7 @@ class _ProfPageState extends State<ProfPage> {
             ),
           ),
           child: NavigationBar(
-            height: 92,
+            height: 75,
             backgroundColor: Colors.white,
             selectedIndex: index,
             onDestinationSelected: (index) => setState(() => this.index = index),
