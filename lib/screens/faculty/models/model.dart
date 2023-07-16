@@ -1,23 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-
-class Room {
-  // Properties of a room
-}
-
-class Course {
-  // Properties of a course
-}
-
-class Subject {
-  // Properties of a subject
-}
-
-class Professor {
-  // Properties of a professor
-}
-
-
+import 'dart:ui';
 
 class Reservation {
   final String id;
@@ -51,4 +33,3 @@ class Reservation {
     );
   }
 }
-

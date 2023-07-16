@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:appdevelopment/constants.dart';
-import 'package:appdevelopment/widgets/app_bar_widget.dart';
 class FloorSelection extends StatefulWidget {
   const FloorSelection({Key? key}) : super(key: key);
 
@@ -17,12 +15,12 @@ class _FloorSelectionState extends State<FloorSelection> {
   Widget build(BuildContext context) {
     return Scaffold(
 
-      backgroundColor: Color(0xFFF0F0F0),
+      backgroundColor: const Color(0xFFF0F0F0),
 
       body: Stack(
         alignment: Alignment.center,
         children: [
-          Positioned(
+          const Positioned(
             top: 25,
             child: Text(
               'Building A',
@@ -47,7 +45,7 @@ class _FloorSelectionState extends State<FloorSelection> {
                   child: Container(
                     width: 150,
                     height: 170,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20),
                         topRight: Radius.circular(20),
@@ -56,10 +54,10 @@ class _FloorSelectionState extends State<FloorSelection> {
                     ),
                     child: Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 32,
                         ),
-                        Text(
+                        const Text(
                           '1st',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
@@ -69,7 +67,7 @@ class _FloorSelectionState extends State<FloorSelection> {
                             height: 1,
                           ),
                         ),
-                        Text(
+                        const Text(
                           'FLOOR',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
@@ -81,18 +79,18 @@ class _FloorSelectionState extends State<FloorSelection> {
                         Container(
                           width: 150,
                           height: 50,
-                          margin: EdgeInsets.fromLTRB(0, 7, 0, 0),
+                          margin: const EdgeInsets.fromLTRB(0, 7, 0, 0),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withOpacity(0.2),
-                                offset: Offset(0, 3),
+                                offset: const Offset(0, 3),
                                 blurRadius: 5,
                               ),
                             ],
                           ),
-                          child: Column(
+                          child: const Column(
                             children: [
                               SizedBox(
                                 height: 5,
@@ -129,7 +127,7 @@ class _FloorSelectionState extends State<FloorSelection> {
                   child: Container(
                     width: 150,
                     height: 170,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20),
                         topRight: Radius.circular(20),
@@ -138,10 +136,10 @@ class _FloorSelectionState extends State<FloorSelection> {
                     ),
                     child: Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 32,
                         ),
-                        Text(
+                        const Text(
                           '2nd',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
@@ -151,7 +149,7 @@ class _FloorSelectionState extends State<FloorSelection> {
                             height: 1,
                           ),
                         ),
-                        Text(
+                        const Text(
                           'FLOOR',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
@@ -163,18 +161,18 @@ class _FloorSelectionState extends State<FloorSelection> {
                         Container(
                           width: 150,
                           height: 50,
-                          margin: EdgeInsets.fromLTRB(0, 7, 0, 0),
+                          margin: const EdgeInsets.fromLTRB(0, 7, 0, 0),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withOpacity(0.2),
-                                offset: Offset(0, 3),
+                                offset: const Offset(0, 3),
                                 blurRadius: 5,
                               ),
                             ],
                           ),
-                          child: Column(
+                          child: const Column(
                             children: [
                               SizedBox(
                                 height: 5,
@@ -212,7 +210,7 @@ class _FloorSelectionState extends State<FloorSelection> {
                   child: Container(
                     width: 150,
                     height: 170,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20),
                         topRight: Radius.circular(20),
@@ -221,10 +219,10 @@ class _FloorSelectionState extends State<FloorSelection> {
                     ),
                     child: Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 32,
                         ),
-                        Text(
+                        const Text(
                           '3rd',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
@@ -234,7 +232,7 @@ class _FloorSelectionState extends State<FloorSelection> {
                             height: 1,
                           ),
                         ),
-                        Text(
+                        const Text(
                           'FLOOR',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
@@ -246,18 +244,18 @@ class _FloorSelectionState extends State<FloorSelection> {
                         Container(
                           width: 150,
                           height: 50,
-                          margin: EdgeInsets.fromLTRB(0, 7, 0, 0),
+                          margin: const EdgeInsets.fromLTRB(0, 7, 0, 0),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withOpacity(0.2),
-                                offset: Offset(0, 3),
+                                offset: const Offset(0, 3),
                                 blurRadius: 5,
                               ),
                             ],
                           ),
-                          child: Column(
+                          child: const Column(
                             children: [
                               SizedBox(
                                 height: 5,
@@ -296,7 +294,7 @@ class _FloorSelectionState extends State<FloorSelection> {
                   child: Container(
                     width: 150,
                     height: 170,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20),
                         topRight: Radius.circular(20),
@@ -305,10 +303,10 @@ class _FloorSelectionState extends State<FloorSelection> {
                     ),
                     child: Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 32,
                         ),
-                        Text(
+                        const Text(
                           '4th',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
@@ -318,7 +316,7 @@ class _FloorSelectionState extends State<FloorSelection> {
                             height: 1,
                           ),
                         ),
-                        Text(
+                        const Text(
                           'FLOOR',
                           style: TextStyle(
                             color: Color(0xF0F0F0F0),
@@ -330,18 +328,18 @@ class _FloorSelectionState extends State<FloorSelection> {
                         Container(
                           width: 150,
                           height: 50,
-                          margin: EdgeInsets.fromLTRB(0, 7, 0, 0),
+                          margin: const EdgeInsets.fromLTRB(0, 7, 0, 0),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withOpacity(0.2),
-                                offset: Offset(0, 3),
+                                offset: const Offset(0, 3),
                                 blurRadius: 5,
                               ),
                             ],
                           ),
-                          child: Column(
+                          child: const Column(
                             children: [
                               SizedBox(
                                 height: 5,
