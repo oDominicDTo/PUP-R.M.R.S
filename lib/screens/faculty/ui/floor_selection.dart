@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:appdevelopment/constants.dart';
 import 'package:appdevelopment/widgets/app_bar_widget.dart';
+import 'package:appdevelopment/screens/faculty/ui/2f_room_selection.dart';
+import 'package:appdevelopment/screens/faculty/ui/3f_room_selection.dart';
+import 'package:appdevelopment/screens/faculty/ui/4f_room_selection.dart';
+
 class FloorSelection extends StatefulWidget {
   const FloorSelection({Key? key}) : super(key: key);
 
@@ -9,16 +12,11 @@ class FloorSelection extends StatefulWidget {
 }
 
 class _FloorSelectionState extends State<FloorSelection> {
-  int index = 1;
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      appBar: AppBarWidget(),
       backgroundColor: Color(0xFFF0F0F0),
-
       body: Stack(
         alignment: Alignment.center,
         children: [
@@ -33,7 +31,6 @@ class _FloorSelectionState extends State<FloorSelection> {
               ),
             ),
           ),
-
           GestureDetector(
             onTap: () {
               // Handle container click here
@@ -120,6 +117,8 @@ class _FloorSelectionState extends State<FloorSelection> {
             onTap: () {
               // Handle container click here
               print('2nd FLOOR clicked');
+              Navigator.push(
+                  context,MaterialPageRoute(builder: (context) => TwoFRoomSelect()));
             },
             child: Stack(
               children: [
@@ -198,10 +197,10 @@ class _FloorSelectionState extends State<FloorSelection> {
               ],
             ),
           ),
-
           GestureDetector(
             onTap: () {
-              // Handle container click here
+            Navigator.push(
+                context,MaterialPageRoute(builder: (context) => ThreeFRoomSelect()));
               print('3rd FLOOR clicked');
             },
             child: Stack(
@@ -281,11 +280,10 @@ class _FloorSelectionState extends State<FloorSelection> {
               ],
             ),
           ),
-
-
           GestureDetector(
             onTap: () {
-              // Handle container click here
+              Navigator.push(
+                  context,MaterialPageRoute(builder: (context) => FourFRoomSelect()));
               print('4th FLOOR clicked');
             },
             child: Stack(
@@ -365,7 +363,6 @@ class _FloorSelectionState extends State<FloorSelection> {
               ],
             ),
           ),
-
         ],
       ),
     );
