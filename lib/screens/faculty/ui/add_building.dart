@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:appdevelopment/screens/faculty/ui/floor_selection.dart';
+import 'package:appdevelopment/screens/faculty/ui/select_floor_page.dart';
 
 import '../../../constants.dart';
-class AddBuilding extends StatefulWidget {
+import '../utils/selection_variables.dart';
+
+class AddBuilding extends StatelessWidget {
   const AddBuilding({Key? key}) : super(key: key);
-
-  @override
-  _AddBuildingState createState() => _AddBuildingState();
-}
-
-class _AddBuildingState extends State<AddBuilding> {
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +29,11 @@ class _AddBuildingState extends State<AddBuilding> {
                   const SizedBox(height: 20),
                   GestureDetector(
                     onTap: () {
+                      SelectedBuilding.buildingId = 'buildinga';
                       Navigator.push(
-                          context,MaterialPageRoute(builder: (context) => FloorSelection()));
+                        context,
+                        MaterialPageRoute(builder: (context) => const SelectFloorPage()),
+                      );
                     },
                     child: Container(
                       width: 303,
@@ -78,8 +77,11 @@ class _AddBuildingState extends State<AddBuilding> {
                   const SizedBox(height: 20),
                   GestureDetector(
                     onTap: () {
-                      // Handle the image click here
-                      print('Building B clicked');
+                      SelectedBuilding.buildingId = 'buildingb';
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const SelectFloorPage()),
+                      );
                     },
                     child: Container(
                       width: 303,

@@ -53,7 +53,7 @@ class _HomeProfessorPageState extends State<HomeProfessorPage> {
 class ReservationCard extends StatelessWidget {
   final Reservation reservation;
 
-  const ReservationCard({super.key, required this.reservation});
+  const ReservationCard({Key? key, required this.reservation}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -28,7 +28,7 @@ class _ProfNotificationPageState extends State<ProfNotificationPage> {
       backgroundColor: const Color(0xFFF0F0F0),
       body: Stack(
         children: [
-          Positioned(
+          const Positioned(
             top: 5,
             left: 30,
             child: Text(
@@ -53,7 +53,7 @@ class _ProfNotificationPageState extends State<ProfNotificationPage> {
                   itemBuilder: (context, index) {
                     final item = notifications[index];
                     return Container(
-                      margin: EdgeInsets.symmetric(vertical: 8),
+                      margin: const EdgeInsets.symmetric(vertical: 8),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         boxShadow: [
@@ -61,15 +61,15 @@ class _ProfNotificationPageState extends State<ProfNotificationPage> {
                             color: Colors.grey.withOpacity(0.3),
                             spreadRadius: 2,
                             blurRadius: 5,
-                            offset: Offset(0, 2),
+                            offset: const Offset(0, 2),
                           ),
                         ],
                       ),
                       height: 80,
                       child: Row(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
                             child: CircleAvatar(
                               radius: 24,
                               backgroundImage: AssetImage('assets/professor_image.png'), // Replace with the actual image path
@@ -84,17 +84,17 @@ class _ProfNotificationPageState extends State<ProfNotificationPage> {
                                   item.type == NotificationType.professor
                                       ? Text(
                                     '${item.professorName} reserved schedule at Room ${item.roomNumber}',
-                                    style: TextStyle(fontSize: 18),
+                                    style: const TextStyle(fontSize: 18),
                                   )
                                       : Text(
                                     '${item.professorName} reservation at Room ${item.roomNumber} ',
-                                    style: TextStyle(fontSize: 18),
+                                    style: const TextStyle(fontSize: 18),
                                   ),
                                   if (item.type == NotificationType.verified)
-                                    Row(
+                                    const Row(
                                       children: [
                                         Icon(Icons.check, color: Colors.green),
-                                        const SizedBox(width: 8),
+                                        SizedBox(width: 8),
                                         Text(
                                           'Verified',
                                           style: TextStyle(fontSize: 14, color: Colors.green),
