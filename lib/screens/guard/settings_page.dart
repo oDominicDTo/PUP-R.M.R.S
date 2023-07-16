@@ -1,10 +1,24 @@
-import 'package:appdevelopment/repository/authentication_repository.dart';
-import 'package:appdevelopment/screens/guard/ui/view_users.dart';
 import 'package:flutter/material.dart';
 import 'package:appdevelopment/constants.dart';
+import 'package:appdevelopment/screens/guard/ui/view_users.dart';
+import 'package:appdevelopment/screens/guard/controller/guard_controller.dart';
+import 'package:appdevelopment/repository/authentication_repository.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  final SettingsPageController _guardController = SettingsPageController();
+
+  @override
+  void initState() {
+    super.initState();
+    _guardController.loadUserData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +32,9 @@ class SettingsPage extends StatelessWidget {
             right: 0,
             child: Material(
               color: Colors.transparent,
-              elevation: 10, // Add the desired elevation value for the box shadow
+              elevation: 10,
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.23, // 30% of the screen height
+                height: MediaQuery.of(context).size.height * 0.23,
                 decoration: const BoxDecoration(
                   color: kDarkRed,
                   borderRadius: BorderRadius.only(
@@ -28,19 +42,15 @@ class SettingsPage extends StatelessWidget {
                     bottomRight: Radius.circular(20),
                   ),
                 ),
-                child: const Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: 40),
-                    CircleAvatar(
-                      radius: 34,
-                      backgroundImage: AssetImage('assets/professor_image.png'),
-                    ),
-                    SizedBox(height: 10),
+
+                    const SizedBox(height: 10),
                     Text(
-                      'User name',
-                      style: TextStyle(
+                      _guardController.currentUser != null ? _guardController.currentUser!.name : '',
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.normal,
                         fontFamily: 'Poppins',
@@ -52,9 +62,8 @@ class SettingsPage extends StatelessWidget {
               ),
             ),
           ),
-
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.12, // Top part height
+            top: MediaQuery.of(context).size.height * 0.12,
             left: 0,
             right: 0,
             bottom: 0,
@@ -69,7 +78,7 @@ class SettingsPage extends StatelessWidget {
                     },
                     child: Container(
                       width: double.infinity,
-                      height: 50, // Adjust the height as needed
+                      height: 50,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
@@ -105,11 +114,13 @@ class SettingsPage extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
-                          context,MaterialPageRoute(builder: (context) => ViewUsersPage()));// Perform action for button 2
+                        context,
+                        MaterialPageRoute(builder: (context) => ViewUsersPage()),
+                      );
                     },
                     child: Container(
                       width: double.infinity,
-                      height: 50, // Adjust the height as needed
+                      height: 50,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
@@ -148,7 +159,7 @@ class SettingsPage extends StatelessWidget {
                     },
                     child: Container(
                       width: double.infinity,
-                      height: 50, // Adjust the height as needed
+                      height: 50,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
@@ -187,7 +198,7 @@ class SettingsPage extends StatelessWidget {
                     },
                     child: Container(
                       width: double.infinity,
-                      height: 50, // Adjust the height as needed
+                      height: 50,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),

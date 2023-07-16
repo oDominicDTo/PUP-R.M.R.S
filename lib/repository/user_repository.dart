@@ -12,18 +12,18 @@ createUser(UserModel user) async{
 }
 
   Future<UserModel> getUserDetails(String email) async {
-    final snapshot = await _db.collection("Users").where("Email", isEqualTo: email).get();
+    final snapshot = await _db.collection("users").where("email", isEqualTo: email).get();
     final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
     return userData;
   }
   Future<List<UserModel>> allDetails() async {
-    final snapshot = await _db.collection("Users").get();
+    final snapshot = await _db.collection("users").get();
     final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).toList();
     return userData;
   }
   Future<String?> getUserType(String userId) async {
     try {
-      final snapshot = await _db.collection("Users").doc(userId).get();
+      final snapshot = await _db.collection("users").doc(userId).get();
       final userType = snapshot.data()?['userType'] as String?;
       return userType;
     } catch (e) {

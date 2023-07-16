@@ -18,7 +18,7 @@ class _GuardHomePageState extends State<GuardHomePage> {
       initialTime: '9:00 AM',
       finalTime: '10:30 AM',
       courseColor: Colors.green,
-      date: DateTime.now(),
+      date: DateTime(2023, 7, 11),
     ),
     Room(
       roomName: 'Room dB',

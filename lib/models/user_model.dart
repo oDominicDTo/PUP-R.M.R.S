@@ -11,6 +11,7 @@ class UserModel {
     required this.email,
     required this.displayName,
     required this.userType,
+
   });
 
   factory UserModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {

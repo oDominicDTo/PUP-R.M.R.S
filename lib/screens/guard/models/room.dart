@@ -26,14 +26,17 @@ class User {
   final String name;
   final String email;
   final String userType;
+  final String imageUrl;
 
   User({
     required this.id,
     required this.name,
     required this.email,
     required this.userType,
+    required this.imageUrl,
   });
 }
+
 
 List<Room> rooms = [
 Room(

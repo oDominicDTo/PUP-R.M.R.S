@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:appdevelopment/screens/guard/models/room.dart';
-import 'package:appdevelopment/screens/guard/controller/controller.dart';
+import 'package:appdevelopment/screens/guard/repository/guard_repository.dart';
 import 'package:appdevelopment/constants.dart';
 
 class ViewUsersPage extends StatefulWidget {
@@ -9,7 +9,7 @@ class ViewUsersPage extends StatefulWidget {
 }
 
 class _ViewUsersPageState extends State<ViewUsersPage> {
-  UserController _userController = UserController();
+  UserRepository _userController = UserRepository();
   List<User> _professors = [];
 
   @override

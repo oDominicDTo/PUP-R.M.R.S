@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
 class Room {
   // Properties of a room
 }
@@ -14,20 +17,38 @@ class Professor {
   // Properties of a professor
 }
 
+
+
 class Reservation {
-  Room room;
-  Course course;
-  Subject subject;
-  Professor professor;
-  DateTime initialTime;
-  DateTime finalTime;
+  final String id;
+  final String roomName;
+  final String subject;
+  final String course;
+  final DateTime initialTime;
+  final DateTime finalTime;
+  final Color courseColor;
 
   Reservation({
-    required this.room,
-    required this.course,
+    required this.id,
+    required this.roomName,
     required this.subject,
-    required this.professor,
+    required this.course,
     required this.initialTime,
     required this.finalTime,
+    required this.courseColor,
   });
+
+  factory Reservation.fromSnapshot(DocumentSnapshot snapshot) {
+    final data = snapshot.data() as Map<String, dynamic>;
+    return Reservation(
+      id: snapshot.id,
+      roomName: data['roomName'],
+      subject: data['subject'],
+      course: data['course'],
+      initialTime: data['initialTime'].toDate(),
+      finalTime: data['finalTime'].toDate(),
+      courseColor: Color(int.parse(data['courseColor'])),
+    );
+  }
 }
+
