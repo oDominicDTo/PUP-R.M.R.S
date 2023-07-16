@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:appdevelopment/screens/faculty/ui/floor_selection.dart';
 import '../../../constants.dart';
-
 class AddBuilding extends StatefulWidget {
   const AddBuilding({Key? key}) : super(key: key);
 
@@ -9,23 +9,16 @@ class AddBuilding extends StatefulWidget {
 }
 
 class _AddBuildingState extends State<AddBuilding> {
-  int _selectedIndex = 1;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kMainPrimaryColor,
+      backgroundColor: kPrimaryColor,
       body: Stack(
         alignment: Alignment.center,
         children: [
           Positioned(
-            top: 10,
+            top: 5,
             child: Center(
               child: Column(
                 children: [
@@ -39,8 +32,8 @@ class _AddBuildingState extends State<AddBuilding> {
                   const SizedBox(height: 20),
                   GestureDetector(
                     onTap: () {
-                      // Handle the image click here
-                      print('Building A clicked');
+                      Navigator.push(
+                          context,MaterialPageRoute(builder: (context) => FloorSelection()));
                     },
                     child: Container(
                       width: 303,
