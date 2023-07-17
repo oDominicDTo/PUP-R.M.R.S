@@ -26,7 +26,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    height: 65,
+                    height: 60,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       boxShadow: [
@@ -38,7 +38,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     child: Row(
                       children: [
-                        const SizedBox(width: 20),
+                        const SizedBox(width: 18),
                         Image.asset(
                           'assets/puplogo.png', // Replace with your logo image path
                           width: 45,
@@ -50,10 +50,10 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'PUP R.M.R.S', // Replace with your logo title
+                              'PUP Room Reservation', // Replace with your logo title
                               style: TextStyle(
                                 fontSize: 20,
-                                fontWeight: FontWeight.w100,
+                                fontWeight: FontWeight.w500,
                                 fontFamily: 'Poppins',
                               ),
                             ),
@@ -72,5 +72,5 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(80);
+  Size get preferredSize => const Size.fromHeight(75);
 }
