@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="PUP Room Monitoring"
+        android:label="PUPBC Room Reservation"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
