@@ -1,10 +1,60 @@
 import 'package:appdevelopment/repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:appdevelopment/screens/faculty/ui/ui settings/prof_terms_and_conditions.dart';
+import 'package:appdevelopment/screens/faculty/ui/ui settings/prof_privacy_policy.dart';
 import 'package:appdevelopment/constants.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
-class ProfSettings extends StatelessWidget {
+
+class ProfSettings extends StatefulWidget {
   const ProfSettings({Key? key}) : super(key: key);
+
+  @override
+  _ProfSettingsState createState() => _ProfSettingsState();
+}
+
+class _ProfSettingsState extends State<ProfSettings> {
+  File? _imageFile; // Variable to store the selected image
+
+  // Function to handle image selection
+  Future<void> _selectImage() async {
+    final picker = ImagePicker();
+    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedImage != null) {
+        _imageFile = File(pickedImage.path);
+      }
+    });
+  }
+
+  // Function to update the profile picture
+  //void _updateProfilePicture() async {
+   // if (_imageFile != null) {
+      // 1. Upload the image to Firebase Storage or your preferred storage solution
+
+      //final Reference storageReference = FirebaseStorage.instance.ref().child('profile_pictures/user_id.jpg');
+    //  final UploadTask uploadTask = storageReference.putFile(_imageFile!);
+     // final TaskSnapshot storageTaskSnapshot = await uploadTask.whenComplete(() => null);
+
+      // 2. Get the download URL of the uploaded image
+
+     // final String downloadURL = await storageTaskSnapshot.ref.getDownloadURL();
+
+      // 3. Update the user's profile picture URL in the database or user model
+      // Replace this with your own implementation based on your data structure
+      // For example, if you're using Firebase Realtime Database:
+      // await FirebaseDatabase.instance.reference().child('users/user_id/profile_picture').set(downloadURL);
+      // Or if you're using Cloud Firestore:
+      // await FirebaseFirestore.instance.collection('users').doc('user_id').update({'profile_picture': downloadURL});
+
+      // 4. Optionally, you can update the UI to reflect the new profile picture
+    //  setState(() {
+        // Update the UI here, e.g., by assigning the downloadURL to a profilePictureURL variable
+    //  });
+  //  }
+  //}
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +85,14 @@ class ProfSettings extends StatelessWidget {
               ),
             ),
           ),
-          const Positioned(
+           Positioned(
             top: 70,
             left: 30,
             child: CircleAvatar(
               radius: 34,
-              backgroundImage: AssetImage('assets/professor_image.png'),
+              backgroundImage: _imageFile != null
+                  ? FileImage(_imageFile!)
+                  : AssetImage('assets/professor_image.png') as ImageProvider<Object>,
             ),
           ),
           const Positioned(
@@ -75,9 +127,8 @@ class ProfSettings extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
-                    onTap: () {
-                      // Perform action for button 1
-                    },
+                    onTap:_selectImage,
+
                     child: Container(
                       width: 372, // Adjust the width as needed
                       height: 50, // Adjust the height as needed
@@ -99,7 +150,7 @@ class ProfSettings extends StatelessWidget {
                             Icon(Icons.camera_alt, color: Colors.black),
                             SizedBox(width: 10),
                             Text(
-                              'Change Profile Picture',
+                              'Change/Upload Profile Picture',
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
@@ -156,7 +207,8 @@ class ProfSettings extends StatelessWidget {
                   const SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {
-                      // Perform action for button 3
+                      Navigator.push(
+                          context,MaterialPageRoute(builder: (context) => PrivacyPolicy()));// Perform action for button 3
                      },
                     child: Container(
                       width: 372, // Adjust the width as needed
