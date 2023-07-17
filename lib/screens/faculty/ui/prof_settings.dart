@@ -11,7 +11,7 @@ class ProfSettings extends StatefulWidget {
   const ProfSettings({Key? key}) : super(key: key);
 
   @override
-  _ProfSettingsState createState() => _ProfSettingsState();
+  State<StatefulWidget> createState() => _ProfSettingsState();
 }
 
 class _ProfSettingsState extends State<ProfSettings> {
@@ -92,7 +92,7 @@ class _ProfSettingsState extends State<ProfSettings> {
               radius: 34,
               backgroundImage: _imageFile != null
                   ? FileImage(_imageFile!)
-                  : AssetImage('assets/professor_image.png') as ImageProvider<Object>,
+                  : const AssetImage('assets/professor_image.png') as ImageProvider<Object>,
             ),
           ),
           const Positioned(
