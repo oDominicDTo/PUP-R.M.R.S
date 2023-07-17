@@ -1,10 +1,9 @@
-import 'package:appdevelopment/screens/welcome-login/login_page.dart';
+import 'package:appdevelopment/constants.dart';
+import 'package:appdevelopment/screens/welcome-login/ui/second_page.dart';
 import 'package:flutter/material.dart';
-import '../../constants.dart';
 
-class SecondPage extends StatelessWidget {
-  const SecondPage({Key? key}) : super(key: key);
-
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,38 +25,38 @@ class SecondPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 50,),
-                ElevatedButton(
-                  onPressed: () {
-                    // Button action goes here
-                    Navigator.push(
-                        context,MaterialPageRoute(builder: (context) => const LoginScreen()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 16),
-                    side: const BorderSide(width: 1.5, color: kBackgroundColor),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                  ),
-                  child: const Text(
-                    "Guard",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: kBackgroundColor,
-                    ),
+                Image.asset("assets/puplogo.png", width: 100, height: 100,),
+                const SizedBox(height: 30,),
+                const Text(
+                  "Welcome to \nPUPBC ",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 52,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins'
                   ),
                 ),
-                const SizedBox(height: 30,),
+                const Text(
+                  "Room Monitoring Application",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins'
+                  ),
+                ),
+                const SizedBox(height: 200,),
                 ElevatedButton(
                   onPressed: () {
                     // Button action goes here
                     Navigator.push(
-                      context,MaterialPageRoute(builder: (context) => const LoginScreen()),
+                      context,MaterialPageRoute(builder: (context) => const SecondPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 16),
                     side: const BorderSide(width: 1.5, color: kBackgroundColor),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25),
@@ -65,7 +64,7 @@ class SecondPage extends StatelessWidget {
 
                   ),
                   child: const Text(
-                    "Faculty",
+                    "Login",
                     style: TextStyle(
                       fontSize: 18,
                       color: kBackgroundColor,
@@ -80,4 +79,3 @@ class SecondPage extends StatelessWidget {
     );
   }
 }
-

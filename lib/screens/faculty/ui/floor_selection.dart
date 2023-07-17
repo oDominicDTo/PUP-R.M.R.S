@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:appdevelopment/constants.dart';
 import 'package:appdevelopment/widgets/app_bar_widget.dart';
-class floor_selection extends StatefulWidget {
-  const floor_selection({Key? key}) : super(key: key);
+import 'package:appdevelopment/screens/faculty/ui/2f_room_selection.dart';
+import 'package:appdevelopment/screens/faculty/ui/3f_room_selection.dart';
+import 'package:appdevelopment/screens/faculty/ui/4f_room_selection.dart';
+
+class FloorSelection extends StatefulWidget {
+  const FloorSelection({Key? key}) : super(key: key);
 
   @override
-  _floor_selectionState createState() => _floor_selectionState();
+  _FloorSelectionState createState() => _FloorSelectionState();
 }
 
-class _floor_selectionState extends State<floor_selection> {
-  int index = 1;
-
-
-
+class _FloorSelectionState extends State<FloorSelection> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget(),
+      appBar: AppBarWidget(),
       backgroundColor: Color(0xFFF0F0F0),
-
       body: Stack(
         alignment: Alignment.center,
         children: [
@@ -33,7 +31,6 @@ class _floor_selectionState extends State<floor_selection> {
               ),
             ),
           ),
-
           GestureDetector(
             onTap: () {
               // Handle container click here
@@ -120,6 +117,8 @@ class _floor_selectionState extends State<floor_selection> {
             onTap: () {
               // Handle container click here
               print('2nd FLOOR clicked');
+              Navigator.push(
+                  context,MaterialPageRoute(builder: (context) => TwoFRoomSelect()));
             },
             child: Stack(
               children: [
@@ -198,10 +197,10 @@ class _floor_selectionState extends State<floor_selection> {
               ],
             ),
           ),
-
           GestureDetector(
             onTap: () {
-              // Handle container click here
+            Navigator.push(
+                context,MaterialPageRoute(builder: (context) => ThreeFRoomSelect()));
               print('3rd FLOOR clicked');
             },
             child: Stack(
@@ -281,11 +280,10 @@ class _floor_selectionState extends State<floor_selection> {
               ],
             ),
           ),
-
-
           GestureDetector(
             onTap: () {
-              // Handle container click here
+              Navigator.push(
+                  context,MaterialPageRoute(builder: (context) => FourFRoomSelect()));
               print('4th FLOOR clicked');
             },
             child: Stack(
@@ -365,29 +363,7 @@ class _floor_selectionState extends State<floor_selection> {
               ],
             ),
           ),
-
         ],
-      ),
-
-      bottomNavigationBar: NavigationBarTheme(
-        data: const NavigationBarThemeData(
-          indicatorColor: Colors.white10,
-          labelTextStyle: MaterialStatePropertyAll(TextStyle(fontSize: 12, fontFamily: 'Poppins', fontWeight: FontWeight.normal,color: Color(0xFF5B0101))),
-
-
-        ),
-        child: NavigationBar(
-          height: 92,
-          backgroundColor: Colors.white,
-          selectedIndex: index,
-          onDestinationSelected: (index)=> setState(()=> this.index=index),
-          destinations: const [
-            NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home, color: kDarkRed,), label: 'Home'),
-            NavigationDestination(icon: Icon(Icons.add_outlined), selectedIcon: Icon(Icons.add, color: kDarkRed,),label: 'Add'),
-            NavigationDestination(icon: Icon(Icons.notifications_outlined), selectedIcon: Icon(Icons.notifications, color: kDarkRed,), label: 'Notification'),
-            NavigationDestination(icon: Icon(Icons.settings_outlined), selectedIcon: Icon(Icons.settings, color: kDarkRed,), label: 'Settings'),
-          ],
-        ),
       ),
     );
   }

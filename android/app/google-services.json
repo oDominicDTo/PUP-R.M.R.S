@@ -29,6 +29,13 @@
             {
               "client_id": "432415461669-r6mptmka9i5a5aod8s3m4ps75a6tv8t8.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "432415461669-qpkli11bq5depemj0dnt52bo08kp0fe3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.pup.appdevelopment"
+              }
             }
           ]
         }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class NotificationPage extends StatefulWidget {
-  const NotificationPage({Key? key}) : super(key: key);
+class ProfNotificationPage extends StatefulWidget {
+  const ProfNotificationPage({Key? key}) : super(key: key);
 
   @override
-  State<NotificationPage> createState() => _NotificationPageState();
+  State<ProfNotificationPage> createState() => _ProfNotificationPageState();
 }
 
-class _NotificationPageState extends State<NotificationPage> {
+class _ProfNotificationPageState extends State<ProfNotificationPage> {
   List<NotificationItem> notifications = [
     NotificationItem(
       type: NotificationType.professor,

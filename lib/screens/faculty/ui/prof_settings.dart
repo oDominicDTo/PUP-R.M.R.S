@@ -1,74 +1,76 @@
-import 'package:flutter/material.dart';
-import 'package:appdevelopment/constants.dart';
-import 'package:appdevelopment/screens/guard/ui/view_users.dart';
-import 'package:appdevelopment/screens/guard/controller/guard_controller.dart';
 import 'package:appdevelopment/repository/authentication_repository.dart';
+import 'package:flutter/material.dart';
+import 'package:appdevelopment/screens/faculty/ui/ui settings/prof_terms_and_conditions.dart';
+import 'package:appdevelopment/constants.dart';
 
-class SettingsPage extends StatefulWidget {
-  const SettingsPage({Key? key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => _SettingsPageState();
-}
-
-class _SettingsPageState extends State<SettingsPage> {
-  final SettingsPageController _guardController = SettingsPageController();
-
-  @override
-  void initState() {
-    super.initState();
-    _guardController.loadUserData();
-  }
+class ProfSettings extends StatelessWidget {
+  const ProfSettings({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kMainPrimaryColor,
       body: Stack(
+        alignment: Alignment.center,
         children: [
           Positioned(
             top: 0,
             left: 0,
             right: 0,
-            child: Material(
-              color: Colors.transparent,
-              elevation: 10,
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.23,
-                decoration: const BoxDecoration(
-                  color: kDarkRed,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
+            child: Container(
+              height: 174,
+              decoration: BoxDecoration(
+                color: kDarkRed,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.5),
+                    blurRadius: 15,
+                    offset: const Offset(0, 4),
                   ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-
-                    const SizedBox(height: 10),
-                    Text(
-                      _guardController.currentUser != null ? _guardController.currentUser!.name : '',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
-                        fontFamily: 'Poppins',
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
+                ],
               ),
             ),
           ),
-          Positioned(
-            top: MediaQuery.of(context).size.height * 0.12,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+          const Positioned(
+            top: 70,
+            left: 30,
+            child: CircleAvatar(
+              radius: 34,
+              backgroundImage: AssetImage('assets/professor_image.png'),
+            ),
+          ),
+          const Positioned(
+            top: 90,
+            left: 120,
+            child: Text(
+              'User name',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.normal,
+                fontFamily: 'Poppins',
+                color: Colors.white,
+              ),
+            ),
+          ),
+          const Positioned(
+            top: 5,
+            left: 30,
+            child: Text(
+              'Settings',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.normal,
+                fontFamily: 'Poppins',
+                color: Colors.white,
+              ),
+            ),
+          ),
+          Positioned.fill(
+            child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -77,8 +79,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       // Perform action for button 1
                     },
                     child: Container(
-                      width: double.infinity,
-                      height: 50,
+                      width: 372, // Adjust the width as needed
+                      height: 50, // Adjust the height as needed
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
@@ -113,14 +115,13 @@ class _SettingsPageState extends State<SettingsPage> {
                   const SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {
+                      // Perform action for button 2
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ViewUsersPage()),
-                      );
+                          context,MaterialPageRoute(builder: (context) => TermsandConditions()));// Perform action for button 2
                     },
                     child: Container(
-                      width: double.infinity,
-                      height: 50,
+                      width: 372, // Adjust the width as needed
+                      height: 50, // Adjust the height as needed
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
@@ -136,10 +137,10 @@ class _SettingsPageState extends State<SettingsPage> {
                         padding: EdgeInsets.only(left: 20),
                         child: Row(
                           children: [
-                            Icon(Icons.people, color: Colors.black),
+                            Icon(Icons.pending_actions, color: Colors.black),
                             SizedBox(width: 10),
                             Text(
-                              'View Users',
+                              'Terms & Condition',
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
@@ -156,10 +157,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   GestureDetector(
                     onTap: () {
                       // Perform action for button 3
-                    },
+                     },
                     child: Container(
-                      width: double.infinity,
-                      height: 50,
+                      width: 372, // Adjust the width as needed
+                      height: 50, // Adjust the height as needed
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
@@ -197,8 +198,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       AuthenticationRepository.instance.logout();
                     },
                     child: Container(
-                      width: double.infinity,
-                      height: 50,
+                      width: 372, // Adjust the width as needed
+                      height: 50, // Adjust the height as needed
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),

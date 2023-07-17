@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:appdevelopment/constants.dart';
 
-class AppBarWidget extends StatelessWidget implements PreferredSizeWidget{
-  const AppBarWidget({
-    super.key,
-  });
+
+class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
+  const AppBarWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    EdgeInsets padding;
+    if (screenHeight <= 730) { // 5.5-inch screen height in logical pixels
+      padding = const EdgeInsets.fromLTRB(0, 31, 0, 8); // Specific padding for 5.5-inch screen
+    } else {
+      padding = const EdgeInsets.fromLTRB(0, 40, 0, 8); // Default padding for other screen sizes
+    }
+
     return AppBar(
       backgroundColor: const Color(0xFFF0F0F0),
       flexibleSpace: Column(
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 40, 0, 8),
+              padding: padding,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -26,7 +33,6 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget{
                         BoxShadow(
                           color: Colors.grey.withOpacity(.5),
                           spreadRadius: 1,
-
                         ),
                       ],
                     ),
@@ -61,12 +67,10 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget{
             ),
           ),
         ],
-
       ),
     );
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => const Size.fromHeight(80);
 }
