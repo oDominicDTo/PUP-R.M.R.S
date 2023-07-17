@@ -206,7 +206,7 @@ class _FloorSelectionState extends State<FloorSelection> {
             child: Stack(
               children: [
                 Positioned(
-                  bottom: 135,
+                  bottom: 220,
                   left: 20,
                   child: Container(
                     width: 150,
@@ -289,7 +289,7 @@ class _FloorSelectionState extends State<FloorSelection> {
             child: Stack(
               children: [
                 Positioned(
-                  bottom: 135,
+                  bottom: 220,
                   right: 20,
                   child: Container(
                     width: 150,
