@@ -9,18 +9,21 @@ class TermsandConditions extends StatefulWidget {
 
 class _TermsandConditionsState extends State<TermsandConditions> {
   final String termsAndConditionsText = '''
-We are students of Polytechnic University of the Philippines Binan Campus.
+By downloading or using the app, these terms will automatically apply to you – you should make sure therefore that you read them carefully before using the app. You’re not allowed to copy or modify the app, any part of the app, or our trademarks in any way. You’re not allowed to attempt to extract the source code of the app, and you also shouldn’t try to translate the app into other languages or make derivative versions. The app itself, and all the trademarks, copyright, database rights, and other intellectual property rights related to it, still belong to us .
 
-We operate the mobile application PUP Room Monitoring , as well as any other related products and services that refer or link to these legal terms.
+Oue team is committed to ensuring that the app is as useful and efficient as possible. For that reason, we reserve the right to make changes to the app or to charge for its services, at any time and for any reason. We will never charge you for the app or its services without making it very clear to you exactly what you’re paying for.
 
-You can contact us by email at __________ or by mail to __________, __________, Philippines.
+The PUPBC Room Reservation app stores and processes personal data that you have provided to us, to provide my Service. It’s your responsibility to keep your phone and access to the app secure. We therefore recommend that you do not jailbreak or root your phone, which is the process of removing software restrictions and limitations imposed by the official operating system of your device. It could make your phone vulnerable to malware/viruses/malicious programs, compromise your phone’s security features and it could mean that the PUPBC Room Reservation app won’t work properly or at all.
 
-These Legal Terms constitute a legally binding agreement made between you, whether personally or on behalf of an entity, and __________, concerning your access to and use of the Services. You agree that by accessing the Services, you have read, understood, and agreed to be bound by all of these Legal Terms. IF YOU DO NOT AGREE WITH ALL OF THESE LEGAL TERMS, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SERVICES AND YOU MUST DISCONTINUE USE IMMEDIATELY.
+You should be aware that there are certain things that our team will not take responsibility for. Certain functions of the app will require the app to have an active internet connection. The connection can be Wi-Fi or provided by your mobile network provider, but our team cannot take responsibility for the app not working at full functionality if you don’t have access to Wi-Fi, and you don’t have any of your data allowance left.
 
-Supplemental terms and conditions or documents that may be posted on the Services from time to time are hereby expressly incorporated herein by reference. We reserve the right, in our sole discretion, to make changes or modifications to these Legal Terms at any time and for any reason. We will alert you about any changes by updating the "Last updated" date of these Legal Terms, and you waive any right to receive specific notice of each such change. It is your responsibility to periodically review these Legal Terms to stay informed of updates. You will be subject to, and will be deemed to have been made aware of and to have accepted, the changes in any revised Legal Terms by your continued use of the Services after the date such revised Legal Terms are posted.
+If you’re using the app outside of an area with Wi-Fi, you should remember that the terms of the agreement with your mobile network provider will still apply. As a result, you may be charged by your mobile provider for the cost of data for the duration of the connection while accessing the app, or other third-party charges. In using the app, you’re accepting responsibility for any such charges, including roaming data charges if you use the app outside of your home territory (i.e. region or country) without turning off data roaming. If you are not the bill payer for the device on which you’re using the app, please be aware that we assume that you have received permission from the bill payer for using the app.
 
-The Services are intended for users who are at least 18 years old. Persons under the age of 18 are not permitted to use or register for the Services.
+Along the same lines, we cannot always take responsibility for the way you use the app i.e. You need to make sure that your device stays charged – if it runs out of battery and you can’t turn it on to avail the Service, our team cannot accept responsibility.
 
+With respect to our  responsibility for your use of the app, when you’re using the app, it’s important to bear in mind that although we endeavor to ensure that it is updated and correct at all times, we do rely on third parties to provide information to us so that we can make it available to you. We accepts no liability for any loss, direct or indirect, you experience as a result of relying wholly on this functionality of the app.
+
+At some point, we may wish to update the app. The app is currently available on Android – the requirements for the system(and for any additional systems we decide to extend the availability of the app to) may change, and you’ll need to download the updates if you want to keep using the app. Our team does not promise that it will always update the app so that it is relevant to you and/or works with the Android version that you have installed on your device. However, you promise to always accept updates to the application when offered to you, We may also wish to stop providing the app, and may terminate use of it at any time without giving notice of termination to you. Unless we tell you otherwise, upon any termination, (a) the rights and licenses granted to you in these terms will end; (b) you must stop using the app, and (if needed) delete it from your device.
 ''';
 
   @override
@@ -55,119 +58,21 @@ The Services are intended for users who are at least 18 years old. Persons under
                   ),
                   children: [
                     TextSpan(
-                      text: '\n\nTABLE OF CONTENTS\n\n',
+                      text: '\n\nOTHERS\n\n',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     _buildTableOfContentsLink(
-                      '1. OUR SERVICES\n',
-                      'OUR SERVICES',
-                      'The information provided when using the Services is not intended for distribution to or use by any person or entity in any jurisdiction or country where such distribution or use would be contrary to law or regulation or which would subject us to any registration requirement within such jurisdiction or country. Accordingly, those persons who choose to access the Services from other locations do so on their own initiative and are solely responsible for compliance with local laws, if and to the extent local laws are applicable.',
+                      'CHANGES TO TERMS AND CONDITIONS\n',
+                      'CHANGES TO THIS TERMS AND CONDITIONS',
+                    '''We may update our Terms and Conditions from time to time. Thus, you are advised to review this page periodically for any changes. We will notify you of any changes by posting the new Terms and Conditions on this page.
+
+These terms and conditions are effective as of 2023-07-10''',
                     ),
-                    _buildTableOfContentsLink('2. INTELLECTUAL PROPERTY RIGHTS\n',
-                      'INTELLECTUAL PROPERTY RIGHTS',
-                      'Our intellectual property'
-                          'We are the owner or the licensee of all intellectual property rights in our Services, including all source code, databases, functionality, software, website designs, audio, video, text, photographs, and graphics in the Services (collectively, the "Content"), as well as the trademarks, service marks, and logos contained therein ',
-                    ),
-                    _buildTableOfContentsLink('3. USER REPRESENTATIONS\n',
-                      'USER REPRESENTATIONS',
-                      'By using the Services, you represent and warrant that: (1) you have the legal capacity and you agree to comply with these Legal Terms; (2) you are not a minor in the jurisdiction in which you reside; (3) you will not access the Services through automated or non-human means, whether through a bot, script or otherwise; (4) you will not use the Services for any illegal or unauthorized purpose; and (5) your use of the Services will not violate any applicable law or regulation.'
-                          'If you provide any information that is untrue, inaccurate, not current, or incomplete, we have the right to suspend or terminate your account and refuse any and all current or future use of the Services (or any portion thereof).',
-                    ),
-                    _buildTableOfContentsLink('4. PROHIBITED ACTIVITIES\n',
-                      'PROHIBITED ACTIVITIES',
-                      '''- Systematically retrieve data or other content from the Services to create or compile, directly or indirectly, a collection, compilation, database, or directory without written permission from us.
-- Trick, defraud, or mislead us and other users, especially in any attempt to learn sensitive account information such as user passwords.
-- Circumvent, disable, or otherwise interfere with security-related features of the Services, including features that prevent or restrict the use or copying of any Content or enforce limitations on the use of the Services and/or the Content contained therein.
-- Disparage, tarnish, or otherwise harm, in our opinion, us and/or the Services.
-- Use any information obtained from the Services in order to harass, abuse, or harm another person.
-- Make improper use of our support services or submit false reports of abuse or misconduct.
-- Use the Services in a manner inconsistent with any applicable laws or regulations.
-- Engage in unauthorized framing of or linking to the Services.
-- Upload or transmit (or attempt to upload or to transmit) viruses, Trojan horses, or other material, including excessive use of capital letters and spamming (continuous posting of repetitive text), that interferes with any party’s uninterrupted use and enjoyment of the Services or modifies, impairs, disrupts, alters, or interferes with the use, features, functions, operation, or maintenance of the Services.
-- Engage in any automated use of the system, such as using scripts to send comments or messages, or using any data mining, robots, or similar data gathering and extraction tools.
-- Delete the copyright or other proprietary rights notice from any Content.
-- Attempt to impersonate another user or person or use the username of another user.
-- Upload or transmit (or attempt to upload or to transmit) any material that acts as a passive or active information collection or transmission mechanism, including without limitation, clear graphics interchange formats ("gifs"), 1×1 pixels, web bugs, cookies, or other similar devices (sometimes referred to as "spyware" or "passive collection mechanisms" or "pcms").
-- Interfere with, disrupt, or create an undue burden on the Services or the networks or services connected to the Services.
-- Harass, annoy, intimidate, or threaten any of our employees or agents engaged in providing any portion of the Services to you.
-- Attempt to bypass any measures of the Services designed to prevent or restrict access to the Services, or any portion of the Services.
-- Copy or adapt the Services' software, including but not limited to Flash, PHP, HTML, JavaScript, or other code.
-- Except as permitted by applicable law, decipher, decompile, disassemble, or reverse engineer any of the software comprising or in any way making up a part of the Services.
-- Except as may be the result of standard search engine or Internet browser usage, use, launch, develop, or distribute any automated system, including without limitation, any spider, robot, cheat utility, scraper, or offline reader that accesses the Services, or use or launch any unauthorized script or other software.
-- Use a buying agent or purchasing agent to make purchases on the Services.
-- Make any unauthorized use of the Services, including collecting usernames and/or email addresses of users by electronic or other means for the purpose of sending unsolicited email, or creating user accounts by automated means or under false pretenses.
-- Use the Services as part of any effort to compete with us or otherwise use the Services and/or the Content for any revenue-generating endeavor or commercial enterprise.
-  ''',
-                    ),
-                    _buildTableOfContentsLink('5. USER GENERATED CONTRIBUTIONS\n',
-                      'USER GENERATED CONTRIBUTIONS',
-                      'Section 5 content goes here.',
-                    ),
-                    _buildTableOfContentsLink('6. CONTRIBUTION LICENSE\n',
-                      'CONTRIBUTION LICENSE',
-                      'Section 6 content goes here.',
-                    ),
-                    _buildTableOfContentsLink('7. MOBILE APPLICATION LICENSE\n',
-                      'MOBILE APPLICATION LICENSE',
-                      'Section 7 content goes here.',
-                    ),
-                    _buildTableOfContentsLink('8. SERVICES MANAGEMENT\n',
-                      'SERVICES MANAGEMENT',
-                      'Section 8 content goes here.',
-                    ),
-                    _buildTableOfContentsLink('9. PRIVACY POLICY\n',
-                      'PRIVACY POLICY',
-                      'Section 9 content goes here.',
-                    ),
-                    _buildTableOfContentsLink('10. TERM AND TERMINATION\n',
-                      'TERM AND TERMINATION',
-                      'Section 10 content goes here.',
-                    ),
-                    _buildTableOfContentsLink('11. MODIFICATIONS AND INTERRUPTIONS\n',
-                      'MODIFICATIONS AND INTERRUPTIONS',
-                      'Section 11 content goes here.',
-                    ),
-                    _buildTableOfContentsLink('12. GOVERNING LAW\n',
-                      'GOVERNING LAW',
-                      'Section 12 content goes here.',
-                    ),
-                    _buildTableOfContentsLink('13. DISPUTE RESOLUTION\n',
-                      'DISPUTE RESOLUTION',
-                      'Section 13 content goes here.',
-                    ),
-                    _buildTableOfContentsLink('14. CORRECTIONS\n',
-                      'CORRECTIONS',
-                      'Section 14 content goes here.',
-                    ),
-                    _buildTableOfContentsLink('15. DISCLAIMER\n',
-                      'DISCLAIMER',
-                      'Section 15 content goes here.',
-                    ),
-                    _buildTableOfContentsLink('16. LIMITATIONS OF LIABILITY\n',
-                      'LIMITATIONS OF LIABILITY',
-                      'Section 16 content goes here.',
-                    ),
-                    _buildTableOfContentsLink('17. INDEMNIFICATION\n',
-                      'INDEMNIFICATION',
-                      'Section 17 content goes here.',
-                    ),
-                    _buildTableOfContentsLink('18. USER DATA\n',
-                      'USER DATA',
-                      'Section 18 content goes here.',
-                    ),
-                    _buildTableOfContentsLink('19.ELECTRONICCOMMUNICATIONS, TRANSACTIONS, AND SIGNATURES',
-                      'ELECTRONIC COMMUNICATIONS, TRANSACTIONS, AND SIGNATURES',
-                      'Section 19 content goes here.',
-                    ),
-                    _buildTableOfContentsLink('\n20. MISCELLANEOUS\n',
-                      'MISCELLANEOUS',
-                      'Section 20 content goes here.',
-                    ),
-                    _buildTableOfContentsLink('21. CONTACT US\n',
+                    _buildTableOfContentsLink('CONTACT US\n',
                       'CONTACT US',
-                      'Section 21 content goes here.',
+                      'If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at OurTeamsG2@gmail.com.',
                     ),
                   ],
                 ),
