@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:appdevelopment/screens/faculty/ui/ui settings/prof_terms_and_conditions.dart';
 import 'package:appdevelopment/screens/faculty/ui/ui settings/prof_privacy_policy.dart';
 import 'package:appdevelopment/constants.dart';
-import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io' show File;
 
 class ProfSettings extends StatefulWidget {
   const ProfSettings({Key? key}) : super(key: key);
@@ -15,46 +18,69 @@ class ProfSettings extends StatefulWidget {
 }
 
 class _ProfSettingsState extends State<ProfSettings> {
-  File? _imageFile; // Variable to store the selected image
+  final picker = ImagePicker();
+  User? user;
+  File? pickedImage;
+  String? imageUrl;
+  String? pickedImagePath;
 
-  // Function to handle image selection
-  Future<void> _selectImage() async {
-    final picker = ImagePicker();
-    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      if (pickedImage != null) {
-        _imageFile = File(pickedImage.path);
-      }
-    });
+  @override
+  void initState() {
+    super.initState();
+    user = FirebaseAuth.instance.currentUser;
+    loadPickedImage();
   }
 
-  // Function to update the profile picture
-  //void _updateProfilePicture() async {
-   // if (_imageFile != null) {
-      // 1. Upload the image to Firebase Storage or your preferred storage solution
+  void loadPickedImage() {
+    final storage = FirebaseFirestore.instance;
+    final collectionRef = storage.collection('users');
+    final documentRef = collectionRef.doc(user!.uid);
+    documentRef.get().then((snapshot) {
+      setState(() {
+        pickedImagePath = snapshot.get('profilePicture');
+      });
+    });
+  }
+  Future<void> updateProfilePicture() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        pickedImage = File(pickedFile.path);
+      });
 
-      //final Reference storageReference = FirebaseStorage.instance.ref().child('profile_pictures/user_id.jpg');
-    //  final UploadTask uploadTask = storageReference.putFile(_imageFile!);
-     // final TaskSnapshot storageTaskSnapshot = await uploadTask.whenComplete(() => null);
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        final collectionRef = FirebaseFirestore.instance.collection('users');
+        final documentRef = collectionRef.doc(user.uid);
 
-      // 2. Get the download URL of the uploaded image
+        final imageUrl = await uploadImageToStorage(pickedImage!);
 
-     // final String downloadURL = await storageTaskSnapshot.ref.getDownloadURL();
+        await documentRef.update({
+          'profilePicture': imageUrl,
+        });
 
-      // 3. Update the user's profile picture URL in the database or user model
-      // Replace this with your own implementation based on your data structure
-      // For example, if you're using Firebase Realtime Database:
-      // await FirebaseDatabase.instance.reference().child('users/user_id/profile_picture').set(downloadURL);
-      // Or if you're using Cloud Firestore:
-      // await FirebaseFirestore.instance.collection('users').doc('user_id').update({'profile_picture': downloadURL});
+        setState(() {
+          pickedImagePath = imageUrl;
+        });
+      }
+    }
+  }
 
-      // 4. Optionally, you can update the UI to reflect the new profile picture
-    //  setState(() {
-        // Update the UI here, e.g., by assigning the downloadURL to a profilePictureURL variable
-    //  });
-  //  }
-  //}
+  Future<String> uploadImageToStorage(File imageFile) async {
+    final storageRef = FirebaseStorage.instance.ref().child('profile_pictures');
+    final uploadTask = storageRef.child('${DateTime.now()}.jpg').putFile(imageFile);
+    final snapshot = await uploadTask;
+
+    if (snapshot.state == TaskState.success) {
+      final downloadURL = await snapshot.ref.getDownloadURL();
+      return downloadURL;
+    } else {
+      throw Exception('Image upload failed');
+    }
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -90,9 +116,13 @@ class _ProfSettingsState extends State<ProfSettings> {
             left: 30,
             child: CircleAvatar(
               radius: 34,
-              backgroundImage: _imageFile != null
-                  ? FileImage(_imageFile!)
-                  : const AssetImage('assets/professor_image.png') as ImageProvider<Object>,
+              backgroundImage: pickedImage != null
+                  ? FileImage(pickedImage!)
+                  : pickedImagePath != null
+                  ? NetworkImage(pickedImagePath!)
+                  : user != null && user!.photoURL != null
+                  ? NetworkImage(user!.photoURL!)
+                  : const AssetImage('assets/loginLogo.png') as ImageProvider<Object>?,
             ),
           ),
           const Positioned(
@@ -127,7 +157,9 @@ class _ProfSettingsState extends State<ProfSettings> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
-                    onTap:_selectImage,
+                    onTap:(){
+                      updateProfilePicture();
+                    },
 
                     child: Container(
                       width: 372, // Adjust the width as needed
