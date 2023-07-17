@@ -1,7 +1,7 @@
 import 'package:appdevelopment/repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:appdevelopment/screens/faculty/ui/ui settings/prof_terms_and_conditions.dart';
-import 'package:appdevelopment/screens/faculty/ui/ui settings/prof_privacy_policy.dart';
+import 'package:appdevelopment/screens/faculty/ui/ui settings/terms_and_conditions.dart';
+import 'package:appdevelopment/screens/faculty/ui/ui settings/privacy_policy.dart';
 import 'package:appdevelopment/constants.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -94,7 +94,7 @@ class _ProfSettingsState extends State<ProfSettings> {
             left: 0,
             right: 0,
             child: Container(
-              height: 174,
+              height: MediaQuery.of(context).size.height * 0.22,
               decoration: BoxDecoration(
                 color: kDarkRed,
                 borderRadius: const BorderRadius.only(
@@ -127,7 +127,7 @@ class _ProfSettingsState extends State<ProfSettings> {
           ),
           const Positioned(
             top: 90,
-            left: 120,
+            left: 110,
             child: Text(
               'User name',
               style: TextStyle(
