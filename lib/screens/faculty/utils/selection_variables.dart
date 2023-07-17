@@ -13,3 +13,8 @@ class SelectedCourse {
 class SelectedRoom {
   static String? roomId;
 }
+
+class SelectedUser {
+  static String userId = '';
+  static String userType = '';
+}
