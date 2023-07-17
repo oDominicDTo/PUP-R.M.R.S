@@ -111,7 +111,7 @@ class _prof_settingsState extends State<prof_settings> {
           ),
           Positioned(
             top: 170,
-            left: 10,
+            left: 8,
             child: Column(
               children: [
                 SizedBox(height: 14),
