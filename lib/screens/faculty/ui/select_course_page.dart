@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:appdevelopment/screens/faculty/utils/firestore_utils.dart';
 import 'package:appdevelopment/screens/faculty/ui/select_room_page.dart';
-
-import '../utils/selection_variables.dart';
+import 'package:flutter/material.dart';
+import '../utils/firestore_utils.dart';
 import '../models/course_model.dart';
 
 class SelectCoursePage extends StatelessWidget {
@@ -32,12 +30,12 @@ class SelectCoursePage extends StatelessWidget {
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text(courses[index].courseName),
-                  tileColor: courses[index].courseColor,
+                  subtitle: Text(courses[index].courseColor),
                   onTap: () {
-                    SelectedCourse.courseId = courses[index].courseId;
+                    // Handle course selection
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const SelectRoomPage()),
+                      MaterialPageRoute(builder: (context) => SelectRoomPage()),
                     );
                   },
                 );
