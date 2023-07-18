@@ -12,6 +12,7 @@ class SelectSubjectPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Select Subject'),
       ),
+      backgroundColor: Colors.white, // Set the background color here
       body: FutureBuilder<List<Subject>>(
         future: FirestoreUtils.getSubjectsByCourse('bsit'),
         builder: (context, snapshot) {
@@ -41,9 +42,10 @@ class SelectSubjectPage extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const SelectRoomPage()),
-                    );},
+                      context,
+                      MaterialPageRoute(builder: (context) => const SelectRoomPage()),
+                    );
+                  },
                 );
               },
             );

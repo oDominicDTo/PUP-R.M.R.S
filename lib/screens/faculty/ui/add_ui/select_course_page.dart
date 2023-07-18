@@ -12,6 +12,7 @@ class SelectCoursePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Select Course'),
       ),
+      backgroundColor: Colors.white, // Set the background color here
       body: FutureBuilder<List<Course>>(
         future: FirestoreUtils.getCourses(),
         builder: (context, snapshot) {

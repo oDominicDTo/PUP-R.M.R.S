@@ -14,6 +14,7 @@ class SelectFloorPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Select Floor'),
       ),
+      backgroundColor: Colors.white, // Set the background color here
       body: FutureBuilder<List<Floor>>(
         future: FirestoreUtils.getFloorsByBuilding(SelectedBuilding.buildingId!),
         builder: (context, snapshot) {
