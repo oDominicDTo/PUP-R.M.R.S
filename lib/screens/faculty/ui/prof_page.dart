@@ -1,4 +1,4 @@
-import 'package:appdevelopment/screens/faculty/ui/add_ui/add_building.dart';
+import 'package:appdevelopment/screens/faculty/ui/add_ui/add_building_page.dart';
 import 'package:appdevelopment/screens/faculty/ui/home_professor_page.dart';
 import 'package:appdevelopment/screens/faculty/ui/prof_notification_page.dart';
 import 'package:appdevelopment/screens/faculty/ui/prof_settings.dart';
@@ -18,7 +18,7 @@ class ProfPage extends StatefulWidget {
 class _ProfPageState extends State<ProfPage> {
   int index = 0;
   final screens = [
-     HomeProfessorPage(),
+     HomePage(),
     const AddBuilding(),
     const ProfNotificationPage(),
     const ProfSettings(),
@@ -27,6 +27,7 @@ class _ProfPageState extends State<ProfPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: const AppBarWidget(),
       body: screens[index],

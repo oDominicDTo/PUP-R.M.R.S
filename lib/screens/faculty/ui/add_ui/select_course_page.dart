@@ -35,7 +35,11 @@ class SelectCoursePage extends StatelessWidget {
                     // Handle course selection
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => SelectSubjectPage()),
+                      MaterialPageRoute(
+                        builder: (context) => SelectSubjectPage(
+                          courseId: courses[index].courseId,
+                        ),
+                      ),
                     );
                   },
                 );

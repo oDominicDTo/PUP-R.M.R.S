@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:appdevelopment/screens/faculty/models/room_model.dart';
 import 'package:appdevelopment/screens/faculty/utils/firestore_utils.dart';
 
 import '../../utils/selection_variables.dart';
 
 class SelectRoomPage extends StatelessWidget {
-  const SelectRoomPage({Key? key}) : super(key: key);
+  final String subjectId;
+  final String professorId;
+
+  const SelectRoomPage({
+    Key? key,
+    required this.subjectId,
+    required this.professorId,
+  }) : super(key: key);
 
   void _showConfirmationDialog(BuildContext context, Room room) {
     showDialog(
@@ -18,22 +26,48 @@ class SelectRoomPage extends StatelessWidget {
             TextButton(
               child: const Text('Yes'),
               onPressed: () {
+
+                _addReservation(room);
+
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
               child: const Text('No'),
               onPressed: () {
-                // Perform the reservation action
-                // ...
-
                 Navigator.of(context).pop();
+
               },
             ),
           ],
         );
       },
     );
+  }
+
+  void _addReservation(Room room) {
+    final firestore = FirebaseFirestore.instance;
+    final reservationsCollection = firestore.collection('reservations');
+
+    // Create a new document in the reservations collection with auto-generated ID
+    final reservationDoc = reservationsCollection.doc();
+
+    // Set the reservation data
+    reservationDoc.set({
+      'buildingId': SelectedBuilding.buildingId,
+      'floorId': SelectedFloor.floorId,
+      'roomId': room.roomId,
+      'subjectId': subjectId,
+      'professorId': professorId,
+      'reservationDate': DateTime.now(), // Add the current date and time
+      // Add other reservation details as needed
+    }).then((_) {
+      // Reservation added successfully
+      print('Reservation added successfully');
+    }).catchError((error) {
+      // Error occurred while adding the reservation
+      print('Error adding reservation: $error');
+    });
   }
 
   @override

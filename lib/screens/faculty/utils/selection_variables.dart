@@ -14,6 +14,7 @@ class SelectedCourse {
 
 class SelectedRoom {
   static String? roomId;
+  static String? roomName;
 }
 
 class SelectedUser {
@@ -23,6 +24,6 @@ class SelectedUser {
 
 class SelectedSubject {
   static String? subjectName;
-
-
+  static String? subjectId;
+  static String? professorId;
 }

@@ -4,7 +4,8 @@ import 'package:appdevelopment/screens/faculty/models/subject_model.dart';
 import 'package:appdevelopment/screens/faculty/utils/firestore_utils.dart';
 
 class SelectSubjectPage extends StatelessWidget {
-  const SelectSubjectPage({Key? key}) : super(key: key);
+  final String courseId;
+  const SelectSubjectPage({required this.courseId, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class SelectSubjectPage extends StatelessWidget {
         title: const Text('Select Subject'),
       ),
       body: FutureBuilder<List<Subject>>(
-        future: FirestoreUtils.getSubjectsByCourse('bsit'),
+        future: FirestoreUtils.getSubjectsByCourse(courseId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -41,9 +42,15 @@ class SelectSubjectPage extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const SelectRoomPage()),
-                    );},
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SelectRoomPage(
+                          subjectId: subject.subjectId,
+                          professorId: subject.professorId,
+                        ),
+                      ),
+                    );
+                  },
                 );
               },
             );

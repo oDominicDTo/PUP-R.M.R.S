@@ -4,6 +4,7 @@ import '../models/course_model.dart';
 import '../models/course_professor.dart';
 import '../models/floor_model.dart';
 
+import '../models/reservation_model.dart';
 import '../models/subject_model.dart';
 
 class FirestoreUtils {
@@ -104,5 +105,17 @@ class FirestoreUtils {
 
     return querySnapshot.docs.map((doc) => Room.fromSnapshot(doc)).toList();
   }
+
+  static Future<List<Reservation>> getReservationsByProfessorAndDate(String professorId, DateTime date) async {
+    final reservationsQuery = FirebaseFirestore.instance
+        .collection('reservations')
+        .where('professorId', isEqualTo: professorId)
+        .where('reservationDate', isEqualTo: date)
+        .get();
+
+    final reservationsSnapshot = await reservationsQuery;
+    return reservationsSnapshot.docs.map((doc) => Reservation.fromSnapshot(doc)).toList();
+  }
+
 }
 
