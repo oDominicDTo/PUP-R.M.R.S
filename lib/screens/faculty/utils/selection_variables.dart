@@ -18,3 +18,9 @@ class SelectedUser {
   static String userId = '';
   static String userType = '';
 }
+
+class SelectedSubject {
+  static String? subjectName;
+
+  static var subjectId;
+}

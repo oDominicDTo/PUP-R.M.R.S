@@ -1,12 +1,13 @@
 import 'package:appdevelopment/screens/faculty/models/room_model.dart';
 import 'package:flutter/material.dart';
 import 'package:appdevelopment/screens/faculty/utils/firestore_utils.dart';
-import 'package:appdevelopment/screens/faculty/ui/add_reservation_page.dart';
+import 'package:appdevelopment/screens/faculty/ui/add_ui/add_reservation_page.dart';
 
-import '../utils/selection_variables.dart';
+import '../../utils/selection_variables.dart';
 
 class SelectRoomPage extends StatelessWidget {
   const SelectRoomPage({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {

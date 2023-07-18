@@ -1,4 +1,4 @@
-import 'package:appdevelopment/screens/faculty/ui/add_building.dart';
+import 'package:appdevelopment/screens/faculty/ui/add_ui/add_building.dart';
 import 'package:appdevelopment/screens/faculty/ui/home_professor_page.dart';
 import 'package:appdevelopment/screens/faculty/ui/prof_notification_page.dart';
 import 'package:appdevelopment/screens/faculty/ui/prof_settings.dart';

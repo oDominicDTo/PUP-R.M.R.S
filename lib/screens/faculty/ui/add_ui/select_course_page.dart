@@ -1,7 +1,7 @@
-import 'package:appdevelopment/screens/faculty/ui/select_room_page.dart';
+import 'package:appdevelopment/screens/faculty/ui/add_ui/select_subject_page.dart';
 import 'package:flutter/material.dart';
-import '../utils/firestore_utils.dart';
-import '../models/course_model.dart';
+import '../../utils/firestore_utils.dart';
+import '../../models/course_model.dart';
 
 class SelectCoursePage extends StatelessWidget {
   const SelectCoursePage({Key? key}) : super(key: key);
@@ -35,7 +35,7 @@ class SelectCoursePage extends StatelessWidget {
                     // Handle course selection
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => SelectRoomPage()),
+                      MaterialPageRoute(builder: (context) => SelectSubjectPage()),
                     );
                   },
                 );

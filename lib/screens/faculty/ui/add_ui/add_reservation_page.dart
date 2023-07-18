@@ -15,6 +15,7 @@ class _AddReservationPageState extends State<AddReservationPage> {
   String selectedBuilding = '';
   String selectedFloor = '';
   String selectedCourse = '';
+  String selectedSubject = '';
   String selectedRoom = '';
 
   @override
@@ -82,6 +83,25 @@ class _AddReservationPageState extends State<AddReservationPage> {
               });
             },
           ),
+          // Subject Selection
+          DropdownButtonFormField<String>(
+            value: selectedSubject,
+            items: const [
+              DropdownMenuItem<String>(
+                value: 'subject1',
+                child: Text('Subject 1'),
+              ),
+              DropdownMenuItem<String>(
+                value: 'subject2',
+                child: Text('Subject 2'),
+              ),
+            ],
+            onChanged: (value) {
+              setState(() {
+                selectedSubject = value!;
+              });
+            },
+          ),
           // Room Selection
           DropdownButtonFormField<String>(
             value: selectedRoom,
@@ -107,11 +127,13 @@ class _AddReservationPageState extends State<AddReservationPage> {
               if (selectedBuilding.isNotEmpty &&
                   selectedFloor.isNotEmpty &&
                   selectedCourse.isNotEmpty &&
+                  selectedSubject.isNotEmpty &&
                   selectedRoom.isNotEmpty) {
                 Reservation reservation = Reservation(
                   buildingId: selectedBuilding,
                   floorId: selectedFloor,
                   courseId: selectedCourse,
+                  subjectId: selectedSubject,
                   roomId: selectedRoom,
                 );
                 _reservationController.addReservation(reservation);

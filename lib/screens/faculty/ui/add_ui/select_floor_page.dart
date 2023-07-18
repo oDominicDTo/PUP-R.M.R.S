@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:appdevelopment/screens/faculty/utils/firestore_utils.dart';
-import 'package:appdevelopment/screens/faculty/ui/select_course_page.dart';
+import 'package:appdevelopment/screens/faculty/ui/add_ui/select_course_page.dart';
 
 
-import '../models/floor_model.dart';
-import '../utils/selection_variables.dart';
+import '../../models/floor_model.dart';
+import '../../utils/selection_variables.dart';
 
 class SelectFloorPage extends StatelessWidget {
   const SelectFloorPage({Key? key}) : super(key: key);

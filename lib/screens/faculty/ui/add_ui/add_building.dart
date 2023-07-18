@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:appdevelopment/screens/faculty/ui/select_floor_page.dart';
+import 'package:appdevelopment/screens/faculty/ui/add_ui/select_floor_page.dart';
 
-import '../../../constants.dart';
-import '../utils/selection_variables.dart';
+import '../../../../constants.dart';
+import '../../utils/selection_variables.dart';
 
 class AddBuilding extends StatelessWidget {
   const AddBuilding({Key? key}) : super(key: key);

@@ -4,12 +4,14 @@ class Reservation {
   final String buildingId;
   final String floorId;
   final String courseId;
+  final String subjectId;
   final String roomId;
 
   Reservation({
     required this.buildingId,
     required this.floorId,
     required this.courseId,
+    required this.subjectId,
     required this.roomId,
   });
 
@@ -18,6 +20,7 @@ class Reservation {
       'buildingId': buildingId,
       'floorId': floorId,
       'courseId': courseId,
+      'subjectId': subjectId,
       'roomId': roomId,
     };
   }
@@ -28,6 +31,7 @@ class Reservation {
       buildingId: data['buildingId'],
       floorId: data['floorId'],
       courseId: data['courseId'],
+      subjectId: data['subjectId'],
       roomId: data['roomId'],
     );
   }
