@@ -8,6 +8,8 @@ class SelectedFloor {
 
 class SelectedCourse {
   static String? courseId;
+  static String? buildingId;
+  static String? floorId;
 }
 
 class SelectedRoom {
@@ -22,5 +24,5 @@ class SelectedUser {
 class SelectedSubject {
   static String? subjectName;
 
-  static var subjectId;
+
 }

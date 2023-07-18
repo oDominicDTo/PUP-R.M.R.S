@@ -1,13 +1,11 @@
-import 'package:appdevelopment/screens/faculty/models/room_model.dart';
 import 'package:flutter/material.dart';
+import 'package:appdevelopment/screens/faculty/models/room_model.dart';
 import 'package:appdevelopment/screens/faculty/utils/firestore_utils.dart';
-import 'package:appdevelopment/screens/faculty/ui/add_ui/add_reservation_page.dart';
 
 import '../../utils/selection_variables.dart';
 
 class SelectRoomPage extends StatelessWidget {
   const SelectRoomPage({Key? key}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +14,8 @@ class SelectRoomPage extends StatelessWidget {
         title: const Text('Select Room'),
       ),
       body: FutureBuilder<List<Room>>(
-        future: FirestoreUtils.getAvailableRooms(
-          SelectedBuilding.buildingId ?? '',
-          SelectedFloor.floorId ?? '',
-          SelectedCourse.courseId ?? '',
-        ),
+        future: FirestoreUtils.getAvailableRooms( SelectedBuilding.buildingId!,
+          SelectedFloor.floorId!,),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -30,22 +25,28 @@ class SelectRoomPage extends StatelessWidget {
             return const Center(
               child: Text('Error retrieving rooms'),
             );
-          } else {
-            final rooms = snapshot.data ?? [];
+          } else if (snapshot.hasData && snapshot.data != null) {
+            final rooms = snapshot.data!;
+            if (rooms.isEmpty) {
+              return const Center(
+                child: Text('No available rooms found'),
+              );
+            }
             return ListView.builder(
               itemCount: rooms.length,
               itemBuilder: (context, index) {
+                final room = rooms[index];
                 return ListTile(
-                  title: Text(rooms[index].roomName),
+                  title: Text(room.roomName),
                   onTap: () {
-                    SelectedRoom.roomId = rooms[index].roomId;
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const AddReservationPage()),
-                    );
+                    // Perform the desired action when a room is selected
                   },
                 );
               },
+            );
+          } else {
+            return const Center(
+              child: Text('No available rooms found'),
             );
           }
         },

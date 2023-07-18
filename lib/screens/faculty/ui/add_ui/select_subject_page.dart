@@ -42,7 +42,7 @@ class SelectSubjectPage extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SelectRoomPage()),
+                        MaterialPageRoute(builder: (context) => const SelectRoomPage()),
                     );},
                 );
               },

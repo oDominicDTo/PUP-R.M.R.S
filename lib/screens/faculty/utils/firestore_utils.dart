@@ -21,15 +21,6 @@ class FirestoreUtils {
     return snapshot.docs.map((doc) => Course.fromSnapshot(doc)).toList();
   }
 
-  static Future<List<Room>> getAvailableRooms(
-      String buildingId, String floorId, String courseId) async {
-    final querySnapshot = await FirebaseFirestore.instance
-        .collection('buildings/$buildingId/floors/$floorId/rooms')
-        .where('courseId', isEqualTo: courseId)
-        .get();
-    return querySnapshot.docs.map((doc) => Room.fromSnapshot(doc)).toList();
-  }
-
   static Future<List<Course>> getCoursesByProfessor(String professorId) async {
     final coursesQuery = FirebaseFirestore.instance
         .collection('courseProfessors')
@@ -103,4 +94,15 @@ class FirestoreUtils {
       );
     }).toList();
   }
+
+  static Future<List<Room>> getAvailableRooms(
+      String buildingId, String floorId) async {
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('buildings/$buildingId/floors/$floorId/rooms')
+        .where('available', isEqualTo: true)
+        .get();
+
+    return querySnapshot.docs.map((doc) => Room.fromSnapshot(doc)).toList();
+  }
 }
+

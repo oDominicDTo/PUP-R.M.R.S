@@ -13,7 +13,7 @@ class _ThreeFRoomSelectState extends State<ThreeFRoomSelect> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(),
-      backgroundColor: Color(0xFFF0F0F0),
+      backgroundColor: const Color(0xFFF0F0F0),
       body: Stack(
         children: [
           // Background box with text
@@ -24,20 +24,20 @@ class _ThreeFRoomSelectState extends State<ThreeFRoomSelect> {
             child: Container(
               height: 170,
               decoration: BoxDecoration(
-                color: Color(0xFF5B0101),
+                color: const Color(0xFF5B0101),
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.5),
                     blurRadius: 6,
-                    offset: Offset(0, 3),
+                    offset: const Offset(0, 3),
                   ),
                 ],
               ),
               child: Center(
                 child: RichText(
                   textAlign: TextAlign.center,
-                  text: TextSpan(
+                  text: const TextSpan(
                     children: [
                       TextSpan(
                         text: "Building A\n",
@@ -75,7 +75,7 @@ class _ThreeFRoomSelectState extends State<ThreeFRoomSelect> {
                   BoxShadow(
                     color: Colors.black.withOpacity(0.3),
                     blurRadius: 6,
-                    offset: Offset(0, 3),
+                    offset: const Offset(0, 3),
                   ),
                 ],
               ),
@@ -83,8 +83,8 @@ class _ThreeFRoomSelectState extends State<ThreeFRoomSelect> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Add Padding above the "Available Rooms" text
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 20),
                     child: Align(
                       alignment: Alignment.center, // Center the text horizontally
                       child: Text(
@@ -96,7 +96,7 @@ class _ThreeFRoomSelectState extends State<ThreeFRoomSelect> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10), // Adding spacing between title and room boxes
+                  const SizedBox(height: 10), // Adding spacing between title and room boxes
                   Expanded(
                     child: Align(
                       alignment: Alignment.center, // Center the room boxes horizontally
@@ -149,7 +149,7 @@ class RoomBox extends StatelessWidget {
       child: Container(
         width: 255,
         height: 50,
-        margin: EdgeInsets.all(5),
+        margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
@@ -161,14 +161,14 @@ class RoomBox extends StatelessWidget {
             BoxShadow(
               color: Colors.black.withOpacity(0.2),
               blurRadius: 3,
-              offset: Offset(0, 2),
+              offset: const Offset(0, 2),
             ),
           ],
         ),
         child: Center(
           child: Text(
             roomNumber,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:appdevelopment/screens/faculty/utils/firestore_utils.dart';
 import 'package:appdevelopment/screens/faculty/ui/add_ui/select_course_page.dart';
 
-
 import '../../models/floor_model.dart';
 import '../../utils/selection_variables.dart';
 
@@ -16,7 +15,7 @@ class SelectFloorPage extends StatelessWidget {
         title: const Text('Select Floor'),
       ),
       body: FutureBuilder<List<Floor>>(
-        future: FirestoreUtils.getFloorsByBuilding(SelectedBuilding.buildingId ?? ''),
+        future: FirestoreUtils.getFloorsByBuilding(SelectedBuilding.buildingId!),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -31,10 +30,11 @@ class SelectFloorPage extends StatelessWidget {
             return ListView.builder(
               itemCount: floors.length,
               itemBuilder: (context, index) {
+                final floor = floors[index];
                 return ListTile(
-                  title: Text(floors[index].floorName),
+                  title: Text(floor.floorName),
                   onTap: () {
-                    SelectedFloor.floorId = floors[index].floorId;
+                    SelectedFloor.floorId = floor.floorId;
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const SelectCoursePage()),

@@ -5,7 +5,7 @@ import 'package:appdevelopment/constants.dart';
 
 class ViewUsersPage extends StatefulWidget {
   @override
-  _ViewUsersPageState createState() => _ViewUsersPageState();
+  State<StatefulWidget> createState() => _ViewUsersPageState();
 }
 
 class _ViewUsersPageState extends State<ViewUsersPage> {
