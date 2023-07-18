@@ -7,6 +7,35 @@ import '../../utils/selection_variables.dart';
 class SelectRoomPage extends StatelessWidget {
   const SelectRoomPage({Key? key}) : super(key: key);
 
+  void _showConfirmationDialog(BuildContext context, Room room) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirmation'),
+          content: Text('Are you sure you want to reserve at ${room.roomName}?'),
+          actions: [
+            TextButton(
+              child: const Text('Yes'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('No'),
+              onPressed: () {
+                // Perform the reservation action
+                // ...
+
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,8 +43,10 @@ class SelectRoomPage extends StatelessWidget {
         title: const Text('Select Room'),
       ),
       body: FutureBuilder<List<Room>>(
-        future: FirestoreUtils.getAvailableRooms( SelectedBuilding.buildingId!,
-          SelectedFloor.floorId!,),
+        future: FirestoreUtils.getAvailableRooms(
+          SelectedBuilding.buildingId!,
+          SelectedFloor.floorId!,
+        ),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -39,7 +70,7 @@ class SelectRoomPage extends StatelessWidget {
                 return ListTile(
                   title: Text(room.roomName),
                   onTap: () {
-                    // Perform the desired action when a room is selected
+                    _showConfirmationDialog(context, room);
                   },
                 );
               },
