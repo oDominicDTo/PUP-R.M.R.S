@@ -4,14 +4,14 @@
 
 # I.	Introduction
 
-The implementation of the Room Reservation Application (RRA) at PUP Biñan Campus is a technology-driven solution created to effectively oversee and monitor the utilization of rooms and spaces on campus. This application operates as a centralized platform for reserving, monitoring, and optimizing the allocation of different types of rooms, including classrooms, laboratories, and special rooms.
+The implementation of the PUP Room Reservation Application (RRA) at PUP Biñan Campus is a technology-driven solution created to effectively oversee and monitor the utilization of rooms and spaces on campus. This application operates as a centralized platform for reserving, monitoring, and optimizing the allocation of different types of rooms, including classrooms, laboratories, and special rooms.
 
 While the main objective is to enhance the scheduling and usage of rooms, while preventing conflicts. The application also offers a user-friendly interface that enables instructors and lobby attendants (guards) to easily check the availability of rooms, generate reports, and track real-time occupancy.
 
 # Target Audience
 	
  
-The Room Reservation Application (RRA) efficiently manages and optimizes the allocation of classrooms, catering to the needs of both lobby attendants and professors, ensuring seamless scheduling and reservation processes.
+The PUP Room Reservation Application (RRA) efficiently manages and optimizes the allocation of classrooms, catering to the needs of both lobby attendants and professors, ensuring seamless scheduling and reservation processes.
 
 # Key Features and Benefits
 
@@ -92,16 +92,24 @@ The Room Reservation Application (RRA) at PUP Biñan Campus is a centralized pla
 1.	Purpose: RRA effectively oversees room utilization, allowing for seamless scheduling, monitoring, and optimization of different types of rooms on campus.
 2.	Target Audience: The application caters to both lobby attendants and professors, facilitating smooth scheduling and reservation processes.
 3.	Key Features and Benefits:
-•	Efficient room management for security patrol officers and professors.
-•	Dedicated platform for reserving and monitoring classrooms, labs, and specialized spaces.
-•	Improved scheduling by providing real-time information on room availability.
-•	Conflict avoidance through comprehensive room availability overview.
-•	User-friendly interface for easy navigation and real-time occupancy tracking.
-•	Reporting and analytics for data-driven decision-making.
-•	Enhanced communication among stakeholders for efficient coordination.
-•	Contributes to overall campus efficiency and productivity.
 
-In summary, the Room Reservation Application (RRA) offers a specialized platform for effectively managing and optimizing room utilization at PUP Biñan Campus. It provides enhanced scheduling capabilities, conflict avoidance, real-time occupancy tracking, comprehensive reporting, and improved communication, ultimately leading to increased efficiency and productivity across campus facilities.
+	•	Efficient room management for security patrol officers and professors.
+	
+ 	•	Dedicated platform for reserving and monitoring classrooms, labs, and specialized spaces.
+
+ 	•	Improved scheduling by providing real-time information on room availability.
+
+ 	•	Conflict avoidance through comprehensive room availability overview.
+	
+ 	•	User-friendly interface for easy navigation and real-time occupancy tracking.
+	
+ 	•	Reporting and analytics for data-driven decision-making.
+	
+ 	•	Enhanced communication among stakeholders for efficient coordination.
+	
+ 	•	Contributes to overall campus efficiency and productivity.
+
+In summary, the PUP Room Reservation Application (RRA) offers a specialized platform for effectively managing and optimizing room utilization at PUP Biñan Campus. It provides enhanced scheduling capabilities, conflict avoidance, real-time occupancy tracking, comprehensive reporting, and improved communication, ultimately leading to increased efficiency and productivity across campus facilities.
     
 # We are inviting you!
-Discover the convenience and benefits of using our mobile application for room reservations at PUP Biñan Campus. With an intuitive interface and real-time information, you can easily reserve rooms, avoid conflicts, and optimize resource utilization. Embrace this technology to enhance efficiency, streamline communication, and make informed decisions. Join us in creating a more organized and productive campus environment.
+Discover the convenience and benefits of using our mobile application PUP R.R.A for room reservations at PUP Biñan Campus. With an intuitive interface and real-time information, you can easily reserve rooms, avoid conflicts, and optimize resource utilization. Embrace this technology to enhance efficiency, streamline communication, and make informed decisions. Join us in creating a more organized and productive campus environment.
