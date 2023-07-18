@@ -75,50 +75,70 @@ class AddBuilding extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  GestureDetector(
-                    onTap: () {
-                      SelectedBuilding.buildingId = 'buildingb';
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const SelectFloorPage()),
-                      );
-                    },
-                    child: Container(
-                      width: 303,
-                      height: 287,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF5B0101),
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            spreadRadius: 2,
-                            blurRadius: 5,
-                            offset: const Offset(0, 10),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 268,
-                            height: 218,
-                            child: Image.asset(
-                              'assets/pupbuilding2.png',
-                              fit: BoxFit.cover,
+                  IgnorePointer(
+                    child: GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Building B'),
+                              content: const Text('Building B is not yet available'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      child: Container(
+                        width: 303,
+                        height: 287,
+                        decoration: BoxDecoration(
+                          color: Colors.grey, // Set the background color to gray
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset: const Offset(0, 10),
                             ),
-                          ),
-                          const SizedBox(height: 10),
-                          const Text(
-                            'Building B',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                          ],
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 268,
+                              height: 218,
+                              child: ColorFiltered(
+                                colorFilter: ColorFilter.mode(
+                                  Colors.grey,
+                                  BlendMode.saturation,
+                                ),
+                                child: Image.asset(
+                                  'assets/pupbuilding2.png',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
-                          ),
-                        ],
+                            const SizedBox(height: 10),
+                            const Text(
+                              'Building B',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
