@@ -13,6 +13,7 @@ class SelectSubjectPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Select Subject'),
       ),
+      backgroundColor: Colors.white,
       body: FutureBuilder<List<Subject>>(
         future: FirestoreUtils.getSubjectsByCourse(courseId),
         builder: (context, snapshot) {
@@ -45,8 +46,10 @@ class SelectSubjectPage extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => SelectRoomPage(
+
                           subjectId: subject.subjectId,
                           professorId: subject.professorId,
+                          courseId: courseId,
                         ),
                       ),
                     );

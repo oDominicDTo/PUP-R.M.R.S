@@ -1,5 +1,7 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
-import 'package:appdevelopment/screens/faculty/models/reservation_model.dart';
+import 'package:appdevelopment/screens/faculty/models/another_reservation_model.dart';
 import 'package:appdevelopment/screens/faculty/utils/firestore_utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -8,15 +10,14 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (user != null) {
-      final professorId = user!.uid;
-
-      return Scaffold(
+/*    if (user != null) {
+      final professorId = user!.uid;*/
+    return Scaffold(
         appBar: AppBar(
-          title: const Text('Reservation History'),
-        ),
-        body: FutureBuilder<List<Reservation>>(
-          future: FirestoreUtils.getReservationsByProfessorAndDate(professorId, DateTime.now()),
+          title: const Text('Home'),
+        ));
+    /* body: StreamBuilder<List<ReservationModel>>(
+          stream: FirestoreUtils.getReservationsByProfessorId(professorId),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -26,46 +27,41 @@ class HomePage extends StatelessWidget {
               return const Center(
                 child: Text('Error retrieving reservations'),
               );
-            } else {
-              final reservations = snapshot.data ?? [];
-
+            } else if (snapshot.hasData && snapshot.data != null) {
+              final reservations = snapshot.data!;
               if (reservations.isEmpty) {
                 return const Center(
                   child: Text('No reservations found'),
                 );
               }
-
               return ListView.builder(
                 itemCount: reservations.length,
                 itemBuilder: (context, index) {
                   final reservation = reservations[index];
                   return ListTile(
-                    title: Text(reservation.roomName),
+                    title: Text('Room: ${reservation.roomName}'),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Subject: ${reservation.subject}'),
-                        Text('Course: ${reservation.course}'),
-                        Text('Time: ${reservation.initialTime} - ${reservation.finalTime}'),
+                        Text('Subject: ${reservation.subjectName}'),
+                        // Add more details as needed
                       ],
                     ),
                   );
                 },
+              );
+            } else {
+              return const Center(
+                child: Text('No reservations found'),
               );
             }
           },
         ),
       );
     } else {
-      // Handle the case when the user is not logged in
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text('Reservation History'),
-        ),
-        body: Center(
-          child: Text('User not logged in'),
-        ),
+      return const Center(
+        child: Text('User not found'),
       );
     }
-  }
-}
+  }*/
+  }}

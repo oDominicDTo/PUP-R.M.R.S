@@ -38,7 +38,7 @@ class SelectFloorPage extends StatelessWidget {
                     SelectedFloor.floorId = floor.floorId;
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const SelectCoursePage()),
+                      MaterialPageRoute(builder: (context) =>  SelectCoursePage()),
                     );
                   },
                 );

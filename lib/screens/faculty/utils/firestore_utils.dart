@@ -6,7 +6,6 @@ import '../models/floor_model.dart';
 
 import '../models/reservation_model.dart';
 import '../models/subject_model.dart';
-
 class FirestoreUtils {
   static Future<List<Floor>> getFloorsByBuilding(String buildingId) async {
     final querySnapshot = await FirebaseFirestore.instance
@@ -17,10 +16,7 @@ class FirestoreUtils {
         .toList();
   }
 
-  static Future<List<Course>> getCourses() async {
-    final snapshot = await FirebaseFirestore.instance.collection('courses').get();
-    return snapshot.docs.map((doc) => Course.fromSnapshot(doc)).toList();
-  }
+
 
   static Future<List<Course>> getCoursesByProfessor(String professorId) async {
     final coursesQuery = FirebaseFirestore.instance
@@ -79,7 +75,7 @@ class FirestoreUtils {
         .get();
 
     return subjectsSnapshot.docs.map((doc) {
-      final data = doc.data() as Map<String, dynamic>;
+      final data = doc.data();
       final subjectId = doc.id;
       final subjectName = data['subjectName'] as String;
       final professorId = data['professorId'] as String;
@@ -106,16 +102,39 @@ class FirestoreUtils {
     return querySnapshot.docs.map((doc) => Room.fromSnapshot(doc)).toList();
   }
 
-  static Future<List<Reservation>> getReservationsByProfessorAndDate(String professorId, DateTime date) async {
-    final reservationsQuery = FirebaseFirestore.instance
-        .collection('reservations')
-        .where('professorId', isEqualTo: professorId)
-        .where('reservationDate', isEqualTo: date)
+  static Future<List<Floor>> getFloorsByBuildings(String buildingId) async {
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('buildings/$buildingId/floors')
         .get();
-
-    final reservationsSnapshot = await reservationsQuery;
-    return reservationsSnapshot.docs.map((doc) => Reservation.fromSnapshot(doc)).toList();
+    return querySnapshot.docs
+        .map((doc) => Floor.fromSnapshot(doc))
+        .toList();
   }
 
-}
 
+  static Future<List<Reservation>> getReservationsByProfessorId(String professorId) async {
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('reservations')
+        .where('professorId', isEqualTo: professorId)
+        .get();
+
+    return querySnapshot.docs.map((doc) => Reservation.fromSnapshot(doc)).toList();
+  }
+  static Future<Course> getCourseById(String courseId) async {
+    final courseDoc = await FirebaseFirestore.instance.collection('courses').doc(courseId).get();
+
+    if (courseDoc.exists) {
+      final data = courseDoc.data() as Map<String, dynamic>;
+      final courseName = data['courseName'] as String;
+      final courseColor = data['courseColor'] as String;
+
+      return Course(
+        courseId: courseId,
+        courseName: courseName,
+        courseColor: courseColor,
+      );
+    } else {
+      throw Exception('Course not found');
+    }
+  }
+}

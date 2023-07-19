@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:ui';
 
-class Reservation {
+class ReservationModel {
   final String id;
-  final String buildingId; // Added property
-  final String floorId; // Added property
+  final String buildingId;
+  final String floorId;
   final String roomName;
   final String subject;
   final String course;
@@ -12,7 +12,7 @@ class Reservation {
   final DateTime finalTime;
   final Color courseColor;
 
-  Reservation({
+  ReservationModel({
     required this.id,
     required this.buildingId,
     required this.floorId,
@@ -24,9 +24,9 @@ class Reservation {
     required this.courseColor,
   });
 
-  factory Reservation.fromSnapshot(DocumentSnapshot snapshot) {
+  factory ReservationModel.fromSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data() as Map<String, dynamic>;
-    return Reservation(
+    return ReservationModel(
       id: snapshot.id,
       buildingId: data['buildingId'],
       floorId: data['floorId'],
@@ -39,8 +39,8 @@ class Reservation {
     );
   }
 
-  factory Reservation.fromJson(Map<String, dynamic> json) {
-    return Reservation(
+  factory ReservationModel.fromJson(Map<String, dynamic> json) {
+    return ReservationModel(
       id: json['id'],
       buildingId: json['buildingId'],
       floorId: json['floorId'],
