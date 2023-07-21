@@ -18,7 +18,7 @@ class ProfPage extends StatefulWidget {
 class _ProfPageState extends State<ProfPage> {
   int index = 0;
   final screens = [
-     HomePage(),
+     const HomePage(),
     const AddBuilding(),
     const ProfNotificationPage(),
     const ProfSettings(),

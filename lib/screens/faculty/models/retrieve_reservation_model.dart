@@ -8,6 +8,12 @@ class Reservation {
   final Timestamp reservationDate;
   final String roomId;
   final String subjectId;
+  final String? subjectName; // Use String? to handle nullable values
+  final String courseId;
+  final String? courseName; // Use String? to handle nullable values
+  final Timestamp initialTime;
+  final Timestamp finalTime;
+  final String? roomName; // Use String? to handle nullable values
 
   Reservation({
     required this.id,
@@ -17,6 +23,12 @@ class Reservation {
     required this.reservationDate,
     required this.roomId,
     required this.subjectId,
+    this.subjectName, // Make subjectName nullable
+    required this.courseId,
+    this.courseName, // Make courseName nullable
+    required this.initialTime,
+    required this.finalTime,
+    this.roomName, // Make roomName nullable
   });
 
   factory Reservation.fromSnapshot(DocumentSnapshot snapshot) {
@@ -29,6 +41,12 @@ class Reservation {
       reservationDate: data['reservationDate'],
       roomId: data['roomId'],
       subjectId: data['subjectId'],
+      subjectName: data['subjectName'],
+      courseId: data['courseId'],
+      courseName: data['courseName'],
+      initialTime: data['initialTime'],
+      finalTime: data['finalTime'],
+      roomName: data['roomName'],
     );
   }
 }

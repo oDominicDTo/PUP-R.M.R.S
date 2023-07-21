@@ -77,11 +77,12 @@ class FirestoreUtils {
     }
   }
 
-  static Future<List<Subject>> getSubjectsByCourse(String courseId) async {
+  static Future<List<Subject>> getSubjectsByCourse(String courseId, String professorId) async {
     final subjectsSnapshot = await FirebaseFirestore.instance
         .collection('courses')
         .doc(courseId)
         .collection('subjects')
+        .where('professorId', isEqualTo: professorId)
         .get();
 
     return subjectsSnapshot.docs.map((doc) {

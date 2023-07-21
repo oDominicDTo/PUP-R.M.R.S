@@ -1,4 +1,5 @@
 import 'package:appdevelopment/screens/faculty/ui/home_professor_page.dart';
+import 'package:appdevelopment/screens/faculty/ui/prof_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:appdevelopment/screens/faculty/models/room_model.dart';
@@ -88,7 +89,7 @@ class SelectRoomPage extends StatelessWidget {
 
       // Navigate back to the HomeProfessorPage after adding the reservation
       navigatorKey.currentState?.pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => const ProfPage()),
             (route) => false,
       );
     } catch (error) {
