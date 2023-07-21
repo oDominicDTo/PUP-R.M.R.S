@@ -1,7 +1,9 @@
+import 'package:appdevelopment/screens/faculty/ui/home_professor_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:appdevelopment/screens/faculty/models/room_model.dart';
 import 'package:appdevelopment/screens/faculty/utils/firestore_utils.dart';
+import '../../../../main.dart';
 import '../../utils/selection_variables.dart';
 
 class SelectRoomPage extends StatelessWidget {
@@ -16,8 +18,8 @@ class SelectRoomPage extends StatelessWidget {
     required this.courseId,
   }) : super(key: key);
 
-  void _showConfirmationDialog(BuildContext context, Room room) {
-    showDialog(
+  void _showConfirmationDialog(BuildContext context, Room room) async {
+    final result = await showDialog<bool>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -27,21 +29,25 @@ class SelectRoomPage extends StatelessWidget {
             TextButton(
               child: const Text('Yes'),
               onPressed: () {
-                _addReservation(context, room); // Pass the context here
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(true); // Return true if the user confirms
               },
             ),
             TextButton(
               child: const Text('No'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(false); // Return false if the user cancels
               },
             ),
           ],
         );
       },
     );
+
+    if (result == true) {
+      _addReservation(context, room);
+    }
   }
+
 
   void _showSnackBar(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -79,6 +85,12 @@ class SelectRoomPage extends StatelessWidget {
 
       // Reservation added successfully
       _showSnackBar(context, 'Reservation added successfully');
+
+      // Navigate back to the HomeProfessorPage after adding the reservation
+      navigatorKey.currentState?.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => HomePage()),
+            (route) => false,
+      );
     } catch (error) {
       // Handle any errors from Firestore queries
       _showSnackBar(context, 'Error adding reservation: $error');
@@ -91,6 +103,7 @@ class SelectRoomPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Select Room'),
       ),
+      backgroundColor: Colors.white,
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance
             .collection('buildings')

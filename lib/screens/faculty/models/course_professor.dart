@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CourseProfessor {
   final String professorId;
-  final String courseId;
+  final List<String> courseId;
 
   CourseProfessor({
     required this.professorId,
@@ -11,9 +11,10 @@ class CourseProfessor {
 
   factory CourseProfessor.fromSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data() as Map<String, dynamic>;
+    final List<String>? courseId = data['courseId'] != null ? List<String>.from(data['courseId']) : [];
     return CourseProfessor(
       professorId: data['professorId'],
-      courseId: data['courseId'],
+      courseId: courseId ?? [], // Initialize with an empty list if courseIds is null
     );
   }
 }

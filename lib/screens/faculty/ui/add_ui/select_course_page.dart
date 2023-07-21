@@ -17,10 +17,11 @@ class SelectCoursePage extends StatelessWidget {
           title: const Text('Select Course'),
         ),
         backgroundColor: Colors.white, // Set the background color here
-        body: FutureBuilder<List<Course>>(
-          future: FirestoreUtils.getCoursesByProfessor(professorId),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
+          body: FutureBuilder<List<Course>>(
+            future: FirestoreUtils.getCoursesByProfessor(professorId),
+            builder: (context, snapshot) {
+              print("Snapshot Data: ${snapshot.data}");
+          if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),
               );

@@ -25,9 +25,15 @@ class FirestoreUtils {
         .get();
 
     final coursesSnapshot = await coursesQuery;
-    final courseProfessors = coursesSnapshot.docs.map((doc) => CourseProfessor.fromSnapshot(doc)).toList();
+    final courseProfessors =
+    coursesSnapshot.docs.map((doc) => CourseProfessor.fromSnapshot(doc)).toList();
 
-    final courseIds = courseProfessors.map((cp) => cp.courseId).toList();
+    final List<String> courseIds = [];
+    for (var cp in courseProfessors) {
+      if (cp.courseId.isNotEmpty) {
+        courseIds.addAll(cp.courseId);
+      }
+    }
 
     final courseDetailsQuery = FirebaseFirestore.instance
         .collection('courses')
@@ -39,6 +45,10 @@ class FirestoreUtils {
 
     return courses;
   }
+
+
+
+
 
   static Future<Subject> getSubjectByCourseAndSubjectId(String courseId, String subjectId) async {
     final subjectDoc = await FirebaseFirestore.instance
