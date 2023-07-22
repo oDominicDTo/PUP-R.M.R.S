@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:appdevelopment/screens/welcome-login/ui/welcome_page.dart';
-import 'package:appdevelopment/screens/guard/guard_page.dart';
+import 'package:appdevelopment/screens/guard/ui/guard_page.dart';
 import 'package:appdevelopment/screens/faculty/ui/prof_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 

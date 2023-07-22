@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
             final reservationDocs = snapshot.data!.docs;
             if (reservationDocs.isEmpty) {
               return const Center(
-                child: Text('No upcoming reservations'),
+                child: Text('No Reservations'),
               );
             }
             return ListView.builder(

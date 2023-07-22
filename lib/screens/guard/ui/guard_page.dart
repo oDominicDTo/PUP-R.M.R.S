@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:appdevelopment/constants.dart';
 import 'package:appdevelopment/widgets/app_bar_widget.dart';
-import 'ui/history_page.dart';
+import 'history_page.dart';
 import 'notification_page.dart';
 import 'settings_page.dart';
-import 'ui/home_page.dart';
+import 'home_page.dart';
 
 class GuardPage extends StatefulWidget {
   const GuardPage({Key? key}) : super(key: key);
