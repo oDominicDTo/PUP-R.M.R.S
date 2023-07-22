@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:appdevelopment/screens/faculty/models/retrieve_reservation_model.dart';
+import 'package:appdevelopment/screens/faculty/utils/firestore_utils.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,27 +20,24 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Home'),
       ),
       body: user != null
-          ? StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('reservations')
-            .where('professorId', isEqualTo: user!.uid)
-            .snapshots(),
+          ? FutureBuilder<List<RetrieveReservation>>(
+        future: FirestoreUtils.getReservationsForProfessor(user!.uid),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasData) {
-            final reservationDocs = snapshot.data!.docs;
-            if (reservationDocs.isEmpty) {
+            final reservations = snapshot.data!;
+            if (reservations.isEmpty) {
               return const Center(
                 child: Text('No Reservations'),
               );
             }
             return ListView.builder(
-              itemCount: reservationDocs.length,
+              itemCount: reservations.length,
               itemBuilder: (context, index) {
-                final reservation = Reservation.fromSnapshot(reservationDocs[index]);
+                final reservation = reservations[index];
                 return Card(
                   child: ListTile(
                     title: Text('Room Name: ${reservation.roomName ?? 'N/A'}'),

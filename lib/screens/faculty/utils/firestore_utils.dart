@@ -3,7 +3,7 @@ import 'package:appdevelopment/screens/faculty/models/room_model.dart';
 import '../models/course_model.dart';
 import '../models/course_professor.dart';
 import '../models/floor_model.dart';
-
+import 'package:appdevelopment/screens/faculty/models/retrieve_reservation_model.dart';
 import '../models/reservation_model.dart';
 import '../models/subject_model.dart';
 class FirestoreUtils {
@@ -146,6 +146,23 @@ class FirestoreUtils {
       );
     } else {
       throw Exception('Course not found');
+    }
+  }
+
+  static Future<List<RetrieveReservation>> getReservationsForProfessor(String professorId) async {
+    try {
+      final QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance
+          .collection('reservations')
+          .where('professorId', isEqualTo: professorId)
+          .get();
+
+      final reservationDocs = snapshot.docs;
+      final reservations = reservationDocs.map((doc) => RetrieveReservation.fromSnapshot(doc)).toList();
+
+      return reservations;
+    } catch (error) {
+      // You can handle the error here or throw it to be handled elsewhere
+      throw Exception('Error fetching reservations: $error');
     }
   }
 }
