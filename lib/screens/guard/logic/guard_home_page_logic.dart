@@ -27,7 +27,7 @@ class GuardHomeLogic {
           .where((room) =>
       room.roomName.toLowerCase().contains(lowerCaseQuery) ||
           room.subjectName.toLowerCase().contains(lowerCaseQuery) ||
-          room.course.toLowerCase().contains(lowerCaseQuery) ||
+          room.courseName.toLowerCase().contains(lowerCaseQuery) ||
           room.professorName.toLowerCase().contains(lowerCaseQuery))
           .toList();
     }

@@ -6,7 +6,8 @@ class RetrieveReservation {
   final String? courseName; // Use String? to handle nullable values
   final Timestamp initialTime;
   final Timestamp finalTime;
-  final String? roomName; // Use String? to handle nullable values
+  final String? roomName;
+  final String? courseColor;// Use String? to handle nullable values
 
   RetrieveReservation({
     required this.id,
@@ -15,6 +16,7 @@ class RetrieveReservation {
     required this.initialTime,
     required this.finalTime,
     this.roomName, // Make roomName nullable
+    this.courseColor,
   });
 
   factory RetrieveReservation.fromSnapshot(DocumentSnapshot snapshot) {
@@ -26,6 +28,7 @@ class RetrieveReservation {
       initialTime: data['initialTime'],
       finalTime: data['finalTime'],
       roomName: data['roomName'],
+      courseColor: data['courseColor']
     );
   }
 }

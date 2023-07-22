@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Room {
   final String roomName;
   final String subjectName;
-  final String course;
+  final String courseName;
   final String professorName;
   final String initialTime;
   final String finalTime;
@@ -13,7 +13,7 @@ class Room {
   Room({
     required this.roomName,
     required this.subjectName,
-    required this.course,
+    required this.courseName,
     required this.professorName,
     required this.initialTime,
     required this.finalTime,
@@ -42,7 +42,7 @@ List<Room> rooms = [
 Room(
 roomName: 'Room A',
   subjectName: 'Mathematics',
-  course: 'Calculus',
+  courseName: 'Calculus',
   professorName: 'John Doe',
   initialTime: '5:00 AM',
   finalTime: '10:30 AM',
@@ -52,7 +52,7 @@ roomName: 'Room A',
   Room(
     roomName: 'Room B',
     subjectName: 'Physics',
-    course: 'Mechanics',
+    courseName: 'Mechanics',
     professorName: 'Jane Smith',
     initialTime: '11:00 AM',
     finalTime: '12:30 PM',
@@ -62,7 +62,7 @@ roomName: 'Room A',
   Room(
     roomName: 'Room C',
     subjectName: 'Chemistry',
-    course: 'Organic Chemistry',
+    courseName: 'Organic Chemistry',
     professorName: 'Robert Johnson',
     initialTime: '2:00 PM',
     finalTime: '3:30 PM',

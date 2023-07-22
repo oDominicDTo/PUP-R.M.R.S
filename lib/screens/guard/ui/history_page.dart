@@ -191,7 +191,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
-                                    '${room.course}',
+                                    '${room.courseName}',
                                     style: TextStyle(
                                       fontSize: 15,
                                       color: room.courseColor,
