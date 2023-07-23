@@ -39,9 +39,9 @@ class AuthenticationRepository extends GetxController {
 
     if (documentSnapshot.exists) {
       String role = documentSnapshot.get('userType');
-      if (role == "guard") {
+      if (role == "Guard") {
         Get.offAll(() => const GuardPage());
-      } else if (role == "professor") {
+      } else if (role == "Professor") {
         Get.offAll(() => const ProfPage());
       } else {
         Get.offAll(() => const WelcomeScreen());
