@@ -108,7 +108,7 @@ class _ProfSettingsState extends State<ProfSettings> {
                   child: Align(
                     alignment: Alignment.topLeft, // This aligns the child to the top-left corner
                     child: Padding(
-                      padding: EdgeInsets.only(top: 85, left: 115), // Adjust the top and left padding to position the text
+                      padding: EdgeInsets.only(top: 80, left: 120), // Adjust the top and left padding to position the text
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -116,7 +116,7 @@ class _ProfSettingsState extends State<ProfSettings> {
                             _professorController.currentUser != null ? _professorController.currentUser!.name : '',
                             style: const TextStyle(
                               fontSize: 18,
-                              fontWeight: FontWeight.normal,
+                              fontWeight: FontWeight.w500,
                               fontFamily: 'Poppins',
                               color: Colors.white,
                             ),
@@ -124,8 +124,8 @@ class _ProfSettingsState extends State<ProfSettings> {
                           Text(
                             _professorController.currentUser != null ? _professorController.currentUser!.userType : '',
                             style: const TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.normal,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
                               fontFamily: 'Poppins',
                               color: Colors.white,
                             ),
@@ -139,10 +139,10 @@ class _ProfSettingsState extends State<ProfSettings> {
             ),
           ),
           Positioned(
-            top: 70,
+            top: 65,
             left: 30,
             child: CircleAvatar(
-              radius: 34,
+              radius: 36.5,
               backgroundImage: pickedImage != null
                   ? FileImage(pickedImage!)
                   : pickedImagePath != null

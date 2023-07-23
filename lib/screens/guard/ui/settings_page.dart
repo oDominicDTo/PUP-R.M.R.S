@@ -110,7 +110,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: Align(
                   alignment: Alignment.topLeft, // This aligns the child to the top-left corner
                   child: Padding(
-                    padding: EdgeInsets.only(top: 85, left: 115), // Adjust the top and left padding to position the text
+                    padding: EdgeInsets.only(top: 80, left: 120), // Adjust the top and left padding to position the text
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -126,7 +126,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         Text(
                           _guardController.currentUser != null ? _guardController.currentUser!.userType : '',
                           style: const TextStyle(
-                            fontSize: 13,
+                            fontSize: 15,
                             fontWeight: FontWeight.normal,
                             fontFamily: 'Poppins',
                             color: Colors.white,
@@ -137,9 +137,6 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                 )
 
-
-
-
               ),
             ),
           ),
@@ -147,7 +144,7 @@ class _SettingsPageState extends State<SettingsPage> {
             top: 70,
             left: 30,
             child: CircleAvatar(
-              radius: 34,
+              radius: 36.5,
               backgroundImage: pickedImage != null
                   ? FileImage(pickedImage!)
                   : pickedImagePath != null
