@@ -82,6 +82,48 @@ class _ProfSettingsState extends State<ProfSettings> {
       throw Exception('Image upload failed');
     }
   }
+  void removeProfilePicture() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final collectionRef = FirebaseFirestore.instance.collection('users');
+      final documentRef = collectionRef.doc(user.uid);
+
+      await documentRef.update({
+        'profilePicture': null,
+      });
+
+      setState(() {
+        pickedImage = null;
+        pickedImagePath = null;
+      });
+    }
+  }
+  void _showRemoveConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Remove Profile Picture'),
+          content: Text('Are you sure you want to remove your profile picture?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                removeProfilePicture();
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text('Remove'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,55 +147,73 @@ class _ProfSettingsState extends State<ProfSettings> {
                     bottomRight: Radius.circular(20),
                   ),
                 ),
-                  child: Align(
-                    alignment: Alignment.topLeft, // This aligns the child to the top-left corner
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 80, left: 120), // Adjust the top and left padding to position the text
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            _professorController.currentUser != null ? _professorController.currentUser!.name : '',
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Poppins',
-                              color: Colors.white,
-                            ),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 80, left: 120),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _professorController.currentUser != null
+                              ? _professorController.currentUser!.name
+                              : '',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'Poppins',
+                            color: Colors.white,
                           ),
-                          Text(
-                            _professorController.currentUser != null ? _professorController.currentUser!.userType : '',
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Poppins',
-                              color: Colors.white,
-                            ),
+                        ),
+                        Text(
+                          _professorController.currentUser != null
+                              ? _professorController.currentUser!.userType
+                              : '',
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'Poppins',
+                            color: Colors.white,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  )
-
+                  ),
+                ),
               ),
             ),
           ),
           Positioned(
             top: 65,
             left: 30,
-            child: CircleAvatar(
-              radius: 36.5,
-              backgroundImage: pickedImage != null
-                  ? FileImage(pickedImage!)
-                  : pickedImagePath != null
-                  ? NetworkImage(pickedImagePath!)
-                  : user != null && user!.photoURL != null
-                  ? NetworkImage(user!.photoURL!)
-                  : const AssetImage('assets/loginLogo.png')
-              as ImageProvider<Object>?,
+            child: Stack(
+              children: [
+                CircleAvatar(
+                  radius: 36.5,
+                  backgroundImage: pickedImage != null
+                      ? FileImage(pickedImage!)
+                      : pickedImagePath != null
+                      ? NetworkImage(pickedImagePath!)
+                      : user != null && user!.photoURL != null
+                      ? NetworkImage(user!.photoURL!)
+                      : const AssetImage('assets/loginLogo.png')
+                  as ImageProvider<Object>?,
+                ),
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: IconButton(
+                    icon: Icon(Icons.edit),
+                    onPressed: () {
+                      _showRemoveConfirmationDialog(); // Show the confirmation popup
+                    },
+                    color: Colors.white,
+                  ),
+                ),
+              ],
             ),
           ),
-          const Positioned(
+          Positioned(
             top: 5,
             left: 30,
             child: Text(
