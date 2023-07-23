@@ -105,24 +105,36 @@ class _ProfSettingsState extends State<ProfSettings> {
                     bottomRight: Radius.circular(20),
                   ),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 20),
-                    Text(
-                      _professorController.currentUser != null
-                          ? _professorController.currentUser!.name
-                          : '',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
-                        fontFamily: 'Poppins',
-                        color: Colors.white,
+                  child: Align(
+                    alignment: Alignment.topLeft, // This aligns the child to the top-left corner
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 85, left: 115), // Adjust the top and left padding to position the text
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            _professorController.currentUser != null ? _professorController.currentUser!.name : '',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.normal,
+                              fontFamily: 'Poppins',
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            _professorController.currentUser != null ? _professorController.currentUser!.userType : '',
+                            style: const TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.normal,
+                              fontFamily: 'Poppins',
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  )
+
               ),
             ),
           ),
