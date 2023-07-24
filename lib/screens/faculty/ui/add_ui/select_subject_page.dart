@@ -57,14 +57,14 @@ class SelectSubjectPage extends StatelessWidget {
                   padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
-                      Text(
+                      const Text(
                         "Choose Subject",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Expanded(
                         child: FutureBuilder<List<Subject>>(
                           future: FirestoreUtils.getSubjectsByCourse(courseId, professorId),
@@ -87,7 +87,7 @@ class SelectSubjectPage extends StatelessWidget {
                                     color: Colors.white,
                                     elevation: 2,
                                     shape: RoundedRectangleBorder(
-                                      side: BorderSide(color: Colors.black),
+                                      side: const BorderSide(color: Colors.black),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: ListTile(
@@ -130,7 +130,7 @@ class SelectSubjectPage extends StatelessWidget {
       );
     }
     // Return a placeholder widget or handle the case when the user is null
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: CircularProgressIndicator(),
       ),
