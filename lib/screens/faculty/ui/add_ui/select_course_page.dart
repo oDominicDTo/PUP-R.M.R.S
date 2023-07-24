@@ -78,15 +78,19 @@ class SelectCoursePage extends StatelessWidget {
                                 child: Text('Error retrieving courses'),
                               );
                             } else {
+
                               final courses = snapshot.data ?? [];
+
                               return ListView.builder(
                                 itemCount: courses.length,
                                 itemBuilder: (context, index) {
+
                                   return Center(
                                     child: Card(
                                       elevation: 2,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10),
+                                        side: BorderSide(color: Colors.black, width: 1.0),
                                       ),
                                       child: ListTile(
                                         title: Text(courses[index].courseName),
