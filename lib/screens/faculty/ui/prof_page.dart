@@ -71,7 +71,7 @@ class _ProfPageState extends State<ProfPage> {
                   Icons.add_box_rounded,
                   color: kDarkRed,
                 ),
-                label: 'Add',
+                label: 'Reserve',
               ),
               NavigationDestination(
                 icon: Icon(Icons.notifications_outlined),
