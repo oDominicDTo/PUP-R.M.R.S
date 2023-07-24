@@ -5,8 +5,16 @@ import 'package:appdevelopment/screens/welcome-login/controllers/login_controlle
 
 import 'forget_password.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool isLoading = false; // Step 1: Add loading state variable
+
 
   @override
   Widget build(BuildContext context) {
@@ -288,7 +296,7 @@ class LoginPage extends StatelessWidget {
                                 alignment: Alignment.center,
                                 width: size.width * .8,
                                 child: ElevatedButton(
-                                  onPressed: () => controller.login(),
+                                  onPressed: isLoading ? null : () => _handleLogin(controller), // Step 2: Disable button while loading
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: kDarkRed,
                                     padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
@@ -296,7 +304,15 @@ class LoginPage extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(30),
                                     ),
                                   ),
-                                  child: const Text(
+                                  child: isLoading // Step 2: Show CircularProgressIndicator when loading is true
+                                      ? SizedBox(
+                                    width: 20,
+                                    height: 20,
+                                    child: CircularProgressIndicator(
+                                      color: kPrimaryColor,
+                                    ),
+                                  )
+                                      : const Text(
                                     "Login",
                                     style: TextStyle(
                                       fontSize: 18,
@@ -318,5 +334,17 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _handleLogin(LoginController controller) async {
+    setState(() {
+      isLoading = true; // Step 3: Set loading state to true
+    });
+
+    await controller.login();
+
+    setState(() {
+      isLoading = false; // Step 3: Set loading state back to false after login is complete
+    });
   }
 }
