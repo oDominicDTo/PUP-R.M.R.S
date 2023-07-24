@@ -157,12 +157,38 @@ class FirestoreUtils {
           .get();
 
       final reservationDocs = snapshot.docs;
-      final reservations = reservationDocs.map((doc) => RetrieveReservation.fromSnapshot(doc)).toList();
+      final reservations = reservationDocs.map((doc) => _convertToReservation(doc)).toList();
 
       return reservations;
     } catch (error) {
       // You can handle the error here or throw it to be handled elsewhere
       throw Exception('Error fetching reservations: $error');
+    }
+  }
+
+  static RetrieveReservation _convertToReservation(DocumentSnapshot<Map<String, dynamic>> doc) {
+    final data = doc.data()!;
+    final id = doc.id; // Get the document ID
+
+    return RetrieveReservation(
+      id: id,
+      subjectName: data['subjectName'],
+      courseName: data['courseName'],
+      initialTime: data['initialTime'],
+      finalTime: data['finalTime'],
+      roomName: data['roomName'],
+      courseColor: data['courseColor'],
+    );
+  }
+
+  static deleteReservation(String documentId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('reservations') // Replace with your Firestore collection name
+          .doc(documentId)
+          .delete();
+    } catch (e) {
+      print('Error deleting document: $e');
     }
   }
 }
