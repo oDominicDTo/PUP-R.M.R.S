@@ -173,6 +173,7 @@ class FirestoreUtils {
       roomName: data['roomName'],
       courseColor: data['courseColor'],
       reservationDate: data['reservationDate'],
+      professorId: data['professorId'],
 
     );
   }

@@ -9,6 +9,7 @@ class RetrieveReservation {
   final String? roomName;
   final String? courseColor;
   final Timestamp reservationDate;
+  final String professorId;
 
   RetrieveReservation({
     required this.id, // Add the document ID parameter to the constructor
@@ -16,9 +17,10 @@ class RetrieveReservation {
     this.courseName,
     required this.initialTime,
     required this.finalTime,
-    this.roomName,
+    required this.roomName,
     this.courseColor,
     required this.reservationDate,
+    required this.professorId,
   });
 
   factory RetrieveReservation.fromSnapshot(DocumentSnapshot snapshot) {
@@ -32,6 +34,7 @@ class RetrieveReservation {
       roomName: data['roomName'],
       courseColor: data['courseColor'],
       reservationDate: data['reservationDate'],
+      professorId: data['professorId'],
     );
   }
 }
