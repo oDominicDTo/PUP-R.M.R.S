@@ -8,6 +8,7 @@ class RetrieveReservation {
   late final Timestamp finalTime;
   final String? roomName;
   final String? courseColor;
+  final Timestamp reservationDate;
 
   RetrieveReservation({
     required this.id, // Add the document ID parameter to the constructor
@@ -17,6 +18,7 @@ class RetrieveReservation {
     required this.finalTime,
     this.roomName,
     this.courseColor,
+    required this.reservationDate,
   });
 
   factory RetrieveReservation.fromSnapshot(DocumentSnapshot snapshot) {
@@ -29,6 +31,7 @@ class RetrieveReservation {
       finalTime: data['finalTime'],
       roomName: data['roomName'],
       courseColor: data['courseColor'],
+      reservationDate: data['reservationDate'],
     );
   }
 }

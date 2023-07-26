@@ -148,16 +148,32 @@ class FirestoreUtils {
       throw Exception('Course not found');
     }
   }
-
-  static Future<List<RetrieveReservation>> getReservationsForProfessor(String professorId) async {
+  static DateTime getCurrentDate() {
+    return DateTime.now();
+  }
+  static Future<List<RetrieveReservation>> getReservationsForProfessor(
+      String professorId) async {
     try {
-      final QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance
+      final DateTime currentDate = DateTime.now();
+      final QuerySnapshot<Map<String, dynamic>> snapshot =
+      await FirebaseFirestore.instance
           .collection('reservations')
           .where('professorId', isEqualTo: professorId)
           .get();
 
-      final reservationDocs = snapshot.docs;
-      final reservations = reservationDocs.map((doc) => _convertToReservation(doc)).toList();
+      final reservations = snapshot.docs
+          .map((doc) => _convertToReservation(doc))
+          .where((reservation) {
+        // Convert the reservationDate timestamp to DateTime
+        final Timestamp reservationDateTimestamp = reservation.reservationDate;
+        final DateTime reservationDate = reservationDateTimestamp.toDate();
+
+        // Compare only the date (year, month, and day) without considering the time
+        return currentDate.year == reservationDate.year &&
+            currentDate.month == reservationDate.month &&
+            currentDate.day == reservationDate.day;
+      })
+          .toList();
 
       return reservations;
     } catch (error) {
@@ -165,7 +181,6 @@ class FirestoreUtils {
       throw Exception('Error fetching reservations: $error');
     }
   }
-
   static RetrieveReservation _convertToReservation(DocumentSnapshot<Map<String, dynamic>> doc) {
     final data = doc.data()!;
     final id = doc.id; // Get the document ID
@@ -178,8 +193,11 @@ class FirestoreUtils {
       finalTime: data['finalTime'],
       roomName: data['roomName'],
       courseColor: data['courseColor'],
+      reservationDate: data['reservationDate'],
+
     );
   }
+
 
   static deleteReservation(String documentId) async {
     try {
