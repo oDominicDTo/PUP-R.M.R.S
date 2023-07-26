@@ -25,6 +25,7 @@ class _ProfSettingsState extends State<ProfSettings> {
   File? pickedImage;
   String? imageUrl;
   String? pickedImagePath;
+  double _circleAvatarScale = 1.0;
 
   @override
   void initState() {
@@ -127,118 +128,134 @@ class _ProfSettingsState extends State<ProfSettings> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+    final double headerHeight = isPortrait
+        ? MediaQuery.of(context).size.height * 0.22
+        : MediaQuery.of(context).size.width * 0.22;
+
+    final double avatarSize = MediaQuery.of(context).size.shortestSide * 0.11;
+
     return Scaffold(
       backgroundColor: kMainPrimaryColor,
-      body: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: Material(
-              color: Colors.transparent,
-              elevation: 10,
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.22,
-                decoration: const BoxDecoration(
-                  color: kDarkRed,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                  ),
-                ),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 80, left: 120),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          _professorController.currentUser != null
-                              ? _professorController.currentUser!.name
-                              : '',
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'Poppins',
-                            color: Colors.white,
-                          ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Material(
+                  color: Colors.transparent,
+                  elevation: 10,
+                  child: Container(
+                    height: headerHeight,
+                    decoration: const BoxDecoration(
+                      color: kDarkRed,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                      ),
+                    ),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: headerHeight * 0.5,
+                          left: isPortrait ? MediaQuery.of(context).size.width * 0.3 : MediaQuery.of(context).size.width * 0.2,
                         ),
-                        Text(
-                          _professorController.currentUser != null
-                              ? _professorController.currentUser!.userType
-                              : '',
-                          style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'Poppins',
-                            color: Colors.white,
-                          ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              _professorController.currentUser != null
+                                  ? _professorController.currentUser!.name
+                                  : '',
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Poppins',
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              _professorController.currentUser != null
+                                  ? _professorController.currentUser!.userType
+                                  : '',
+                              style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Poppins',
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 65,
-            left: 30,
-            child: Stack(
-              children: [
-                CircleAvatar(
-                  radius: 36.5,
-                  backgroundImage: pickedImage != null
-                      ? FileImage(pickedImage!)
-                      : pickedImagePath != null
-                      ? NetworkImage(pickedImagePath!)
-                      : user != null && user!.photoURL != null
-                      ? NetworkImage(user!.photoURL!)
-                      : const AssetImage('assets/loginLogo.png')
-                  as ImageProvider<Object>?,
+                Positioned(
+                  top: headerHeight * 0.4,
+                  left: isPortrait ? MediaQuery.of(context).size.width * 0.06 : MediaQuery.of(context).size.width * 0.06,
+                  child: Transform.scale(
+                    scale: _circleAvatarScale,
+                    child: GestureDetector(
+                      onScaleUpdate: (details) {
+                        setState(() {
+                          _circleAvatarScale = details.scale;
+                        });
+                      },
+                      child: Stack(
+                        children: [
+                          CircleAvatar(
+                            radius: avatarSize,
+                            backgroundImage: pickedImage != null
+                                ? FileImage(pickedImage!)
+                                : pickedImagePath != null
+                                ? NetworkImage(pickedImagePath!)
+                                : user != null && user!.photoURL != null
+                                ? NetworkImage(user!.photoURL!)
+                                : const AssetImage('assets/loginLogo.png') as ImageProvider<Object>?,
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: IconButton(
+                              icon: Icon(Icons.edit),
+                              onPressed: () {
+                                _showRemoveConfirmationDialog(); // Show the confirmation popup
+                              },
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
                 Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: () {
-                      _showRemoveConfirmationDialog(); // Show the confirmation popup
-                    },
-                    color: Colors.white,
+                  top: headerHeight * 0.1,
+                  left: isPortrait ? MediaQuery.of(context).size.width * 0.05 : MediaQuery.of(context).size.width * 0.03,
+                  child: Text(
+                    'Settings',
+                    style: TextStyle(
+                      fontSize: isPortrait ? 24 : 18,
+                      fontWeight: FontWeight.normal,
+                      fontFamily: 'Poppins',
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],
             ),
-          ),
-          Positioned(
-            top: 5,
-            left: 30,
-            child: Text(
-              'Settings',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.normal,
-                fontFamily: 'Poppins',
-                color: Colors.white,
-              ),
-            ),
-          ),
-          Positioned(
-            top: MediaQuery.of(context).size.height * 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 2),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
                     onTap: () {
-                      updateProfilePicture(); // Call the function to select and upload the image
+                      updateProfilePicture();
                     },
                     child: Container(
                       width: double.infinity,
@@ -254,8 +271,8 @@ class _ProfSettingsState extends State<ProfSettings> {
                           ),
                         ],
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.only(left: 20),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20),
                         child: Row(
                           children: [
                             Icon(Icons.camera_alt, color: Colors.black),
@@ -274,7 +291,7 @@ class _ProfSettingsState extends State<ProfSettings> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -282,7 +299,7 @@ class _ProfSettingsState extends State<ProfSettings> {
                         MaterialPageRoute(
                           builder: (context) => TermsandConditions(),
                         ),
-                      ); // Perform action for button 3
+                      );
                     },
                     child: Container(
                       width: double.infinity,
@@ -298,8 +315,8 @@ class _ProfSettingsState extends State<ProfSettings> {
                           ),
                         ],
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.only(left: 20),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20),
                         child: Row(
                           children: [
                             Icon(Icons.pending_actions, color: Colors.black),
@@ -318,7 +335,7 @@ class _ProfSettingsState extends State<ProfSettings> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -326,7 +343,7 @@ class _ProfSettingsState extends State<ProfSettings> {
                         MaterialPageRoute(
                           builder: (context) => PrivacyPolicy(),
                         ),
-                      ); // Perform action for button 4
+                      );
                     },
                     child: Container(
                       width: double.infinity,
@@ -342,8 +359,8 @@ class _ProfSettingsState extends State<ProfSettings> {
                           ),
                         ],
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.only(left: 20),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20),
                         child: Row(
                           children: [
                             Icon(Icons.policy, color: Colors.black),
@@ -362,7 +379,7 @@ class _ProfSettingsState extends State<ProfSettings> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {
                       AuthenticationRepository.instance.logout();
@@ -381,8 +398,8 @@ class _ProfSettingsState extends State<ProfSettings> {
                           ),
                         ],
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.only(left: 20),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20),
                         child: Row(
                           children: [
                             Icon(Icons.logout, color: Colors.black),
@@ -404,9 +421,18 @@ class _ProfSettingsState extends State<ProfSettings> {
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
+
+
+
+
+
+
+
+
+
 }

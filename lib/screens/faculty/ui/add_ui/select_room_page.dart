@@ -1,4 +1,3 @@
-import 'package:appdevelopment/screens/faculty/ui/home_professor_page.dart';
 import 'package:appdevelopment/screens/faculty/ui/prof_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -105,49 +104,114 @@ class SelectRoomPage extends StatelessWidget {
         title: const Text('Select Room'),
       ),
       backgroundColor: Colors.white,
-      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: FirebaseFirestore.instance
-            .collection('buildings')
-            .doc(SelectedBuilding.buildingId)
-            .collection('floors')
-            .doc(SelectedFloor.floorId)
-            .collection('rooms')
-            .where('available', isEqualTo: true)
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Center(
-              child: Text('Error retrieving rooms'),
-            );
-          }
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Container(
+              color: Colors.grey,
+              child: Stack(
+                children: [
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(14),
+                        bottomRight: Radius.circular(14),
+                      ),
+                      child: Container(
+                        color: const Color(0xFF5B0101),
+                        height: MediaQuery.of(context).size.height * 0.2,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.16,
+              left: 20,
+              right: 20,
+              bottom: MediaQuery.of(context).size.height * 0.15,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Choose Room", // Add the "Choose Room" text
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Expanded(
+                        child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                          stream: FirebaseFirestore.instance
+                              .collection('buildings')
+                              .doc(SelectedBuilding.buildingId)
+                              .collection('floors')
+                              .doc(SelectedFloor.floorId)
+                              .collection('rooms')
+                              .where('available', isEqualTo: true)
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) {
+                              return const Center(
+                                child: Text('Error retrieving rooms'),
+                              );
+                            }
 
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
 
-          final rooms = snapshot.data?.docs.map((doc) => Room.fromSnapshot(doc)).toList();
+                            final rooms = snapshot.data?.docs.map((doc) => Room.fromSnapshot(doc)).toList();
 
-          if (rooms == null || rooms.isEmpty) {
-            return const Center(
-              child: Text('No available rooms found'),
-            );
-          }
+                            if (rooms == null || rooms.isEmpty) {
+                              return const Center(
+                                child: Text('No available rooms found'),
+                              );
+                            }
 
-          return ListView.builder(
-            itemCount: rooms.length,
-            itemBuilder: (context, index) {
-              final room = rooms[index];
-              return ListTile(
-                title: Text(room.roomName),
-                onTap: () {
-                  _showConfirmationDialog(context, room);
-                },
-              );
-            },
-          );
-        },
+                            return ListView.builder(
+                              itemCount: rooms.length,
+                              itemBuilder: (context, index) {
+                                final room = rooms[index];
+                                return Card(
+                                  color: Colors.white,
+                                  elevation: 2,
+                                  shape: RoundedRectangleBorder(
+                                    side: const BorderSide(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: ListTile(
+                                    title: Text(room.roomName),
+                                    onTap: () {
+                                      _showConfirmationDialog(context, room);
+                                    },
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
