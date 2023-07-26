@@ -4,8 +4,8 @@ class RetrieveReservation {
   final String id; // Add the document ID field
   final String? subjectName;
   final String? courseName;
-  final Timestamp initialTime;
-  final Timestamp finalTime;
+  late final Timestamp initialTime;
+  late final Timestamp finalTime;
   final String? roomName;
   final String? courseColor;
 

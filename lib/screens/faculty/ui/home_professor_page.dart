@@ -6,6 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:appdevelopment/screens/faculty/utils/color_utils.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:appdevelopment/screens/faculty/utils/confirmation_dialog.dart';
+
+import '../widgets/modify_dialog.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -92,8 +94,11 @@ class _HomePageState extends State<HomePage> {
                             foregroundColor: Colors.white,
                             icon: Icons.edit,
                             label: 'Modify',
-                            onPressed: (BuildContext context) {  },
+                            onPressed: (BuildContext context) {
+                              _showModifyDialog(reservation);
+                            },
                           ),
+
                           SlidableAction(
                             backgroundColor: Colors.red.shade800,
                             foregroundColor: Colors.white,
@@ -195,5 +200,26 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       reservations.remove(reservation);
     });
+  }
+  void _showModifyDialog(RetrieveReservation reservation) async {
+    // ... Other existing code ...
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return ModifyDialog(
+          reservation: reservation,
+          onSave: (modifiedReservation) {
+            // Update the local reservation list in the home page with the modified reservation
+            setState(() {
+              int index = reservations.indexWhere((r) => r.id == modifiedReservation.id);
+              if (index != -1) {
+                reservations[index] = modifiedReservation;
+              }
+            });
+          },
+        );
+      },
+    );
   }
 }

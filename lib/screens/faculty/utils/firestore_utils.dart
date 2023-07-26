@@ -191,4 +191,22 @@ class FirestoreUtils {
       print('Error deleting document: $e');
     }
   }
+  static Future<void> updateReservationTime(
+      String documentId,
+      DateTime newInitialTime,
+      DateTime newFinalTime,
+      ) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('reservations')
+          .doc(documentId)
+          .update({
+        'initialTime': Timestamp.fromDate(newInitialTime),
+        'finalTime': Timestamp.fromDate(newFinalTime),
+      });
+    } catch (e) {
+      print('Error updating document: $e');
+    }
+  }
+
 }
