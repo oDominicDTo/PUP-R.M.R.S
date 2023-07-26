@@ -1,3 +1,4 @@
+import 'package:appdevelopment/screens/faculty/ui/ui%20settings/reservation_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:appdevelopment/screens/faculty/models/retrieve_reservation_model.dart';
@@ -69,12 +70,20 @@ class _HomePageState extends State<HomePage> {
                 String? courseColorString = reservation.courseColor;
                 Color? courseColor = ColorUtils.stringToColor(courseColorString);
 
-
-                return Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                return InkWell(
+                    onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ReservationDetailsPage(reservation: reservation),
+                    ),
+                  );
+                },
+                child: Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                ),
                   child: Container(
                     decoration:  BoxDecoration(
                       color: Colors.white,
@@ -170,7 +179,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                );
+                ));
               },
             );
           } else {

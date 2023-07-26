@@ -19,6 +19,24 @@ class Room {
       available: data['available'],
     );
   }
+
+  bool isAvailable(DateTime selectedInitialTime, DateTime selectedFinalTime, List<Map<String, dynamic>> reservations) {
+    final initialTime = selectedInitialTime;
+    final finalTime = selectedFinalTime;
+
+    for (final reservation in reservations) {
+      final reservationInitialTime = reservation['initialTime'].toDate();
+      final reservationFinalTime = reservation['finalTime'].toDate();
+
+      // Check for conflicts
+      if ((initialTime.isBefore(reservationFinalTime) && finalTime.isAfter(reservationInitialTime)) ||
+          (initialTime.isAtSameMomentAs(reservationFinalTime) || finalTime.isAtSameMomentAs(reservationInitialTime))) {
+        return false; // Room is not available
+      }
+    }
+
+    return true; // Room is available
+  }
 }
 class User {
   final String id;
