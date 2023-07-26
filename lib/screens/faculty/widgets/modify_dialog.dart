@@ -32,20 +32,37 @@ class _ModifyDialogState extends State<ModifyDialog> {
       builder: (context, setState) {
         return AlertDialog(
           title: const Text('Modify Reservation Time'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              buildTimePicker(initialDateTime, (newTime) {
-                setState(() {
-                  initialDateTime = newTime;
-                });
-              }),
-              buildTimePicker(finalDateTime, (newTime) {
-                setState(() {
-                  finalDateTime = newTime;
-                });
-              }),
-            ],
+          content: IntrinsicHeight(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Wrap Row with Expanded to take available space
+                const SizedBox(height: 10),
+                Expanded(
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: buildTimePicker(initialDateTime, (newTime) {
+                          setState(() {
+                            initialDateTime = newTime;
+                          });
+                        }),
+                      ),
+                      const SizedBox(width: 8), // Add spacing between pickers
+                      _buildVerticalDivider(), // Add a vertical divider
+                      const SizedBox(width: 8), // Add spacing between pickers
+                      Flexible(
+                        child: buildTimePicker(finalDateTime, (newTime) {
+                          setState(() {
+                            finalDateTime = newTime;
+                          });
+                        }),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
           actions: [
             TextButton(
@@ -107,12 +124,19 @@ class _ModifyDialogState extends State<ModifyDialog> {
         child: Text(
           DateFormat('h:mm a').format(initialTime),
           style: const TextStyle(
-            fontSize: 16,
+            fontSize: 20,
             fontWeight: FontWeight.bold,
             fontFamily: 'Poppins',
           ),
         ),
       ),
+    );
+  }
+  Widget _buildVerticalDivider() {
+    return Container(
+      width: 1,
+      height: double.infinity,
+      color: Colors.grey, // You can adjust the color of the line here
     );
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:appdevelopment/widgets/app_bar_widget.dart';
-import 'package:appdevelopment/screens/faculty/ui/2f_room_selection.dart';
-import 'package:appdevelopment/screens/faculty/ui/3f_room_selection.dart';
-import 'package:appdevelopment/screens/faculty/ui/4f_room_selection.dart';
+import 'package:appdevelopment/screens/faculty/ui/extra/2f_room_selection.dart';
+import 'package:appdevelopment/screens/faculty/ui/extra/3f_room_selection.dart';
+import 'package:appdevelopment/screens/faculty/ui/extra/4f_room_selection.dart';
 
 class FloorSelection extends StatefulWidget {
   const FloorSelection({Key? key}) : super(key: key);

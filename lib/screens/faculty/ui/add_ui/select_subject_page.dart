@@ -108,6 +108,8 @@ class SelectSubjectPage extends StatelessWidget {
                                               subjectId: subject.subjectId,
                                               professorId: subject.professorId,
                                               courseId: courseId,
+                                              selectedInitialTime: subject.initialTime,
+                                              selectedFinalTime: subject.finalTime,
                                             ),
                                           ),
                                         );

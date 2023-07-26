@@ -1,3 +1,4 @@
+import 'package:appdevelopment/screens/faculty/ui/ui%20settings/reservation_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:appdevelopment/screens/faculty/models/retrieve_reservation_model.dart';
@@ -7,6 +8,7 @@ import 'package:appdevelopment/screens/faculty/utils/color_utils.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:appdevelopment/screens/faculty/utils/confirmation_dialog.dart';
 
+import '../logic/room_availability_checker.dart';
 import '../widgets/modify_dialog.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -60,7 +62,6 @@ class _HomePageState extends State<HomePage> {
               itemCount: reservations.length,
               itemBuilder: (context, index) {
                 final reservation = reservations[index];
-                // Accessing the color directly
                 DateTime initialDateTime = reservation.initialTime.toDate();
                 DateTime finalDateTime = reservation.finalTime.toDate();
 
@@ -69,12 +70,20 @@ class _HomePageState extends State<HomePage> {
                 String? courseColorString = reservation.courseColor;
                 Color? courseColor = ColorUtils.stringToColor(courseColorString);
 
-
-                return Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                return InkWell(
+                    onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ReservationDetailsPage(reservation: reservation),
+                    ),
+                  );
+                },
+                child: Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                ),
                   child: Container(
                     decoration:  BoxDecoration(
                       color: Colors.white,
@@ -170,7 +179,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                );
+                ));
               },
             );
           } else {
@@ -202,24 +211,42 @@ class _HomePageState extends State<HomePage> {
     });
   }
   void _showModifyDialog(RetrieveReservation reservation) async {
-    // ... Other existing code ...
-
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return ModifyDialog(
           reservation: reservation,
           onSave: (modifiedReservation) {
-            // Update the local reservation list in the home page with the modified reservation
-            setState(() {
-              int index = reservations.indexWhere((r) => r.id == modifiedReservation.id);
-              if (index != -1) {
-                reservations[index] = modifiedReservation;
-              }
-            });
+            if (RoomAvailabilityChecker.isRoomAvailable(
+              reservation.roomName,
+              modifiedReservation.initialTime.toDate(),
+              modifiedReservation.finalTime.toDate(),
+              reservations,
+              user!.uid,
+            )) {
+              // Update the local reservation list in the home page with the modified reservation
+              setState(() {
+                int index = reservations.indexWhere((r) => r.id == reservation.id);
+                if (index != -1) {
+                  reservations[index] = modifiedReservation;
+                }
+              });
+            } else {
+              // Show error message or prevent saving changes due to conflict
+              _showSnackBar(context, 'Room not available for the modified time');
+            }
           },
         );
       },
+    );
+  }
+
+  void _showSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 2),
+      ),
     );
   }
 }
