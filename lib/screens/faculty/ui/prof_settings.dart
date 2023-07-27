@@ -221,7 +221,7 @@ class _ProfSettingsState extends State<ProfSettings> {
                             bottom: 0,
                             right: 0,
                             child: IconButton(
-                              icon: Icon(Icons.edit),
+                              icon: const Icon(Icons.edit),
                               onPressed: () {
                                 _showRemoveConfirmationDialog(); // Show the confirmation popup
                               },
@@ -272,8 +272,8 @@ class _ProfSettingsState extends State<ProfSettings> {
                           ),
                         ],
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20),
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 20),
                         child: Row(
                           children: [
                             Icon(Icons.camera_alt, color: Colors.black),
@@ -292,7 +292,7 @@ class _ProfSettingsState extends State<ProfSettings> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -316,8 +316,8 @@ class _ProfSettingsState extends State<ProfSettings> {
                           ),
                         ],
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20),
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 20),
                         child: Row(
                           children: [
                             Icon(Icons.pending_actions, color: Colors.black),
@@ -336,7 +336,7 @@ class _ProfSettingsState extends State<ProfSettings> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -360,8 +360,8 @@ class _ProfSettingsState extends State<ProfSettings> {
                           ),
                         ],
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20),
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 20),
                         child: Row(
                           children: [
                             Icon(Icons.policy, color: Colors.black),
@@ -380,7 +380,7 @@ class _ProfSettingsState extends State<ProfSettings> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {
                       AuthenticationRepository.instance.logout();
@@ -422,8 +422,7 @@ class _ProfSettingsState extends State<ProfSettings> {
                 ],
               ),
             ),
-          ),
-        ],
+          ]),
       ),
     );
   }
