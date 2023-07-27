@@ -95,6 +95,17 @@ class SelectRoomPage extends StatelessWidget {
       final subject = await FirestoreUtils.getSubjectByCourseAndSubjectId(courseId, subjectId);
       final course = await FirestoreUtils.getCourseById(courseId);
 
+      final existingReservation = await reservationsCollection
+          .where('subjectName', isEqualTo: subject.subjectName)
+          .limit(1)
+          .get();
+
+      if (existingReservation.docs.isNotEmpty) {
+        _showSnackBar(context, 'A reservation for this subject already exists');
+        return;
+      }
+
+
       // Create a new document in the reservations collection with auto-generated ID
       final reservationDoc = reservationsCollection.doc();
 
