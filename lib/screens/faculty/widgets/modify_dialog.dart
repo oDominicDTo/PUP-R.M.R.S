@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../models/retrieve_reservation_model.dart';
+import '../../../models/retrieve_reservation_model.dart';
 import '../utils/firestore_utils.dart';
 
 class ModifyDialog extends StatefulWidget {

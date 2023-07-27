@@ -1,4 +1,4 @@
-import 'package:appdevelopment/screens/faculty/models/retrieve_reservation_model.dart';
+import 'package:appdevelopment/models/retrieve_reservation_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Room {

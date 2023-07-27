@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/course_model.dart';
 import '../models/course_professor.dart';
 import '../models/floor_model.dart';
-import 'package:appdevelopment/screens/faculty/models/retrieve_reservation_model.dart';
+import 'package:appdevelopment/models/retrieve_reservation_model.dart';
 import '../models/subject_model.dart';
 class FirestoreUtils {
   static Future<List<Floor>> getFloorsByBuilding(String buildingId) async {

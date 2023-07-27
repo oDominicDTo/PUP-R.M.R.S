@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../models/retrieve_reservation_model.dart';
+import '../../../../models/retrieve_reservation_model.dart';
 
 class ReservationDetailsPage extends StatelessWidget {
   final RetrieveReservation reservation;
