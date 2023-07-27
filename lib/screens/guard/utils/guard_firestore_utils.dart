@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../models/retrieve_reservation_model.dart';
 class FireStoreUtilsForGuard{
 
-   Future<List<RetrieveReservation>> getAllReservationsForGuard(String professorId) async {
+   static Future<List<RetrieveReservation>> getAllReservationsForGuard() async {
     try {
       final QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance
           .collection('reservations')
