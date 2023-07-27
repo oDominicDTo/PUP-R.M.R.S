@@ -177,11 +177,8 @@ class _ProfSettingsState extends State<ProfSettings> {
                                 color: Colors.white,
                               ),
                             ),
-                            Text(
-                              _professorController.currentUser != null
-                                  ? _professorController.currentUser!.userType
-                                  : '',
-                              style: const TextStyle(
+                            const Text("Professsor",
+                              style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
                                 fontFamily: 'Poppins',
