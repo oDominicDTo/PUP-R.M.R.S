@@ -24,7 +24,7 @@ class SelectFloorPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select Floor'),
+        title: const Text('Select Floor'),
       ),
       backgroundColor: Colors.white,
       body: FutureBuilder<List<Floor>>(
@@ -42,8 +42,8 @@ class SelectFloorPage extends StatelessWidget {
             final floors = snapshot.data ?? [];
             return Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
+                const Padding(
+                  padding: EdgeInsets.all(16.0),
                   child: Text(
                     'Building A',
                     style: TextStyle(
@@ -64,7 +64,7 @@ class SelectFloorPage extends StatelessWidget {
                       double itemHeight = itemWidth / gridItemAspectRatio;
 
                       return GridView.builder(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: columns,
                           crossAxisSpacing: 18   ,
@@ -88,12 +88,12 @@ class SelectFloorPage extends StatelessWidget {
                               );
                             },
                             child: Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(20),
                                   topRight: Radius.circular(20),
                                 ),
-                                color: const Color(0xFF5B0101),
+                                color: Color(0xFF5B0101),
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.end,
@@ -107,18 +107,18 @@ class SelectFloorPage extends StatelessWidget {
                                         children: [
                                           TextSpan(
                                             text: floorName.substring(0, floorIndex), // Text before "floor"
-                                            style: TextStyle(
-                                              color: const Color(0xF0F0F0F0),
+                                            style: const TextStyle(
+                                              color: Color(0xF0F0F0F0),
                                               fontSize: 45,
                                               fontFamily: 'Inter',
                                               fontWeight: FontWeight.w600,
                                               height: 1,
                                             ),
                                           ),
-                                          TextSpan(
+                                          const TextSpan(
                                             text: '\n' + "Floor", // Add a line break before "Floor"
                                             style: TextStyle(
-                                              color: const Color(0xF0F0F0F0),
+                                              color: Color(0xF0F0F0F0),
                                               fontSize: 30, // Font size for the word "floor"
                                               fontFamily: 'Inter',
                                               fontWeight: FontWeight.w600,

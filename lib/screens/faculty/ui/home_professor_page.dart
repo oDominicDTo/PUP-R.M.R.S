@@ -218,15 +218,15 @@ class _HomePageState extends State<HomePage> {
           reservation: reservation,
           onSave: (modifiedReservation) {
             if (RoomAvailabilityChecker.isRoomAvailable(
-              reservation.roomName,
+              modifiedReservation.roomName!,
               modifiedReservation.initialTime.toDate(),
               modifiedReservation.finalTime.toDate(),
               reservations,
-              user!.uid,
+              modifiedReservation.id, // Pass the document ID of the reservation being modified
             )) {
               // Update the local reservation list in the home page with the modified reservation
               setState(() {
-                int index = reservations.indexWhere((r) => r.id == reservation.id);
+                int index = reservations.indexWhere((r) => r.id == modifiedReservation.id);
                 if (index != -1) {
                   reservations[index] = modifiedReservation;
                 }
@@ -240,6 +240,7 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
+
 
   void _showSnackBar(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(

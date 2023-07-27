@@ -1,3 +1,4 @@
+import 'package:appdevelopment/screens/faculty/models/retrieve_reservation_model.dart';
 import 'package:appdevelopment/screens/faculty/ui/prof_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -23,7 +24,9 @@ class SelectRoomPage extends StatelessWidget {
   }) : super(key: key);
 
   void _showConfirmationDialog(BuildContext context, Room room) async {
-    final reservationsSnapshot = await FirebaseFirestore.instance
+    try {
+      final List<RetrieveReservation> allReservations = await FirestoreUtils.getAllReservationsCurrent();
+      final reservationsSnapshot = await FirebaseFirestore.instance
         .collection('reservations')
         .where('roomName', isEqualTo: room.roomName)
         .get();
@@ -54,16 +57,25 @@ class SelectRoomPage extends StatelessWidget {
       },
     );
 
-    if (result == true) {
-      final isAvailable = room.isAvailable(selectedInitialTime, selectedFinalTime, reservations);
+      if (result == true) {
+        final isAvailable = room.isAvailable(
+          selectedInitialTime,
+          selectedFinalTime,
+          allReservations,
+          currentDate: DateTime.now(), // Pass the current date here
+        );
 
-      if (isAvailable) {
-        _addReservation(context, room);
-      } else {
-        _showSnackBar(context, 'Room not available for the selected time');
+        if (isAvailable) {
+          _addReservation(context, room);
+        } else {
+          _showSnackBar(context, 'Room not available for the selected time');
+        }
       }
+    } catch (error) {
+      _showSnackBar(context, 'Error fetching reservations: $error');
     }
   }
+
 
   void _showSnackBar(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(

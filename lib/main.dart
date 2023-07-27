@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: kBackgroundColor,
         useMaterial3: true,
       ),
-      home: Center(child: const CircularProgressIndicator()),
+      home: const Center(child: CircularProgressIndicator()),
     );
   }
 }

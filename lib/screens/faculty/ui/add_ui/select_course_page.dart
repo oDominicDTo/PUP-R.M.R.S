@@ -58,14 +58,14 @@ class SelectCoursePage extends StatelessWidget {
                       padding: const EdgeInsets.all(20),
                       child: Column(
                         children: [
-                          Text(
+                          const Text(
                             "Choose Course",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           Expanded(
                             child: FutureBuilder<List<Course>>(
                               future: FirestoreUtils.getCoursesByProfessor(professorId),
@@ -90,7 +90,7 @@ class SelectCoursePage extends StatelessWidget {
                                           elevation: 2,
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(10),
-                                            side: BorderSide(color: Colors.black, width: 1.0),
+                                            side: const BorderSide(color: Colors.black, width: 1.0),
                                           ),
                                           child: ListTile(
                                             title: Text(courses[index].courseName),

@@ -210,9 +210,7 @@ class FirestoreUtils {
     try {
       final DateTime currentDate = DateTime.now();
       final QuerySnapshot<Map<String, dynamic>> snapshot =
-      await FirebaseFirestore.instance
-          .collection('reservations')
-          .get();
+      await FirebaseFirestore.instance.collection('reservations').get();
 
       final reservations = snapshot.docs
           .map((doc) => _convertToReservation(doc))
@@ -225,8 +223,7 @@ class FirestoreUtils {
         return currentDate.year == reservationDate.year &&
             currentDate.month == reservationDate.month &&
             currentDate.day == reservationDate.day;
-      })
-          .toList();
+      }).toList();
 
       return reservations;
     } catch (error) {
@@ -234,5 +231,4 @@ class FirestoreUtils {
       throw Exception('Error fetching reservations: $error');
     }
   }
-
   }

@@ -12,7 +12,7 @@ class AddBuilding extends StatelessWidget {
     return Scaffold(
       backgroundColor: kPrimaryColor,
       body: ListView(
-        padding: EdgeInsets.symmetric(vertical: 20),
+        padding: const EdgeInsets.symmetric(vertical: 20),
         children: [
           Center(
             child: Column(
@@ -118,7 +118,7 @@ class AddBuilding extends StatelessWidget {
                             width: 268,
                             height: 218,
                             child: ColorFiltered(
-                              colorFilter: ColorFilter.mode(
+                              colorFilter: const ColorFilter.mode(
                                 Colors.grey,
                                 BlendMode.saturation,
                               ),

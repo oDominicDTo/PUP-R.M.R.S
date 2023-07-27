@@ -1,31 +1,29 @@
-import '../models/retrieve_reservation_model.dart';
+import 'package:appdevelopment/screens/faculty/models/retrieve_reservation_model.dart';
 
 class RoomAvailabilityChecker {
   static bool isRoomAvailable(
-      String? roomName,
+      String roomName,
       DateTime selectedInitialTime,
       DateTime selectedFinalTime,
       List<RetrieveReservation> allReservations,
-      String professorId,
+      String reservationId,
       ) {
     final initialTime = selectedInitialTime;
     final finalTime = selectedFinalTime;
 
     for (final reservation in allReservations) {
-      if (reservation.id == roomName) {
-        // Skip the current reservation being modified
+      if (reservation.id == reservationId) {
+        // Skip the reservation being modified (identified by its document ID)
         continue;
       }
 
-      if (reservation.roomName == roomName && reservation.professorId != professorId) {
-        // Check for conflicts with other reservations for the same room, but not made by the same professor
-        final reservationInitialTime = reservation.initialTime.toDate();
-        final reservationFinalTime = reservation.finalTime.toDate();
+      final reservationInitialTime = reservation.initialTime.toDate();
+      final reservationFinalTime = reservation.finalTime.toDate();
 
-        if ((initialTime.isBefore(reservationFinalTime) && finalTime.isAfter(reservationInitialTime)) ||
-            (initialTime.isAtSameMomentAs(reservationFinalTime) || finalTime.isAtSameMomentAs(reservationInitialTime))) {
-          return false; // Room is not available
-        }
+      // Check for conflicts
+      if ((initialTime.isBefore(reservationFinalTime) && finalTime.isAfter(reservationInitialTime)) ||
+          (initialTime.isAtSameMomentAs(reservationFinalTime) || finalTime.isAtSameMomentAs(reservationInitialTime))) {
+        return false; // Room is not available
       }
     }
 
@@ -33,4 +31,3 @@ class RoomAvailabilityChecker {
     return true; // Room is available
   }
 }
-

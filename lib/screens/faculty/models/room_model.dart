@@ -1,3 +1,4 @@
+import 'package:appdevelopment/screens/faculty/models/retrieve_reservation_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Room {
@@ -20,13 +21,14 @@ class Room {
     );
   }
 
-  bool isAvailable(DateTime selectedInitialTime, DateTime selectedFinalTime, List<Map<String, dynamic>> reservations) {
+  bool isAvailable(DateTime selectedInitialTime, DateTime selectedFinalTime, List<RetrieveReservation> reservations,
+      {required DateTime currentDate}) {
     final initialTime = selectedInitialTime;
     final finalTime = selectedFinalTime;
 
     for (final reservation in reservations) {
-      final reservationInitialTime = reservation['initialTime'].toDate();
-      final reservationFinalTime = reservation['finalTime'].toDate();
+      final reservationInitialTime = reservation.initialTime.toDate();
+      final reservationFinalTime = reservation.finalTime.toDate();
 
       // Check for conflicts
       if ((initialTime.isBefore(reservationFinalTime) && finalTime.isAfter(reservationInitialTime)) ||
@@ -38,6 +40,7 @@ class Room {
     return true; // Room is available
   }
 }
+
 class User {
   final String id;
   final String name;
