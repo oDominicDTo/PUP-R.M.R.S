@@ -103,21 +103,21 @@ class _ProfSettingsState extends State<ProfSettings> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Remove Profile Picture'),
-          content: Text('Are you sure you want to remove your profile picture?'),
+          title: const Text('Remove Profile Picture'),
+          content: const Text('Are you sure you want to remove your profile picture?'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () {
                 removeProfilePicture();
                 Navigator.of(context).pop(); // Close the dialog
               },
-              child: Text('Remove'),
+              child: const Text('Remove'),
             ),
           ],
         );
@@ -150,7 +150,7 @@ class _ProfSettingsState extends State<ProfSettings> {
                 child: Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
-                    padding: EdgeInsets.only(top: 80, left: 120),
+                    padding: const EdgeInsets.only(top: 80, left: 120),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -165,11 +165,9 @@ class _ProfSettingsState extends State<ProfSettings> {
                             color: Colors.white,
                           ),
                         ),
-                        Text(
-                          _professorController.currentUser != null
-                              ? _professorController.currentUser!.userType
-                              : '',
-                          style: const TextStyle(
+                        const Text(
+                          'Professor',
+                          style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w500,
                             fontFamily: 'Poppins',
@@ -203,7 +201,7 @@ class _ProfSettingsState extends State<ProfSettings> {
                   bottom: 0,
                   right: 0,
                   child: IconButton(
-                    icon: Icon(Icons.edit),
+                    icon: const Icon(Icons.edit),
                     onPressed: () {
                       _showRemoveConfirmationDialog(); // Show the confirmation popup
                     },
@@ -213,7 +211,7 @@ class _ProfSettingsState extends State<ProfSettings> {
               ],
             ),
           ),
-          Positioned(
+          const Positioned(
             top: 5,
             left: 30,
             child: Text(
@@ -226,6 +224,7 @@ class _ProfSettingsState extends State<ProfSettings> {
               ),
             ),
           ),
+
           Positioned(
             top: MediaQuery.of(context).size.height * 0,
             left: 0,
@@ -236,10 +235,12 @@ class _ProfSettingsState extends State<ProfSettings> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(height: 50),
                   GestureDetector(
                     onTap: () {
                       updateProfilePicture(); // Call the function to select and upload the image
                     },
+
                     child: Container(
                       width: double.infinity,
                       height: 50,
@@ -254,6 +255,7 @@ class _ProfSettingsState extends State<ProfSettings> {
                           ),
                         ],
                       ),
+
                       child: const Padding(
                         padding: EdgeInsets.only(left: 20),
                         child: Row(
