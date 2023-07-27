@@ -25,4 +25,5 @@ class ReservationController {
       currentUser = await _userRepository.getUserDetails(userId);
     }
   }
+
 }
