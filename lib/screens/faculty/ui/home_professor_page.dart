@@ -22,6 +22,19 @@ class _HomePageState extends State<HomePage> {
   final User? user = FirebaseAuth.instance.currentUser;
   List<RetrieveReservation> reservations = [];
 
+  Future<void> _handleRefresh() async {
+    try {
+      final List<RetrieveReservation> refreshedReservations =
+      await FirestoreUtils.getReservationsForProfessor(user!.uid);
+
+      setState(() {
+        reservations = refreshedReservations;
+      });
+    } catch (error) {
+      print('Error fetching reservations: $error');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final currentDate = DateFormat('MMMM dd, yyyy').format(DateTime.now());
@@ -45,161 +58,164 @@ class _HomePageState extends State<HomePage> {
       ),
       backgroundColor: const Color(0xF0F0F0F0),
       body: user != null
-          ? FutureBuilder<List<RetrieveReservation>>(
-              future: FirestoreUtils.getReservationsForProfessor(user!.uid),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (snapshot.hasData) {
-                  final reservations = snapshot.data!;
-                  if (reservations.isEmpty) {
+          ? RefreshIndicator(
+            onRefresh: _handleRefresh,
+            child: FutureBuilder<List<RetrieveReservation>>(
+                future: FirestoreUtils.getReservationsForProfessor(user!.uid),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
-                      child: Text('No Reservations'),
+                      child: CircularProgressIndicator(),
                     );
-                  }
-                  return ListView.builder(
-                    itemCount: reservations.length,
-                    itemBuilder: (context, index) {
-                      final reservation = reservations[index];
-                      DateTime initialDateTime =
-                          reservation.initialTime.toDate();
-                      DateTime finalDateTime = reservation.finalTime.toDate();
+                  } else if (snapshot.hasData) {
+                    final reservations = snapshot.data!;
+                    if (reservations.isEmpty) {
+                      return const Center(
+                        child: Text('No Reservations'),
+                      );
+                    }
+                    return ListView.builder(
+                      itemCount: reservations.length,
+                      itemBuilder: (context, index) {
+                        final reservation = reservations[index];
+                        DateTime initialDateTime =
+                            reservation.initialTime.toDate();
+                        DateTime finalDateTime = reservation.finalTime.toDate();
 
-                      String formattedInitialTime =
-                          DateFormat('h:mm a').format(initialDateTime);
-                      String formattedFinalTime =
-                          DateFormat('h:mm a').format(finalDateTime);
-                      String? courseColorString = reservation.courseColor;
-                      Color? courseColor =
-                          ColorUtils.stringToColor(courseColorString);
+                        String formattedInitialTime =
+                            DateFormat('h:mm a').format(initialDateTime);
+                        String formattedFinalTime =
+                            DateFormat('h:mm a').format(finalDateTime);
+                        String? courseColorString = reservation.courseColor;
+                        Color? courseColor =
+                            ColorUtils.stringToColor(courseColorString);
 
-                      return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ReservationDetailsPage(
-                                    reservation: reservation),
+                        return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ReservationDetailsPage(
+                                      reservation: reservation),
+                                ),
+                              );
+                            },
+                            child: Card(
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                            );
-                          },
-                          child: Card(
-                            elevation: 4,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                border: Border(
-                                  right: BorderSide(
-                                    color: courseColor ?? Colors.transparent,
-                                    // Use the color directly
-                                    width: 10,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border(
+                                    right: BorderSide(
+                                      color: courseColor ?? Colors.transparent,
+                                      // Use the color directly
+                                      width: 10,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              child: Slidable(
-                                endActionPane: ActionPane(
-                                  motion: const ScrollMotion(),
-                                  children: [
-                                    SlidableAction(
-                                      backgroundColor: Colors.blue,
-                                      foregroundColor: Colors.white,
-                                      icon: Icons.edit,
-                                      label: 'Modify',
-                                      onPressed: (BuildContext context) {
-                                        _showModifyDialog(reservation);
-                                      },
-                                    ),
-                                    SlidableAction(
-                                      backgroundColor: Colors.red.shade800,
-                                      foregroundColor: Colors.white,
-                                      icon: Icons.delete_forever,
-                                      label: 'Delete',
-                                      onPressed: (BuildContext context) {
-                                        _deleteReservation(reservation);
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                child: ListTile(
-                                  title: Text(
-                                    '${reservation.roomName ?? 'N/A'}',
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Poppins',
-                                    ),
-                                  ),
-                                  subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                child: Slidable(
+                                  endActionPane: ActionPane(
+                                    motion: const ScrollMotion(),
                                     children: [
-                                      Text(
-                                        '${reservation.subjectName ?? 'N/A'}',
-                                        style: const TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                                      SlidableAction(
+                                        backgroundColor: Colors.blue,
+                                        foregroundColor: Colors.white,
+                                        icon: Icons.edit,
+                                        label: 'Modify',
+                                        onPressed: (BuildContext context) {
+                                          _showModifyDialog(reservation);
+                                        },
                                       ),
-                                      Text(
-                                        '${reservation.courseName ?? 'N/A'}',
-                                        style: const TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.w300,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 5),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 1),
-                                        height: 20,
-                                        width: 150,
-                                        decoration: BoxDecoration(
-                                          color: Colors.black,
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              const Icon(
-                                                Icons.access_time,
-                                                color: Colors.white,
-                                                size: 15,
-                                              ),
-                                              const SizedBox(width: 4),
-                                              Text(
-                                                '$formattedInitialTime - $formattedFinalTime',
-                                                style: const TextStyle(
-                                                  fontFamily: 'Poppins',
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.normal,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ]),
+                                      SlidableAction(
+                                        backgroundColor: Colors.red.shade800,
+                                        foregroundColor: Colors.white,
+                                        icon: Icons.delete_forever,
+                                        label: 'Delete',
+                                        onPressed: (BuildContext context) {
+                                          _deleteReservation(reservation);
+                                        },
                                       ),
                                     ],
                                   ),
-                                  dense: false,
+                                  child: ListTile(
+                                    title: Text(
+                                      '${reservation.roomName ?? 'N/A'}',
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Poppins',
+                                      ),
+                                    ),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          '${reservation.subjectName ?? 'N/A'}',
+                                          style: const TextStyle(
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        Text(
+                                          '${reservation.courseName ?? 'N/A'}',
+                                          style: const TextStyle(
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 1),
+                                          height: 20,
+                                          width: 150,
+                                          decoration: BoxDecoration(
+                                            color: Colors.black,
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                const Icon(
+                                                  Icons.access_time,
+                                                  color: Colors.white,
+                                                  size: 15,
+                                                ),
+                                                const SizedBox(width: 4),
+                                                Text(
+                                                  '$formattedInitialTime - $formattedFinalTime',
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Poppins',
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.normal,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ]),
+                                        ),
+                                      ],
+                                    ),
+                                    dense: false,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ));
-                    },
-                  );
-                } else {
-                  return const Center(
-                    child: Text('Error fetching reservations'),
-                  );
-                }
-              },
-            )
+                            ));
+                      },
+                    );
+                  } else {
+                    return const Center(
+                      child: Text('Error fetching reservations'),
+                    );
+                  }
+                },
+              ),
+          )
           : const Center(
               child: CircularProgressIndicator(),
             ),
