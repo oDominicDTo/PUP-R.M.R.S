@@ -1,3 +1,4 @@
+import 'package:appdevelopment/screens/faculty/ui/home_professor_page.dart';
 import 'package:appdevelopment/screens/faculty/ui/prof_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,26 +11,15 @@ class SelectRoomPage extends StatelessWidget {
   final String subjectId;
   final String professorId;
   final String courseId;
-  final DateTime selectedInitialTime; // Add selectedInitialTime parameter
-  final DateTime selectedFinalTime;
 
   const SelectRoomPage({
     Key? key,
     required this.subjectId,
     required this.professorId,
     required this.courseId,
-    required this.selectedInitialTime, // Add selectedInitialTime parameter
-    required this.selectedFinalTime,
   }) : super(key: key);
 
   void _showConfirmationDialog(BuildContext context, Room room) async {
-    final reservationsSnapshot = await FirebaseFirestore.instance
-        .collection('reservations')
-        .where('roomName', isEqualTo: room.roomName)
-        .get();
-
-    final reservations = reservationsSnapshot.docs.map((doc) => doc.data()).toList();
-
     final result = await showDialog<bool>(
       context: context,
       builder: (BuildContext context) {
@@ -55,15 +45,10 @@ class SelectRoomPage extends StatelessWidget {
     );
 
     if (result == true) {
-      final isAvailable = room.isAvailable(selectedInitialTime, selectedFinalTime, reservations);
-
-      if (isAvailable) {
-        _addReservation(context, room);
-      } else {
-        _showSnackBar(context, 'Room not available for the selected time');
-      }
+      _addReservation(context, room);
     }
   }
+
 
   void _showSnackBar(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -150,17 +135,12 @@ class SelectRoomPage extends StatelessWidget {
             );
           }
 
-          // Process the data here to check room availability status.
-          // You can add an "isAvailable" property to your Room model or
-          // use any other approach to determine the availability status.
-
           return ListView.builder(
             itemCount: rooms.length,
             itemBuilder: (context, index) {
               final room = rooms[index];
               return ListTile(
                 title: Text(room.roomName),
-                // Modify the onTap function to show the confirmation dialog
                 onTap: () {
                   _showConfirmationDialog(context, room);
                 },

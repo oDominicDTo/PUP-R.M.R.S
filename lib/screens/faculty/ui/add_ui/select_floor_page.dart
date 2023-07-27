@@ -160,9 +160,6 @@ class SelectFloorPage extends StatelessWidget {
                               ),
                             ),
                           );
-
-
-
                         },
                       );
                     },
@@ -173,6 +170,7 @@ class SelectFloorPage extends StatelessWidget {
           }
         },
       ),
+
     );
   }
 }

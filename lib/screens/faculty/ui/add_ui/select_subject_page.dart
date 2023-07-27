@@ -36,7 +36,7 @@ class SelectSubjectPage extends StatelessWidget {
                       ),
                       child: Container(
                         color: const Color(0xFF5B0101),
-                        height: 200,
+                        height: 0.2 * MediaQuery.of(context).size.height, // Responsive height
                       ),
                     ),
                   ),
@@ -44,10 +44,10 @@ class SelectSubjectPage extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 160,
+              top: 0.18 * MediaQuery.of(context).size.height, // Responsive position
               left: 20,
               right: 20,
-              bottom: 150,
+              bottom: 0.18 * MediaQuery.of(context).size.height, // Responsive position
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
