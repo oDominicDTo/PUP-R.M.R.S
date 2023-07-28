@@ -10,6 +10,8 @@ import 'package:appdevelopment/screens/faculty/utils/confirmation_dialog.dart';
 
 import '../logic/room_availability_checker.dart';
 import '../widgets/modify_dialog.dart';
+import 'package:appdevelopment/screens/faculty/widgets/color_codes.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,7 +36,12 @@ class _HomePageState extends State<HomePage> {
       print('Error fetching reservations: $error');
     }
   }
-
+  void _showOverlayPage() {
+    showDialog(
+      context: context,
+      builder: (context) => OverlayPage(), // Show the overlay page widget
+    );
+  }
   @override
   Widget build(BuildContext context) {
     final currentDate = DateFormat('MMMM dd, yyyy').format(DateTime.now());
@@ -42,17 +49,29 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Home'),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: Text(
-              currentDate,
-              style: const TextStyle(
-                fontSize: 13,
-                color: Colors.black,
-                fontWeight: FontWeight.w600,
-                fontFamily: 'Poppins',
+          Row(
+            children: [
+              Text(
+                currentDate,
+                style: const TextStyle(
+                  fontSize: 13,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'Poppins',
+                ),
               ),
-            ),
+              Padding(
+                padding: EdgeInsets.only(right: 8.0),
+                child: IconButton(
+                  onPressed: _showOverlayPage,
+                  icon: Icon(
+                    Icons.color_lens_outlined,
+                    color: Colors.black,
+                    size: 26,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -125,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                                           color:
                                               courseColor ?? Colors.transparent,
                                           // Use the color directly
-                                          width: 10,
+                                          width: 5,
                                         ),
                                       ),
                                     ),
