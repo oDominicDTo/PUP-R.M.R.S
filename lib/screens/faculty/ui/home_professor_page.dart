@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> _handleRefresh() async {
     try {
       final List<RetrieveReservation> refreshedReservations =
-      await FirestoreUtils.getReservationsForProfessor(user!.uid);
+          await FirestoreUtils.getReservationsForProfessor(user!.uid);
 
       setState(() {
         reservations = refreshedReservations;
@@ -59,8 +59,8 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: const Color(0xF0F0F0F0),
       body: user != null
           ? RefreshIndicator(
-            onRefresh: _handleRefresh,
-            child: FutureBuilder<List<RetrieveReservation>>(
+              onRefresh: _handleRefresh,
+              child: FutureBuilder<List<RetrieveReservation>>(
                 future: FirestoreUtils.getReservationsForProfessor(user!.uid),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -89,6 +89,18 @@ class _HomePageState extends State<HomePage> {
                         String? courseColorString = reservation.courseColor;
                         Color? courseColor =
                             ColorUtils.stringToColor(courseColorString);
+                        String statusText = '';
+                        switch (reservation.status) {
+                          case ReservationStatus.Upcoming:
+                            statusText = 'Upcoming';
+                            break;
+                          case ReservationStatus.Ongoing:
+                            statusText = 'Ongoing';
+                            break;
+                          case ReservationStatus.Done:
+                            statusText = 'Done';
+                            break;
+                        }
 
                         return InkWell(
                             onTap: () {
@@ -101,111 +113,129 @@ class _HomePageState extends State<HomePage> {
                               );
                             },
                             child: Card(
-                              elevation: 4,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border(
-                                    right: BorderSide(
-                                      color: courseColor ?? Colors.transparent,
-                                      // Use the color directly
-                                      width: 10,
-                                    ),
-                                  ),
+                                elevation: 4,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                                child: Slidable(
-                                  endActionPane: ActionPane(
-                                    motion: const ScrollMotion(),
-                                    children: [
-                                      SlidableAction(
-                                        backgroundColor: Colors.blue,
-                                        foregroundColor: Colors.white,
-                                        icon: Icons.edit,
-                                        label: 'Modify',
-                                        onPressed: (BuildContext context) {
-                                          _showModifyDialog(reservation);
-                                        },
-                                      ),
-                                      SlidableAction(
-                                        backgroundColor: Colors.red.shade800,
-                                        foregroundColor: Colors.white,
-                                        icon: Icons.delete_forever,
-                                        label: 'Delete',
-                                        onPressed: (BuildContext context) {
-                                          _deleteReservation(reservation);
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  child: ListTile(
-                                    title: Text(
-                                      '${reservation.roomName ?? 'N/A'}',
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Poppins',
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border(
+                                        right: BorderSide(
+                                          color:
+                                              courseColor ?? Colors.transparent,
+                                          // Use the color directly
+                                          width: 10,
+                                        ),
                                       ),
                                     ),
-                                    subtitle: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '${reservation.subjectName ?? 'N/A'}',
+                                    child: Slidable(
+                                      endActionPane: ActionPane(
+                                        motion: const ScrollMotion(),
+                                        children: [
+                                          SlidableAction(
+                                            backgroundColor: Colors.blue,
+                                            foregroundColor: Colors.white,
+                                            icon: Icons.edit,
+                                            label: 'Modify',
+                                            onPressed: (BuildContext context) {
+                                              _showModifyDialog(reservation);
+                                            },
+                                          ),
+                                          SlidableAction(
+                                            backgroundColor: isDeleteButtonEnabled(reservation.status)
+                                                ? Colors.red.shade800
+                                                : Colors.grey, // Set the background color to grey when the button is disabled
+                                            foregroundColor: Colors.white,
+                                            icon: Icons.delete_forever,
+                                            label: 'Delete',
+                                            onPressed: isDeleteButtonEnabled(reservation.status)
+                                                ? (BuildContext context) {
+                                              _deleteReservation(reservation);
+                                            }
+                                                : null,
+                                          ),
+                                        ],
+                                      ),
+                                      child: ListTile(
+                                        title: Text(
+                                          '${reservation.roomName ?? 'N/A'}',
                                           style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
                                             fontFamily: 'Poppins',
-                                            fontWeight: FontWeight.w500,
                                           ),
                                         ),
-                                        Text(
-                                          '${reservation.courseName ?? 'N/A'}',
-                                          style: const TextStyle(
-                                            fontFamily: 'Poppins',
-                                            fontWeight: FontWeight.w300,
-                                          ),
+                                        subtitle: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              '${reservation.subjectName ?? 'N/A'}',
+                                              style: const TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                            Text(
+                                              '${reservation.courseName ?? 'N/A'}',
+                                              style: const TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontWeight: FontWeight.w300,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 5),
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 1),
+                                              height: 20,
+                                              width: 150,
+                                              decoration: BoxDecoration(
+                                                color: Colors.black,
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                              child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    const Icon(
+                                                      Icons.access_time,
+                                                      color: Colors.white,
+                                                      size: 15,
+                                                    ),
+                                                    const SizedBox(width: 4),
+                                                    Text(
+                                                      '$formattedInitialTime - $formattedFinalTime',
+                                                      style: const TextStyle(
+                                                        fontFamily: 'Poppins',
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  ]),
+                                            ),
+                                          ],
                                         ),
-                                        const SizedBox(height: 5),
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 1),
-                                          height: 20,
-                                          width: 150,
-                                          decoration: BoxDecoration(
+                                        dense: false,
+                                        trailing: Text(
+                                          statusText,
+                                          style: const TextStyle(
+                                            // Customize the style as per your design
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'Poppins',
+                                            fontSize: 18,
                                             color: Colors.black,
-                                            borderRadius:
-                                                BorderRadius.circular(20),
                                           ),
-                                          child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                const Icon(
-                                                  Icons.access_time,
-                                                  color: Colors.white,
-                                                  size: 15,
-                                                ),
-                                                const SizedBox(width: 4),
-                                                Text(
-                                                  '$formattedInitialTime - $formattedFinalTime',
-                                                  style: const TextStyle(
-                                                    fontFamily: 'Poppins',
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.normal,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ]),
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                    dense: false,
-                                  ),
                                 ),
-                              ),
-                            ));
+                            ),
+                        );
                       },
                     );
                   } else {
@@ -215,7 +245,7 @@ class _HomePageState extends State<HomePage> {
                   }
                 },
               ),
-          )
+            )
           : const Center(
               child: CircularProgressIndicator(),
             ),
@@ -281,4 +311,10 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  bool isDeleteButtonEnabled(ReservationStatus status) {
+    return status == ReservationStatus.Upcoming;
+  }
+
 }
+

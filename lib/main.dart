@@ -1,3 +1,4 @@
+import 'package:appdevelopment/api/firebase_api.dart';
 import 'package:appdevelopment/constants.dart';
 import 'package:flutter/services.dart';
 import 'package:appdevelopment/firebase_options.dart';
@@ -13,6 +14,7 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Get.put(AuthenticationRepository());
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await FirebaseApi().initNotifications();
   runApp(const MyApp());
 }
 

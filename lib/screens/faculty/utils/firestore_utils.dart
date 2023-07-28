@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../../../models/notification_model.dart';
 import '../models/course_model.dart';
 import '../models/course_professor.dart';
 import '../models/floor_model.dart';
 import 'package:appdevelopment/models/retrieve_reservation_model.dart';
 import '../models/subject_model.dart';
+
 class FirestoreUtils {
   static Future<List<Floor>> getFloorsByBuilding(String buildingId) async {
     final querySnapshot = await FirebaseFirestore.instance
@@ -231,4 +234,46 @@ class FirestoreUtils {
       throw Exception('Error fetching reservations: $error');
     }
   }
+  // Example method to fetch notifications for the current user
+  static Future<String?> getCurrentUserId() async {
+    // Get the current user from Firebase Authentication
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      return user.uid;
+    } else {
+      return null;
+    }
   }
+
+  static Future<List<NotificationData>> getFilteredNotificationsForCurrentUserAndDate() async {
+    try {
+      // Get the current user ID
+      String? userId = await getCurrentUserId();
+      if (userId == null) {
+        // If user is not logged in, return an empty list
+        return [];
+      }
+
+      // Get the current date
+      DateTime currentDate = DateTime.now();
+
+      // Convert currentDate to a Timestamp
+      Timestamp currentTimestamp = Timestamp.fromDate(currentDate);
+
+      final QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance
+          .collection('notifications')
+          .where('userId', isEqualTo: userId)
+          .where('notificationDate', isEqualTo: currentTimestamp)
+          .get();
+
+      final notificationDocs = snapshot.docs;
+      final notifications = notificationDocs.map((doc) => NotificationData.fromSnapshot(doc)).toList();
+
+      return notifications;
+    } catch (error) {
+      // You can handle the error here or throw it to be handled elsewhere
+      throw Exception('Error fetching notifications: $error');
+    }
+  }
+
+}

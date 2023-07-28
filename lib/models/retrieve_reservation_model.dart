@@ -1,5 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+enum ReservationStatus {
+  Upcoming,
+  Ongoing,
+  Done,
+}
+
 class RetrieveReservation {
   final String id; // Add the document ID field
   final String? subjectName;
@@ -11,6 +17,7 @@ class RetrieveReservation {
   final Timestamp reservationDate;
   final String professorId;
   String professorName; // Add the professorName property
+  ReservationStatus status; // Add the status property
 
   RetrieveReservation({
     required this.id, // Add the document ID parameter to the constructor
@@ -23,6 +30,7 @@ class RetrieveReservation {
     required this.reservationDate,
     required this.professorId,
     this.professorName = '', // Initialize the professorName property with an empty string
+    this.status = ReservationStatus.Upcoming, // Set the default status to 'upcoming'
   });
 
   factory RetrieveReservation.fromSnapshot(DocumentSnapshot snapshot) {
@@ -40,9 +48,10 @@ class RetrieveReservation {
     );
   }
 
-  // Add the copyWith method to update the professorName property
+  // Add the copyWith method to update the professorName and status properties
   RetrieveReservation copyWith({
     String? professorName,
+    ReservationStatus? status,
   }) {
     return RetrieveReservation(
       id: this.id,
@@ -55,6 +64,7 @@ class RetrieveReservation {
       reservationDate: this.reservationDate,
       professorId: this.professorId,
       professorName: professorName ?? this.professorName,
+      status: status ?? this.status,
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:appdevelopment/screens/faculty/ui/add_ui/add_building_page.dart';
 import 'package:appdevelopment/screens/faculty/ui/home_professor_page.dart';
-import 'package:appdevelopment/screens/faculty/ui/prof_notification_page.dart';
+import 'package:appdevelopment/screens/faculty/ui/notification_page.dart';
 import 'package:appdevelopment/screens/faculty/ui/prof_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:appdevelopment/constants.dart';
@@ -20,7 +20,7 @@ class _ProfPageState extends State<ProfPage> {
   final screens = [
     const HomePage(),
     const AddBuilding(),
-    const ProfNotificationPage(),
+     NotificationPage(),
     const ProfSettings(),
     const FloorSelection(),
   ];

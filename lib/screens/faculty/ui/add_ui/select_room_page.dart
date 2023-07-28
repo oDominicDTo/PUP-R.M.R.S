@@ -94,42 +94,49 @@ class SelectRoomPage extends StatelessWidget {
       final subject = await FirestoreUtils.getSubjectByCourseAndSubjectId(courseId, subjectId);
       final course = await FirestoreUtils.getCourseById(courseId);
       final currentDate = DateTime.now();
+      final startOfDay = DateTime(currentDate.year, currentDate.month, currentDate.day);
+      final endOfDay = startOfDay.add(Duration(days: 1));
+
       final existingReservation = await reservationsCollection
           .where('subjectName', isEqualTo: subject.subjectName)
-          .where('reservationDate', isEqualTo: currentDate)
+          .where('reservationDate', isGreaterThanOrEqualTo: startOfDay)
+          .where('reservationDate', isLessThan: endOfDay)
           .limit(1)
           .get();
 
-      if (existingReservation.docs.isNotEmpty) {
-        _showSnackBar(context, 'A reservation for this subject already exists');
-        return;
+      if (existingReservation.docs.isEmpty) {
+        // Create a new document in the reservations collection with auto-generated ID
+        final reservationDoc = reservationsCollection.doc();
+
+// Convert DateTime to Timestamp
+        final reservationDateTimestamp = Timestamp.fromDate(DateTime.now());
+
+// Set the reservation data
+        await reservationDoc.set({
+          'subjectName': subject.subjectName,
+          'professorId': professorId,
+          'roomName': room.roomName,
+          'courseName': course.courseName,
+          'courseColor': course.courseColor,
+          'initialTime': subject.initialTime,
+          'finalTime': subject.finalTime,
+          'reservationDate': reservationDateTimestamp,
+          // Store reservationDate as a Timestamp
+          'status': 'Upcoming'
+          // Add the current date and time
+          // Add other reservation details as needed
+        });
+
+        // Reservation added successfully
+        _showSnackBar(context, 'Reservation added successfully');
+
+        // Navigate back to the HomeProfessorPage after adding the reservation
+        navigatorKey.currentState?.pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const ProfPage()),
+              (route) => false,
+        );
+      }else{  _showSnackBar(context, 'A reservation for this subject already exists');
       }
-
-
-      // Create a new document in the reservations collection with auto-generated ID
-      final reservationDoc = reservationsCollection.doc();
-
-      // Set the reservation data
-      await reservationDoc.set({
-        'subjectName': subject.subjectName,
-        'professorId': professorId,
-        'roomName': room.roomName,
-        'courseName': course.courseName,
-        'courseColor': course.courseColor,
-        'initialTime': subject.initialTime,
-        'finalTime': subject.finalTime,
-        'reservationDate': DateTime.now(), // Add the current date and time
-        // Add other reservation details as needed
-      });
-
-      // Reservation added successfully
-      _showSnackBar(context, 'Reservation added successfully');
-
-      // Navigate back to the HomeProfessorPage after adding the reservation
-      navigatorKey.currentState?.pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const ProfPage()),
-            (route) => false,
-      );
     } catch (error) {
       // Handle any errors from Firestore queries
       _showSnackBar(context, 'Error adding reservation: $error');
@@ -194,4 +201,5 @@ class SelectRoomPage extends StatelessWidget {
       ),
     );
   }
+
 }
