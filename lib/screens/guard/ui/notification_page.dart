@@ -26,94 +26,101 @@ class _NotificationPageState extends State<NotificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF0F0F0),
-      body: Stack(
-        children: [
-          const Positioned(
-            top: 5,
-            left: 30,
-            child: Text(
-              'Notification',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.normal,
-                fontFamily: 'Poppins',
-              ),
-            ),
-          ),
-          if (notifications.isNotEmpty) ...[
+      body: SafeArea(
+        child: Stack(
+          children: [
             Positioned(
-              top: 50,
-              left: 20,
-              right: 20,
-              bottom: 20,
-              child: ClipPath(
-                clipper: CustomCardClipper(),
-                child: ListView.builder(
-                  itemCount: notifications.length,
-                  itemBuilder: (context, index) {
-                    final item = notifications[index];
-                    return Container(
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.3),
-                            spreadRadius: 2,
-                            blurRadius: 5,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      height: 80,
-                      child: Row(
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: CircleAvatar(
-                              radius: 24,
-                              backgroundImage: AssetImage('assets/professor_image.png'), // Replace with the actual image path
-                            ),
-                          ),
-                          Expanded(
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  item.type == NotificationType.professor
-                                      ? Text(
-                                    '${item.professorName} reserved schedule at Room ${item.roomNumber}',
-                                    style: const TextStyle(fontSize: 18),
-                                  )
-                                      : Text(
-                                    '${item.professorName} reservation at Room ${item.roomNumber} ',
-                                    style: const TextStyle(fontSize: 18),
-                                  ),
-                                  if (item.type == NotificationType.verified)
-                                    const Row(
-                                      children: [
-                                        Icon(Icons.check, color: Colors.green),
-                                        SizedBox(width: 8),
-                                        Text(
-                                          'Verified',
-                                          style: TextStyle(fontSize: 14, color: Colors.green),
-                                        ),
-                                      ],
-                                    ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
+              top: 5,
+              left: 30,
+              child: Text(
+                'Notification',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.normal,
+                  fontFamily: 'Poppins',
                 ),
               ),
             ),
+            if (notifications.isNotEmpty) ...[
+              Positioned(
+                top: 50,
+                left: 20,
+                right: 20,
+                bottom: 20,
+                child: ClipPath(
+                  clipper: CustomCardClipper(),
+                  child: ListView.builder(
+                    itemCount: notifications.length,
+                    itemBuilder: (context, index) {
+                      final item = notifications[index];
+                      return Container(
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        height: 80,
+                        child: Row(
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: CircleAvatar(
+                                radius: 24,
+                                backgroundImage:
+                                AssetImage('assets/professor_image.png'), // Replace with the actual image path
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    item.type == NotificationType.professor
+                                        ? Text(
+                                      '${item.professorName} reserved schedule at Room ${item.roomNumber}',
+                                      style: const TextStyle(fontSize: 18),
+                                    )
+                                        : Text(
+                                      '${item.professorName} reservation at Room ${item.roomNumber} ',
+                                      style: const TextStyle(fontSize: 18),
+                                    ),
+                                    if (item.type == NotificationType.verified)
+                                      const Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 0.1),
+                                        child: Row(
+                                          children: [
+                                            Icon(Icons.check, color: Colors.green),
+                                            SizedBox(width: 8),
+                                            Text(
+                                              'Verified',
+                                              style: TextStyle(fontSize: 14, color: Colors.green),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }

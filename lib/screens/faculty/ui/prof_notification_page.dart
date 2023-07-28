@@ -28,7 +28,7 @@ class _ProfNotificationPageState extends State<ProfNotificationPage> {
       backgroundColor: const Color(0xFFF0F0F0),
       body: Stack(
         children: [
-          const Positioned(
+          Positioned(
             top: 5,
             left: 30,
             child: Text(
@@ -48,67 +48,77 @@ class _ProfNotificationPageState extends State<ProfNotificationPage> {
               bottom: 20,
               child: ClipPath(
                 clipper: CustomCardClipper(),
-                child: ListView.builder(
-                  itemCount: notifications.length,
-                  itemBuilder: (context, index) {
-                    final item = notifications[index];
-                    return Container(
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.3),
-                            spreadRadius: 2,
-                            blurRadius: 5,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      height: 80,
-                      child: Row(
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: CircleAvatar(
-                              radius: 24,
-                              backgroundImage: AssetImage('assets/professor_image.png'), // Replace with the actual image path
+                child: Column(
+                  children: [
+                    Flexible( // Wrap ListView.builder with Flexible
+                      child: ListView.builder(
+                        itemCount: notifications.length,
+                        itemBuilder: (context, index) {
+                          final item = notifications[index];
+                          return Container(
+                            margin: const EdgeInsets.symmetric(vertical: 8),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.3),
+                                  spreadRadius: 2,
+                                  blurRadius: 5,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ],
                             ),
-                          ),
-                          Expanded(
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  item.type == NotificationType.professor
-                                      ? Text(
-                                    '${item.professorName} reserved schedule at Room ${item.roomNumber}',
-                                    style: const TextStyle(fontSize: 18),
-                                  )
-                                      : Text(
-                                    '${item.professorName} reservation at Room ${item.roomNumber} ',
-                                    style: const TextStyle(fontSize: 18),
+                            height: 80, // Set a fixed height for all notification cards
+                            child: Row(
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: CircleAvatar(
+                                    radius: 24,
+                                    backgroundImage: AssetImage('assets/professor_image.png'), // Replace with the actual image path
                                   ),
-                                  if (item.type == NotificationType.verified)
-                                    const Row(
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Icon(Icons.check, color: Colors.green),
-                                        SizedBox(width: 8),
-                                        Text(
-                                          'Verified',
-                                          style: TextStyle(fontSize: 14, color: Colors.green),
+                                        item.type == NotificationType.professor
+                                            ? Text(
+                                          '${item.professorName} reserved schedule at Room ${item.roomNumber}',
+                                          style: const TextStyle(fontSize: 18),
+                                        )
+                                            : Text(
+                                          '${item.professorName} reservation at Room ${item.roomNumber} ',
+                                          style: const TextStyle(fontSize: 18),
                                         ),
+                                        if (item.type == NotificationType.verified)
+                                          const Padding(
+                                            padding: EdgeInsets.symmetric(vertical: 0.1),
+                                            child: Row(
+                                              children: [
+                                                Icon(Icons.check, color: Colors.green),
+                                                SizedBox(width: 8),
+                                                Text(
+                                                  'Verified',
+                                                  style: TextStyle(fontSize: 14, color: Colors.green),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                       ],
                                     ),
-                                ],
-                              ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
+                          );
+                        },
                       ),
-                    );
-                  },
+                    ),
+                  ],
                 ),
               ),
             ),
