@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:appdevelopment/constants.dart';
 import 'package:appdevelopment/screens/welcome-login/controllers/login_controller.dart';
+
 import 'forget_password.dart';
 
 class LoginPage extends StatefulWidget {
@@ -177,8 +178,8 @@ class _LoginPageState extends State<LoginPage> {
                     showModalBottomSheet(
                       context: context,
                       builder: (context) => Container(
-                        height: MediaQuery.of(context).size.height * 0.5,
-                        padding: const EdgeInsets.all(15),
+                        height: MediaQuery.of(context).size.height * 0.4,
+                        padding: const EdgeInsets.all(30),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
