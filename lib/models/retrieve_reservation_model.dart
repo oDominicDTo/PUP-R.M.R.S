@@ -10,6 +10,7 @@ class RetrieveReservation {
   final String? courseColor;
   final Timestamp reservationDate;
   final String professorId;
+  String professorName; // Add the professorName property
 
   RetrieveReservation({
     required this.id, // Add the document ID parameter to the constructor
@@ -21,6 +22,7 @@ class RetrieveReservation {
     this.courseColor,
     required this.reservationDate,
     required this.professorId,
+    this.professorName = '', // Initialize the professorName property with an empty string
   });
 
   factory RetrieveReservation.fromSnapshot(DocumentSnapshot snapshot) {
@@ -35,6 +37,24 @@ class RetrieveReservation {
       courseColor: data['courseColor'],
       reservationDate: data['reservationDate'],
       professorId: data['professorId'],
+    );
+  }
+
+  // Add the copyWith method to update the professorName property
+  RetrieveReservation copyWith({
+    String? professorName,
+  }) {
+    return RetrieveReservation(
+      id: this.id,
+      subjectName: this.subjectName,
+      courseName: this.courseName,
+      initialTime: this.initialTime,
+      finalTime: this.finalTime,
+      roomName: this.roomName,
+      courseColor: this.courseColor,
+      reservationDate: this.reservationDate,
+      professorId: this.professorId,
+      professorName: professorName ?? this.professorName,
     );
   }
 }

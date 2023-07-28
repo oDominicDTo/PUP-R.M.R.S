@@ -1,4 +1,4 @@
-import 'package:appdevelopment/screens/faculty/models/retrieve_reservation_model.dart';
+import 'package:appdevelopment/models/retrieve_reservation_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Room {
@@ -27,13 +27,21 @@ class Room {
     final finalTime = selectedFinalTime;
 
     for (final reservation in reservations) {
-      final reservationInitialTime = reservation.initialTime.toDate();
-      final reservationFinalTime = reservation.finalTime.toDate();
+      final reservationDate = reservation.reservationDate.toDate(); // Convert reservationDate to DateTime
 
-      // Check for conflicts
-      if ((initialTime.isBefore(reservationFinalTime) && finalTime.isAfter(reservationInitialTime)) ||
-          (initialTime.isAtSameMomentAs(reservationFinalTime) || finalTime.isAtSameMomentAs(reservationInitialTime))) {
-        return false; // Room is not available
+      // Check if the reservation date is equal to the current date
+      if (reservationDate.year == currentDate.year &&
+          reservationDate.month == currentDate.month &&
+          reservationDate.day == currentDate.day) {
+
+        final reservationInitialTime = reservation.initialTime.toDate();
+        final reservationFinalTime = reservation.finalTime.toDate();
+
+        // Check for conflicts
+        if ((initialTime.isBefore(reservationFinalTime) && finalTime.isAfter(reservationInitialTime)) ||
+            (initialTime.isAtSameMomentAs(reservationFinalTime) || finalTime.isAtSameMomentAs(reservationInitialTime))) {
+          return false; // Room is not available
+        }
       }
     }
 

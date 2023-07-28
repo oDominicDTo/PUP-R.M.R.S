@@ -1,4 +1,4 @@
-import 'package:appdevelopment/screens/faculty/models/retrieve_reservation_model.dart';
+import 'package:appdevelopment/models/retrieve_reservation_model.dart';
 import 'package:appdevelopment/screens/faculty/ui/prof_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -25,17 +25,16 @@ class SelectRoomPage extends StatelessWidget {
 
   void _showConfirmationDialog(BuildContext context, Room room) async {
     try {
-      final List<RetrieveReservation> allReservations = await FirestoreUtils.getAllReservationsCurrent();
       final reservationsSnapshot = await FirebaseFirestore.instance
-        .collection('reservations')
-        .where('roomName', isEqualTo: room.roomName)
-        .get();
+          .collection('reservations')
+          .where('roomName', isEqualTo: room.roomName)
+          .get();
 
-    final reservations = reservationsSnapshot.docs.map((doc) => doc.data()).toList();
+      final reservations = reservationsSnapshot.docs.map((doc) => RetrieveReservation.fromSnapshot(doc)).toList();
 
-    final result = await showDialog<bool>(
-      context: context,
-      builder: (BuildContext context) {
+      final result = await showDialog<bool>(
+        context: context,
+        builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Confirmation'),
           content: Text('Are you sure you want to reserve ${room.roomName}?'),
@@ -61,7 +60,7 @@ class SelectRoomPage extends StatelessWidget {
         final isAvailable = room.isAvailable(
           selectedInitialTime,
           selectedFinalTime,
-          allReservations,
+          reservations,
           currentDate: DateTime.now(), // Pass the current date here
         );
 
@@ -94,9 +93,10 @@ class SelectRoomPage extends StatelessWidget {
       // Gather additional information from Firestore
       final subject = await FirestoreUtils.getSubjectByCourseAndSubjectId(courseId, subjectId);
       final course = await FirestoreUtils.getCourseById(courseId);
-
+      final currentDate = DateTime.now();
       final existingReservation = await reservationsCollection
           .where('subjectName', isEqualTo: subject.subjectName)
+          .where('reservationDate', isEqualTo: currentDate)
           .limit(1)
           .get();
 
