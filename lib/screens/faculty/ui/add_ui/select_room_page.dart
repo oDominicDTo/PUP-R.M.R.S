@@ -30,31 +30,34 @@ class SelectRoomPage extends StatelessWidget {
           .where('roomName', isEqualTo: room.roomName)
           .get();
 
-      final reservations = reservationsSnapshot.docs.map((doc) => RetrieveReservation.fromSnapshot(doc)).toList();
+      final reservations = reservationsSnapshot.docs.map((doc) =>
+          RetrieveReservation.fromSnapshot(doc)).toList();
 
       final result = await showDialog<bool>(
         context: context,
         builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Confirmation'),
-          content: Text('Are you sure you want to reserve ${room.roomName}?'),
-          actions: [
-            TextButton(
-              child: const Text('Yes'),
-              onPressed: () {
-                Navigator.of(context).pop(true); // Return true if the user confirms
-              },
-            ),
-            TextButton(
-              child: const Text('No'),
-              onPressed: () {
-                Navigator.of(context).pop(false); // Return false if the user cancels
-              },
-            ),
-          ],
-        );
-      },
-    );
+          return AlertDialog(
+            title: const Text('Confirmation'),
+            content: Text('Are you sure you want to reserve ${room.roomName}?'),
+            actions: [
+              TextButton(
+                child: const Text('Yes'),
+                onPressed: () {
+                  Navigator.of(context).pop(
+                      true); // Return true if the user confirms
+                },
+              ),
+              TextButton(
+                child: const Text('No'),
+                onPressed: () {
+                  Navigator.of(context).pop(
+                      false); // Return false if the user cancels
+                },
+              ),
+            ],
+          );
+        },
+      );
 
       if (result == true) {
         final isAvailable = room.isAvailable(
@@ -91,11 +94,13 @@ class SelectRoomPage extends StatelessWidget {
       final reservationsCollection = firestore.collection('reservations');
 
       // Gather additional information from Firestore
-      final subject = await FirestoreUtils.getSubjectByCourseAndSubjectId(courseId, subjectId);
+      final subject = await FirestoreUtils.getSubjectByCourseAndSubjectId(
+          courseId, subjectId);
       final course = await FirestoreUtils.getCourseById(courseId);
       final currentDate = DateTime.now();
-      final startOfDay = DateTime(currentDate.year, currentDate.month, currentDate.day);
-      final endOfDay = startOfDay.add(Duration(days: 1));
+      final startOfDay = DateTime(
+          currentDate.year, currentDate.month, currentDate.day);
+      final endOfDay = startOfDay.add( const Duration(days: 1));
 
       final existingReservation = await reservationsCollection
           .where('subjectName', isEqualTo: subject.subjectName)
@@ -135,7 +140,8 @@ class SelectRoomPage extends StatelessWidget {
           MaterialPageRoute(builder: (context) => const ProfPage()),
               (route) => false,
         );
-      }else{  _showSnackBar(context, 'A reservation for this subject already exists');
+      } else {
+        _showSnackBar(context, 'A reservation for this subject already exists');
       }
     } catch (error) {
       // Handle any errors from Firestore queries
@@ -150,56 +156,115 @@ class SelectRoomPage extends StatelessWidget {
         title: const Text('Select Room'),
       ),
       backgroundColor: Colors.white,
-      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: FirebaseFirestore.instance
-            .collection('buildings')
-            .doc(SelectedBuilding.buildingId)
-            .collection('floors')
-            .doc(SelectedFloor.floorId)
-            .collection('rooms')
-            .where('available', isEqualTo: true)
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Center(
-              child: Text('Error retrieving rooms'),
-            );
-          }
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return Stack(
+            children: [
+              Container(
+                color: Colors.grey,
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(14),
+                          bottomRight: Radius.circular(14),
+                        ),
+                        child: Container(
+                          color: const Color(0xFF5B0101),
+                          height: 0.2 * MediaQuery.of(context).size.height,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Positioned(
+                top: constraints.maxHeight * 0.15,
+                left: 20,
+                right: 20,
+                bottom: constraints.maxHeight * 0.22,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        const Text(
+                          "Choose Room",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        Expanded(
+                          child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                            stream: FirebaseFirestore.instance
+                                .collection('buildings')
+                                .doc(SelectedBuilding.buildingId)
+                                .collection('floors')
+                                .doc(SelectedFloor.floorId)
+                                .collection('rooms')
+                                .where('available', isEqualTo: true)
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasError) {
+                                return const Center(
+                                  child: Text('Error retrieving rooms'),
+                                );
+                              }
 
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
 
-          final rooms = snapshot.data?.docs.map((doc) => Room.fromSnapshot(doc)).toList();
+                              final rooms = snapshot.data?.docs.map((doc) => Room.fromSnapshot(doc)).toList();
 
-          if (rooms == null || rooms.isEmpty) {
-            return const Center(
-              child: Text('No available rooms found'),
-            );
-          }
+                              if (rooms == null || rooms.isEmpty) {
+                                return const Center(
+                                  child: Text('No available rooms found'),
+                                );
+                              }
 
-          // Process the data here to check room availability status.
-          // You can add an "isAvailable" property to your Room model or
-          // use any other approach to determine the availability status.
-
-          return ListView.builder(
-            itemCount: rooms.length,
-            itemBuilder: (context, index) {
-              final room = rooms[index];
-              return ListTile(
-                title: Text(room.roomName),
-                // Modify the onTap function to show the confirmation dialog
-                onTap: () {
-                  _showConfirmationDialog(context, room);
-                },
-              );
-            },
+                              return ListView.builder(
+                                itemCount: rooms.length,
+                                itemBuilder: (context, index) {
+                                  final room = rooms[index];
+                                  return Card(
+                                    shape: RoundedRectangleBorder(
+                                      side: const BorderSide(color: Colors.black, width: 1.0),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: ListTile(
+                                      title: Text(room.roomName),
+                                      onTap: () {
+                                        _showConfirmationDialog(context, room);
+                                      },
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           );
         },
       ),
     );
   }
-
 }
