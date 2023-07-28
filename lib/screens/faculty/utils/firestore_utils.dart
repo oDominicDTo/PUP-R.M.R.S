@@ -177,7 +177,8 @@ class FirestoreUtils {
       courseColor: data['courseColor'],
       reservationDate: data['reservationDate'],
       professorId: data['professorId'],
-
+      status: data['status'],
+      roomStatus: data['roomStatus'],
     );
   }
 
@@ -275,5 +276,24 @@ class FirestoreUtils {
       throw Exception('Error fetching notifications: $error');
     }
   }
+// Replace 'your_collection_name' with the actual name of your collection in Firestore
+  Future<void>updateReservationStatus(String reservationId) async {
+    try {
+      final collection = FirebaseFirestore.instance.collection('reservations');
+      await collection.doc(reservationId).update({'status': 'Ongoing', 'roomStatus': 'Confirmed',});
+    } catch (error) {
+      // Handle the error here or throw it to be handled elsewhere
+      throw Exception('Error updating reservation status: $error');
+    }
+  }
 
+  Future<void>updateReservationStatus2(String reservationId) async {
+    try {
+      final collection = FirebaseFirestore.instance.collection('reservations');
+      await collection.doc(reservationId).update({'status': 'Done'});
+    } catch (error) {
+      // Handle the error here or throw it to be handled elsewhere
+      throw Exception('Error updating reservation status: $error');
+    }
+  }
 }

@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:appdevelopment/screens/guard/utils/guard_firestore_utils.dart';
 import 'package:appdevelopment/screens/guard/utils/guard_color_utils.dart';
 import '../../../models/retrieve_reservation_model.dart';
+import 'guard_list_detail.dart';
 
 class GuardHomePage extends StatefulWidget {
   const GuardHomePage({Key? key}) : super(key: key);
@@ -194,6 +195,7 @@ class _GuardHomePageState extends State<GuardHomePage> {
                     child: GestureDetector(
                       onTap: () {
                         // Handle icon tap action
+
                       },
                       child: Image.asset(
                         'assets/searchicon.png',
@@ -241,121 +243,130 @@ class _GuardHomePageState extends State<GuardHomePage> {
                       Color? courseColor =
                           ColorUtils.stringToColor(courseColorString);
 
-                      return Card(
-                        elevation: 4,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border(
-                              bottom: BorderSide(
-                                color: courseColor ?? Colors.transparent,
-                                width: 10,
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => GuardDetailsPage(
+                                room: room, // Pass the selected room object to the GuardDetailsPage
                               ),
                             ),
+                          );
+                        },
+                        child: Card(
+                          elevation: 4,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          // Inside the ListView.builder
-                          // Inside the ListView.builder
-                          child: ListTile(
-                            onTap: () {
-                              // Handle tile tap action
-                            },
-                            tileColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            contentPadding: const EdgeInsets.all(8),
-                            title: Text(
-                              '${room.roomName ?? 'N/A'}',
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Poppins',
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: courseColor ?? Colors.transparent,
+                                  width: 10,
+                                ),
                               ),
                             ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '${room.subjectName ?? 'N/A'}',
-                                  style: const TextStyle(
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                            // Inside the ListView.builder
+                            // Inside the ListView.builder
+                            child: ListTile(
+                              tileColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              contentPadding: const EdgeInsets.all(8),
+                              title: Text(
+                                '${room.roomName ?? 'N/A'}',
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Poppins',
                                 ),
-                                Text(
-                                  '${room.professorName}',
-                                  style: const TextStyle(
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            trailing: Container(
-                              width: MediaQuery.of(context).size.width *
-                                  0.33, // 25% of screen width
-                              child: Stack(
+                              ),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Positioned(
-                                    top: 0,
-                                    right: 0,
-                                    child: Align(
-                                      alignment: Alignment.topRight,
-                                      child: Text(
-                                        '${room.courseName ?? 'N/A'}',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: courseColor,
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
+                                  Text(
+                                    '${room.subjectName ?? 'N/A'}',
+                                    style: const TextStyle(
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w500,
                                     ),
                                   ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 1),
-                                        height: 20,
-                                        decoration: BoxDecoration(
-                                          color: Colors.black,
-                                          borderRadius: BorderRadius.circular(20),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            const Icon(
-                                              Icons.access_time,
-                                              color: Colors.white,
-                                              size: 15,
-                                            ),
-                                            const SizedBox(width: 4),
-                                            Text(
-                                              '$formattedInitialTime - $formattedFinalTime',
-                                              style: const TextStyle(
-                                                fontFamily: 'Poppins',
-                                                fontSize: 10.5,
-                                                fontWeight: FontWeight.normal,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                  Text(
+                                    '${room.professorName} \nStatus: ${room.status}',
+                                    style: const TextStyle(
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w300,
                                     ),
                                   ),
                                 ],
                               ),
+                              trailing: Container(
+                                width: MediaQuery.of(context).size.width *
+                                    0.33, // 25% of screen width
+                                child: Stack(
+                                  children: [
+                                    Positioned(
+                                      top: 0,
+                                      right: 0,
+                                      child: Align(
+                                        alignment: Alignment.topRight,
+                                        child: Text(
+                                          '${room.courseName ?? 'N/A'}',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            color: courseColor,
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      bottom: 0,
+                                      right: 0,
+                                      child: Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 1),
+                                          height: 20,
+                                          decoration: BoxDecoration(
+                                            color: Colors.black,
+                                            borderRadius: BorderRadius.circular(20),
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              const Icon(
+                                                Icons.access_time,
+                                                color: Colors.white,
+                                                size: 15,
+                                              ),
+                                              const SizedBox(width: 4),
+                                              Text(
+                                                '$formattedInitialTime - $formattedFinalTime',
+                                                style: const TextStyle(
+                                                  fontFamily: 'Poppins',
+                                                  fontSize: 10.5,
+                                                  fontWeight: FontWeight.normal,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              dense: true,
                             ),
-                            dense: true,
                           ),
                         ),
                       );

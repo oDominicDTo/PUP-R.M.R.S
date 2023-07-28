@@ -1,4 +1,5 @@
-import 'package:appdevelopment/screens/faculty/ui/ui%20settings/reservation_details_page.dart';
+import 'package:appdevelopment/screens/faculty/ui/reservation_details_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:appdevelopment/models/retrieve_reservation_model.dart';
@@ -7,7 +8,8 @@ import 'package:intl/intl.dart';
 import 'package:appdevelopment/screens/faculty/utils/color_utils.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:appdevelopment/screens/faculty/utils/confirmation_dialog.dart';
-
+import 'dart:async'; // Step 1: Import dart:async
+import 'dart:core'; // Step 1: Import dart:core
 import '../logic/room_availability_checker.dart';
 import '../widgets/modify_dialog.dart';
 
@@ -16,11 +18,18 @@ class HomePage extends StatefulWidget {
 
   @override
   State<HomePage> createState() => _HomePageState();
+
 }
 
 class _HomePageState extends State<HomePage> {
   final User? user = FirebaseAuth.instance.currentUser;
   List<RetrieveReservation> reservations = [];
+  @override
+  void initState() {
+    super.initState();
+    _scheduleStatusUpdateForReservations();
+  }
+
 
   Future<void> _handleRefresh() async {
     try {
@@ -32,6 +41,15 @@ class _HomePageState extends State<HomePage> {
       });
     } catch (error) {
       print('Error fetching reservations: $error');
+    }
+  }
+  void _updateReservationStatusWithTimer(String reservationId) async {
+    try {
+      final collection = FirebaseFirestore.instance.collection('reservations');
+      await collection.doc(reservationId).update({'status': 'Done'});
+    } catch (error) {
+      // Handle the error here or throw it to be handled elsewhere
+      throw Exception('Error updating reservation status: $error');
     }
   }
 
@@ -89,18 +107,6 @@ class _HomePageState extends State<HomePage> {
                         String? courseColorString = reservation.courseColor;
                         Color? courseColor =
                             ColorUtils.stringToColor(courseColorString);
-                        String statusText = '';
-                        switch (reservation.status) {
-                          case ReservationStatus.Upcoming:
-                            statusText = 'Upcoming';
-                            break;
-                          case ReservationStatus.Ongoing:
-                            statusText = 'Ongoing';
-                            break;
-                          case ReservationStatus.Done:
-                            statusText = 'Done';
-                            break;
-                        }
 
                         return InkWell(
                             onTap: () {
@@ -222,7 +228,7 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                         dense: false,
                                         trailing: Text(
-                                          statusText,
+                                          '${reservation.status}',
                                           style: const TextStyle(
                                             // Customize the style as per your design
                                             fontWeight: FontWeight.bold,
@@ -251,7 +257,19 @@ class _HomePageState extends State<HomePage> {
             ),
     );
   }
-
+  void _scheduleStatusUpdateForReservations() {
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      final now = DateTime.now();
+      for (final reservation in reservations) {
+        final finalTime = reservation.finalTime.toDate();
+        if (now.isAfter(finalTime)) {
+          _updateReservationStatusWithTimer(reservation.id);
+          // You can also cancel the timer for this reservation
+          timer.cancel();
+        }
+      }
+    });
+  }
   void _deleteReservation(RetrieveReservation reservation) async {
     await showConfirmationDialog(
       context,
@@ -312,8 +330,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  bool isDeleteButtonEnabled(ReservationStatus status) {
-    return status == ReservationStatus.Upcoming;
+  bool isDeleteButtonEnabled(status) {
+    return status == 'Upcoming';
   }
 
 }

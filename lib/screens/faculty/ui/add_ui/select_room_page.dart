@@ -122,7 +122,8 @@ class SelectRoomPage extends StatelessWidget {
           'finalTime': subject.finalTime,
           'reservationDate': reservationDateTimestamp,
           // Store reservationDate as a Timestamp
-          'status': 'Upcoming'
+          'status': 'Upcoming',
+          'roomStatus': 'Pending',
           // Add the current date and time
           // Add other reservation details as needed
         });

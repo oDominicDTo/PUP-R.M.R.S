@@ -50,6 +50,9 @@ dependencies:
   cloud_functions: ^4.3.4
   flutter_local_notifications: ^15.1.0+1
   firebase_admin: ^0.2.0
+  qr_code_scanner: ^1.0.1
+  rflutter_alert: ^2.0.7
+  provider: ^6.0.5
 
 dev_dependencies:
   flutter_test:

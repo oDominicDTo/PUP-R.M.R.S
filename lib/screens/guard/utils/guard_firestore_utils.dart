@@ -57,7 +57,8 @@ class FireStoreUtilsForGuard{
        courseColor: data['courseColor'],
        reservationDate: data['reservationDate'],
        professorId: data['professorId'],
-
+       status: data['status'],
+       roomStatus: data['roomStatus'],
      );
    }
 }
