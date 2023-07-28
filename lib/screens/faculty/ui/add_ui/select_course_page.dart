@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:appdevelopment/screens/faculty/ui/add_ui/select_subject_page.dart';
 
@@ -93,8 +94,7 @@ class SelectCoursePage extends StatelessWidget {
                                             side: const BorderSide(color: Colors.black, width: 1.0),
                                           ),
                                           child: ListTile(
-                                            title: Text(courses[index].courseName),
-                                            subtitle: Text(courses[index].courseColor),
+                                            title: Text(courses[index].courseName,textAlign: TextAlign.center,),
                                             onTap: () {
                                               Navigator.push(
                                                 context,
