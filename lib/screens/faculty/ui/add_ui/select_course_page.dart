@@ -37,7 +37,7 @@ class SelectCoursePage extends StatelessWidget {
                           ),
                           child: Container(
                             color: const Color(0xFF5B0101),
-                            height: constraints.maxHeight * 0.2,
+                            height: 0.2 * MediaQuery.of(context).size.height, // Responsive height
                           ),
                         ),
                       ),
@@ -48,7 +48,7 @@ class SelectCoursePage extends StatelessWidget {
                   top: constraints.maxHeight * 0.15,
                   left: 20,
                   right: 20,
-                  bottom: constraints.maxHeight * 0.15,
+                  bottom: constraints.maxHeight * 0.20,
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
