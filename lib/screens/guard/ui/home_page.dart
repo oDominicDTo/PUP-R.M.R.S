@@ -184,7 +184,7 @@ class _GuardHomePageState extends State<GuardHomePage> {
                         });
                       },
                       decoration: const InputDecoration(
-                        hintText: 'Name, Subject, Course',
+                        hintText: 'Name, Subject, Course, Status',
                         border: InputBorder.none,
                       ),
                     ),
