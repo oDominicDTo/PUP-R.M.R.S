@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:appdevelopment/constants.dart';
 import 'package:appdevelopment/widgets/app_bar_widget.dart';
 import 'history_page.dart';
-import 'notification_page.dart';
+import 'package:appdevelopment/screens/faculty/ui/notification_page.dart';
 import 'settings_page.dart';
 import 'home_page.dart';
 
@@ -18,7 +18,7 @@ class _GuardPageState extends State<GuardPage> {
   final screens = [
     const GuardHomePage(),
     const HistoryPage(),
-    const NotificationPage(),
+     NotificationPage(),
     const SettingsPage(),
   ];
 
