@@ -90,7 +90,6 @@ class _GuardHomePageState extends State<GuardHomePage> {
   }
 
   void filterRooms() {
-
     filteredRooms = rooms.where((room) {
       final roomName = room.roomName?.toLowerCase() ?? '';
       final subjectName = room.subjectName?.toLowerCase() ?? '';
@@ -195,7 +194,6 @@ class _GuardHomePageState extends State<GuardHomePage> {
                     child: GestureDetector(
                       onTap: () {
                         // Handle icon tap action
-
                       },
                       child: Image.asset(
                         'assets/searchicon.png',
@@ -249,7 +247,8 @@ class _GuardHomePageState extends State<GuardHomePage> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => GuardDetailsPage(
-                                room: room, // Pass the selected room object to the GuardDetailsPage
+                                room:
+                                    room, // Pass the selected room object to the GuardDetailsPage
                               ),
                             ),
                           );
@@ -336,7 +335,8 @@ class _GuardHomePageState extends State<GuardHomePage> {
                                           height: 20,
                                           decoration: BoxDecoration(
                                             color: Colors.black,
-                                            borderRadius: BorderRadius.circular(20),
+                                            borderRadius:
+                                                BorderRadius.circular(20),
                                           ),
                                           child: Row(
                                             mainAxisAlignment:
