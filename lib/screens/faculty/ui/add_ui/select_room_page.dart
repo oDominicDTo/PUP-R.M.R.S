@@ -246,7 +246,7 @@ class SelectRoomPage extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: ListTile(
-                                      title: Text(room.roomName),
+                                      title: Text(room.roomName,textAlign: TextAlign.center,),
                                       onTap: () {
                                         _showConfirmationDialog(context, room);
                                       },
