@@ -14,9 +14,11 @@ class OverlayPage extends StatelessWidget {
 
     return AlertDialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10), // Manually adjust the border radius to control the size
+        borderRadius: BorderRadius.circular(
+            10), // Manually adjust the border radius to control the size
       ),
-      contentPadding: EdgeInsets.zero, // Remove default padding around the content
+      contentPadding:
+          EdgeInsets.zero, // Remove default padding around the content
       content: SingleChildScrollView(
         child: Container(
           width: overlayWidth,
@@ -29,9 +31,12 @@ class OverlayPage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 20), // Adjust the top padding to vertically position the text
+                      padding: const EdgeInsets.only(
+                          top:
+                              20), // Adjust the top padding to vertically position the text
                       child: Align(
-                        alignment: Alignment.topCenter, // Align the "Color Legend" text to the top center
+                        alignment: Alignment
+                            .topCenter, // Align the "Color Legend" text to the top center
                         child: Text(
                           'Color Legends',
                           style: TextStyle(
@@ -43,12 +48,16 @@ class OverlayPage extends StatelessWidget {
                     ),
                     SizedBox(height: 15),
                     Align(
-                      alignment: Alignment.topLeft, // You can adjust the alignment here
+                      alignment: Alignment
+                          .topLeft, // You can adjust the alignment here
                       child: Wrap(
                         alignment: WrapAlignment.center,
                         children: [
                           for (int i = 0; i < totalCircles; i++)
-                            ColorCircle(size: circleSize, color: colors[i], label: labels[i]),
+                            ColorCircle(
+                                size: circleSize,
+                                color: colors[i],
+                                label: labels[i]),
                         ],
                       ),
                     ),
@@ -72,10 +81,11 @@ class ColorCircle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double fontSize = size * 0.22; // Adjust the font size based on the circle's size
+    final double fontSize =
+        size * 0.22; // Adjust the font size based on the circle's size
 
     return Padding(
-      padding: const EdgeInsets.all(6.0), // Add some padding between circles
+      padding: const EdgeInsets.all(10.0), // Add some padding between circles
       child: Column(
         children: [
           Container(

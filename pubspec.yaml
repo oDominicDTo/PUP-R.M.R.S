@@ -35,6 +35,11 @@ dependencies:
   intl: ^0.17.0
   image_picker: ^0.8.4+4
   cached_network_image: ^3.1.0
+  path_provider: ^2.0.15
+  file_picker: ^5.3.3
+  excel: ^2.1.0
+  csv: ^5.0.2
+  permission_handler: ^10.4.3
 
   get:
 
