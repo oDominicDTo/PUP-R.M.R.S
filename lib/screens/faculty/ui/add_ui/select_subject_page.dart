@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:appdevelopment/screens/faculty/ui/add_ui/select_room_page.dart';
 import 'package:appdevelopment/screens/faculty/models/subject_model.dart';
 import 'package:appdevelopment/screens/faculty/utils/firestore_utils.dart';
+import 'package:intl/intl.dart';
 
 class SelectSubjectPage extends StatelessWidget {
   final String courseId;
@@ -83,6 +84,12 @@ class SelectSubjectPage extends StatelessWidget {
                                 itemCount: subjects.length,
                                 itemBuilder: (context, index) {
                                   final subject = subjects[index];
+
+                                  DateTime initialDateTime = subject.initialTime;
+                                  DateTime finalDateTime = subject.finalTime;
+
+                                  String formattedInitialTime = DateFormat('h:mm a').format(initialDateTime);
+                                  String formattedFinalTime = DateFormat('h:mm a').format(finalDateTime);
                                   return Card(
                                     color: Colors.white,
                                     elevation: 2,
@@ -91,13 +98,12 @@ class SelectSubjectPage extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: ListTile(
-                                      title: Text(subject.subjectName),
+                                      title: Text(subject.subjectName,textAlign: TextAlign.center,),
                                       subtitle: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
-                                          Text('Professor ID: ${subject.professorId}'),
-                                          Text('Initial Time: ${subject.initialTime}'),
-                                          Text('Final Time: ${subject.finalTime}'),
+                                          Text('$formattedInitialTime - $formattedFinalTime',),
+
                                         ],
                                       ),
                                       onTap: () {
