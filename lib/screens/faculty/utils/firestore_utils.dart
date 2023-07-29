@@ -12,12 +12,8 @@ class FirestoreUtils {
     final querySnapshot = await FirebaseFirestore.instance
         .collection('buildings/$buildingId/floors')
         .get();
-    return querySnapshot.docs
-        .map((doc) => Floor.fromSnapshot(doc))
-        .toList();
+    return querySnapshot.docs.map((doc) => Floor.fromSnapshot(doc)).toList();
   }
-
-
 
   static Future<List<Course>> getCoursesByProfessor(String professorId) async {
     final coursesQuery = FirebaseFirestore.instance
@@ -26,8 +22,9 @@ class FirestoreUtils {
         .get();
 
     final coursesSnapshot = await coursesQuery;
-    final courseProfessors =
-    coursesSnapshot.docs.map((doc) => CourseProfessor.fromSnapshot(doc)).toList();
+    final courseProfessors = coursesSnapshot.docs
+        .map((doc) => CourseProfessor.fromSnapshot(doc))
+        .toList();
 
     final List<String> courseIds = [];
     for (var cp in courseProfessors) {
@@ -42,16 +39,15 @@ class FirestoreUtils {
         .get();
 
     final courseDetailsSnapshot = await courseDetailsQuery;
-    final courses = courseDetailsSnapshot.docs.map((doc) => Course.fromSnapshot(doc)).toList();
+    final courses = courseDetailsSnapshot.docs
+        .map((doc) => Course.fromSnapshot(doc))
+        .toList();
 
     return courses;
   }
 
-
-
-
-
-  static Future<Subject> getSubjectByCourseAndSubjectId(String courseId, String subjectId) async {
+  static Future<Subject> getSubjectByCourseAndSubjectId(
+      String courseId, String subjectId) async {
     final subjectDoc = await FirebaseFirestore.instance
         .collection('courses')
         .doc(courseId)
@@ -78,7 +74,8 @@ class FirestoreUtils {
     }
   }
 
-  static Future<List<Subject>> getSubjectsByCourse(String courseId, String professorId) async {
+  static Future<List<Subject>> getSubjectsByCourse(
+      String courseId, String professorId) async {
     final subjectsSnapshot = await FirebaseFirestore.instance
         .collection('courses')
         .doc(courseId)
@@ -108,13 +105,14 @@ class FirestoreUtils {
     final querySnapshot = await FirebaseFirestore.instance
         .collection('buildings/$buildingId/floors')
         .get();
-    return querySnapshot.docs
-        .map((doc) => Floor.fromSnapshot(doc))
-        .toList();
+    return querySnapshot.docs.map((doc) => Floor.fromSnapshot(doc)).toList();
   }
 
   static Future<Course> getCourseById(String courseId) async {
-    final courseDoc = await FirebaseFirestore.instance.collection('courses').doc(courseId).get();
+    final courseDoc = await FirebaseFirestore.instance
+        .collection('courses')
+        .doc(courseId)
+        .get();
 
     if (courseDoc.exists) {
       final data = courseDoc.data() as Map<String, dynamic>;
@@ -130,91 +128,20 @@ class FirestoreUtils {
       throw Exception('Course not found');
     }
   }
+
   static DateTime getCurrentDate() {
     return DateTime.now();
   }
+
   static Future<List<RetrieveReservation>> getReservationsForProfessor(
       String professorId) async {
     try {
       final DateTime currentDate = DateTime.now();
       final QuerySnapshot<Map<String, dynamic>> snapshot =
-      await FirebaseFirestore.instance
-          .collection('reservations')
-          .where('professorId', isEqualTo: professorId)
-          .get();
-
-      final reservations = snapshot.docs
-          .map((doc) => _convertToReservation(doc))
-          .where((reservation) {
-        // Convert the reservationDate timestamp to DateTime
-        final Timestamp reservationDateTimestamp = reservation.reservationDate;
-        final DateTime reservationDate = reservationDateTimestamp.toDate();
-
-        // Compare only the date (year, month, and day) without considering the time
-        return currentDate.year == reservationDate.year &&
-            currentDate.month == reservationDate.month &&
-            currentDate.day == reservationDate.day;
-      })
-          .toList();
-
-      return reservations;
-    } catch (error) {
-      // You can handle the error here or throw it to be handled elsewhere
-      throw Exception('Error fetching reservations: $error');
-    }
-  }
-  static RetrieveReservation _convertToReservation(DocumentSnapshot<Map<String, dynamic>> doc) {
-    final data = doc.data()!;
-    final id = doc.id; // Get the document ID
-
-    return RetrieveReservation(
-      id: id,
-      subjectName: data['subjectName'],
-      courseName: data['courseName'],
-      initialTime: data['initialTime'],
-      finalTime: data['finalTime'],
-      roomName: data['roomName'],
-      courseColor: data['courseColor'],
-      reservationDate: data['reservationDate'],
-      professorId: data['professorId'],
-      status: data['status'],
-      roomStatus: data['roomStatus'],
-    );
-  }
-
-
-  static deleteReservation(String documentId) async {
-    try {
-      await FirebaseFirestore.instance
-          .collection('reservations') // Replace with your Firestore collection name
-          .doc(documentId)
-          .delete();
-    } catch (e) {
-      print('Error deleting document: $e');
-    }
-  }
-  static Future<void> updateReservationTime(
-      String documentId,
-      DateTime newInitialTime,
-      DateTime newFinalTime,
-      ) async {
-    try {
-      await FirebaseFirestore.instance
-          .collection('reservations')
-          .doc(documentId)
-          .update({
-        'initialTime': Timestamp.fromDate(newInitialTime),
-        'finalTime': Timestamp.fromDate(newFinalTime),
-      });
-    } catch (e) {
-      print('Error updating document: $e');
-    }
-  }
-  static Future<List<RetrieveReservation>> getAllReservationsCurrent() async {
-    try {
-      final DateTime currentDate = DateTime.now();
-      final QuerySnapshot<Map<String, dynamic>> snapshot =
-      await FirebaseFirestore.instance.collection('reservations').get();
+          await FirebaseFirestore.instance
+              .collection('reservations')
+              .where('professorId', isEqualTo: professorId)
+              .get();
 
       final reservations = snapshot.docs
           .map((doc) => _convertToReservation(doc))
@@ -235,6 +162,83 @@ class FirestoreUtils {
       throw Exception('Error fetching reservations: $error');
     }
   }
+
+  static RetrieveReservation _convertToReservation(
+      DocumentSnapshot<Map<String, dynamic>> doc) {
+    final data = doc.data()!;
+    final id = doc.id; // Get the document ID
+
+    return RetrieveReservation(
+      id: id,
+      subjectName: data['subjectName'],
+      courseName: data['courseName'],
+      initialTime: data['initialTime'],
+      finalTime: data['finalTime'],
+      roomName: data['roomName'],
+      courseColor: data['courseColor'],
+      reservationDate: data['reservationDate'],
+      professorId: data['professorId'],
+      status: data['status'],
+      roomStatus: data['roomStatus'],
+    );
+  }
+
+  static deleteReservation(String documentId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection(
+              'reservations') // Replace with your Firestore collection name
+          .doc(documentId)
+          .delete();
+    } catch (e) {
+      print('Error deleting document: $e');
+    }
+  }
+
+  static Future<void> updateReservationTime(
+    String documentId,
+    DateTime newInitialTime,
+    DateTime newFinalTime,
+  ) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('reservations')
+          .doc(documentId)
+          .update({
+        'initialTime': Timestamp.fromDate(newInitialTime),
+        'finalTime': Timestamp.fromDate(newFinalTime),
+      });
+    } catch (e) {
+      print('Error updating document: $e');
+    }
+  }
+
+  static Future<List<RetrieveReservation>> getAllReservationsCurrent() async {
+    try {
+      final DateTime currentDate = DateTime.now();
+      final QuerySnapshot<Map<String, dynamic>> snapshot =
+          await FirebaseFirestore.instance.collection('reservations').get();
+
+      final reservations = snapshot.docs
+          .map((doc) => _convertToReservation(doc))
+          .where((reservation) {
+        // Convert the reservationDate timestamp to DateTime
+        final Timestamp reservationDateTimestamp = reservation.reservationDate;
+        final DateTime reservationDate = reservationDateTimestamp.toDate();
+
+        // Compare only the date (year, month, and day) without considering the time
+        return currentDate.year == reservationDate.year &&
+            currentDate.month == reservationDate.month &&
+            currentDate.day == reservationDate.day;
+      }).toList();
+
+      return reservations;
+    } catch (error) {
+      // You can handle the error here or throw it to be handled elsewhere
+      throw Exception('Error fetching reservations: $error');
+    }
+  }
+
   // Example method to fetch notifications for the current user
   static Future<String?> getCurrentUserId() async {
     // Get the current user from Firebase Authentication
@@ -246,7 +250,8 @@ class FirestoreUtils {
     }
   }
 
-  static Future<List<NotificationData>> getFilteredNotificationsForCurrentUserAndDate() async {
+  static Future<List<NotificationData>>
+      getFilteredNotificationsForCurrentUserAndDate() async {
     try {
       // Get the current user ID
       String? userId = await getCurrentUserId();
@@ -261,14 +266,17 @@ class FirestoreUtils {
       // Convert currentDate to a Timestamp
       Timestamp currentTimestamp = Timestamp.fromDate(currentDate);
 
-      final QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance
-          .collection('notifications')
-          .where('userId', isEqualTo: userId)
-          .where('notificationDate', isEqualTo: currentTimestamp)
-          .get();
+      final QuerySnapshot<Map<String, dynamic>> snapshot =
+          await FirebaseFirestore.instance
+              .collection('notifications')
+              .where('userId', isEqualTo: userId)
+              .where('notificationDate', isEqualTo: currentTimestamp)
+              .get();
 
       final notificationDocs = snapshot.docs;
-      final notifications = notificationDocs.map((doc) => NotificationData.fromSnapshot(doc)).toList();
+      final notifications = notificationDocs
+          .map((doc) => NotificationData.fromSnapshot(doc))
+          .toList();
 
       return notifications;
     } catch (error) {
@@ -276,18 +284,22 @@ class FirestoreUtils {
       throw Exception('Error fetching notifications: $error');
     }
   }
+
 // Replace 'your_collection_name' with the actual name of your collection in Firestore
-  Future<void>updateReservationStatus(String reservationId) async {
+  Future<void> updateReservationStatus(String reservationId) async {
     try {
       final collection = FirebaseFirestore.instance.collection('reservations');
-      await collection.doc(reservationId).update({'status': 'Ongoing', 'roomStatus': 'Confirmed',});
+      await collection.doc(reservationId).update({
+        'status': 'Ongoing',
+        'roomStatus': 'Confirmed',
+      });
     } catch (error) {
       // Handle the error here or throw it to be handled elsewhere
       throw Exception('Error updating reservation status: $error');
     }
   }
 
-  Future<void>updateReservationStatus2(String reservationId) async {
+  Future<void> updateReservationStatus2(String reservationId) async {
     try {
       final collection = FirebaseFirestore.instance.collection('reservations');
       await collection.doc(reservationId).update({'status': 'Done'});
@@ -295,5 +307,33 @@ class FirestoreUtils {
       // Handle the error here or throw it to be handled elsewhere
       throw Exception('Error updating reservation status: $error');
     }
+  }
+
+  static Future<bool> isRoomRestrictedForSubject(
+      String courseId, String subjectId, String roomName) async {
+    try {
+      final subjectSnapshot = await FirebaseFirestore.instance
+          .collection('courses')
+          .doc(courseId)
+          .collection('subjects')
+          .doc(subjectId)
+          .get();
+
+      if (subjectSnapshot.exists) {
+        final subjectData = subjectSnapshot.data();
+
+        if (subjectData != null && subjectData.containsKey('restrictedRooms')) {
+          final List<dynamic> restrictedRooms = subjectData['restrictedRooms'];
+
+          // Check if the selected room name is present in the restrictedRooms list
+          return restrictedRooms.contains(roomName);
+        }
+      }
+    } catch (error) {
+      print('Error checking room restrictions: $error');
+    }
+
+    // If subject not found or an error occurred, default to not restricted
+    return false;
   }
 }

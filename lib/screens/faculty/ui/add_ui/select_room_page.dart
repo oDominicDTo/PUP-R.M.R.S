@@ -6,6 +6,8 @@ import 'package:appdevelopment/screens/faculty/models/room_model.dart';
 import 'package:appdevelopment/screens/faculty/utils/firestore_utils.dart';
 import '../../../../main.dart';
 import '../../utils/selection_variables.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+
 
 class SelectRoomPage extends StatelessWidget {
   final String subjectId;
@@ -30,28 +32,28 @@ class SelectRoomPage extends StatelessWidget {
           .where('roomName', isEqualTo: room.roomName)
           .get();
 
-      final reservations = reservationsSnapshot.docs.map((doc) =>
-          RetrieveReservation.fromSnapshot(doc)).toList();
+      final reservations = reservationsSnapshot.docs
+          .map((doc) => RetrieveReservation.fromSnapshot(doc))
+          .toList();
 
       final result = await showDialog<bool>(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Confirmation'),
-            content: Text('Are you sure you want to reserve ${room.roomName}?'),
+            content:
+            Text('Are you sure you want to reserve ${room.roomName}?'),
             actions: [
               TextButton(
                 child: const Text('Yes'),
                 onPressed: () {
-                  Navigator.of(context).pop(
-                      true); // Return true if the user confirms
+                  Navigator.of(context).pop(true);
                 },
               ),
               TextButton(
                 child: const Text('No'),
                 onPressed: () {
-                  Navigator.of(context).pop(
-                      false); // Return false if the user cancels
+                  Navigator.of(context).pop(false);
                 },
               ),
             ],
@@ -60,17 +62,24 @@ class SelectRoomPage extends StatelessWidget {
       );
 
       if (result == true) {
-        final isAvailable = room.isAvailable(
-          selectedInitialTime,
-          selectedFinalTime,
-          reservations,
-          currentDate: DateTime.now(), // Pass the current date here
-        );
+        final isRoomRestricted = await FirestoreUtils.isRoomRestrictedForSubject(
+            courseId, subjectId, room.roomName);
 
-        if (isAvailable) {
-          _addReservation(context, room);
+        if (isRoomRestricted) {
+          _showRestrictedRoomAlert(context, room);
         } else {
-          _showSnackBar(context, 'Room not available for the selected time');
+          final isAvailable = room.isAvailable(
+            selectedInitialTime,
+            selectedFinalTime,
+            reservations,
+            currentDate: DateTime.now(),
+          );
+
+          if (isAvailable) {
+            _addReservation(context, room);
+          } else {
+            _showSnackBar(context, 'Room not available for the selected time');
+          }
         }
       }
     } catch (error) {
@@ -78,6 +87,25 @@ class SelectRoomPage extends StatelessWidget {
     }
   }
 
+  void _showRestrictedRoomAlert(BuildContext context, Room room) {
+    Alert(
+      context: context,
+      type: AlertType.warning,
+      title: 'Restricted Room',
+      desc:
+      'The selected room is restricted for this subject and cannot be reserved.',
+      buttons: [
+        DialogButton(
+          child: Text(
+            'OK',
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () => Navigator.of(context).pop(),
+          color: Color.fromRGBO(0, 179, 134, 1.0),
+        ),
+      ],
+    ).show();
+  }
 
   void _showSnackBar(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
