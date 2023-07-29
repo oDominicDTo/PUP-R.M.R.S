@@ -5,6 +5,7 @@ import 'package:appdevelopment/screens/guard/utils/guard_firestore_utils.dart';
 import 'package:appdevelopment/screens/guard/utils/guard_color_utils.dart';
 import '../../../models/retrieve_reservation_model.dart';
 import 'guard_list_detail.dart';
+import '../../../screens/guard/ui/manual_add/manual_add.dart';
 
 class GuardHomePage extends StatefulWidget {
   const GuardHomePage({Key? key}) : super(key: key);
@@ -109,271 +110,286 @@ class _GuardHomePageState extends State<GuardHomePage> {
   Widget build(BuildContext context) {
     final currentDate = DateFormat('MMMM dd, yyyy').format(DateTime.now());
     return Scaffold(
-        backgroundColor: const Color(0xFFF0F0F0),
-        body: Stack(alignment: Alignment.center, children: [
-          Positioned(
-            top: 120,
-            left: 10,
-            right: 10,
-            child: Container(
-              height: 30, // Set the desired height
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
-                ),
-                border: Border.all(
-                  color: Colors.grey.withOpacity(0.3),
-                  width: 1,
+      backgroundColor: const Color(0xFFF0F0F0),
+      body: Stack(alignment: Alignment.center, children: [
+        Positioned(
+          top: 120,
+          left: 10,
+          right: 10,
+          child: Container(
+            height: 30, // Set the desired height
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+              ),
+              border: Border.all(
+                color: Colors.grey.withOpacity(0.3),
+                width: 1,
+              ),
+            ),
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  currentDate,
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Poppins',
+                  ),
                 ),
               ),
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    currentDate,
+            ),
+          ),
+        ),
+        const Positioned(
+          top: 5,
+          left: 30,
+          child: Text(
+            'Home',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.normal,
+              fontFamily: 'Poppins',
+            ),
+          ),
+        ),
+        Positioned(
+          top: 50,
+          left: 20,
+          right: 20,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            height: 48,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
                     style: const TextStyle(
                       fontSize: 13,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
+                      color: Color(0xFFC5C5C5),
                       fontFamily: 'Poppins',
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        searchQuery = value;
+                        filterRooms();
+                      });
+                    },
+                    decoration: const InputDecoration(
+                      hintText: 'Name, Subject, Course, Status',
+                      border: InputBorder.none,
                     ),
                   ),
                 ),
-              ),
-            ),
-          ),
-          const Positioned(
-            top: 5,
-            left: 30,
-            child: Text(
-              'Home',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.normal,
-                fontFamily: 'Poppins',
-              ),
-            ),
-          ),
-          Positioned(
-            top: 50,
-            left: 20,
-            right: 20,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              height: 48,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      style: const TextStyle(
-                        fontSize: 13,
-                        color: Color(0xFFC5C5C5),
-                        fontFamily: 'Poppins',
-                      ),
-                      onChanged: (value) {
-                        setState(() {
-                          searchQuery = value;
-                          filterRooms();
-                        });
-                      },
-                      decoration: const InputDecoration(
-                        hintText: 'Name, Subject, Course, Status',
-                        border: InputBorder.none,
-                      ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: GestureDetector(
+                    onTap: () {
+                      // Handle icon tap action
+                    },
+                    child: Image.asset(
+                      'assets/searchicon.png',
+                      width: 30,
+                      height: 30,
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: GestureDetector(
+                ),
+              ],
+            ),
+          ),
+        ),
+        Positioned(
+            top: 150,
+            left: 10,
+            right: 10,
+            bottom: -1,
+            child: RefreshIndicator(
+              key: _refreshIndicatorKey,
+              onRefresh: _handleRefresh,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(
+                    color: Colors.grey.withOpacity(0.3),
+                    width: 1,
+                  ),
+                ),
+                child: ListView.builder(
+                  itemCount: filteredRooms.length,
+                  itemBuilder: (context, index) {
+                    final room = filteredRooms[index];
+
+                    // Convert reservation initialTime and finalTime timestamps to DateTime
+                    DateTime initialDateTime = room.initialTime.toDate();
+                    DateTime finalDateTime = room.finalTime.toDate();
+
+                    // Format initialTime and finalTime as desired (e.g., 'h:mm a')
+                    String formattedInitialTime =
+                        DateFormat('h:mm a').format(initialDateTime);
+                    String formattedFinalTime =
+                        DateFormat('h:mm a').format(finalDateTime);
+
+                    String? courseColorString = room.courseColor;
+                    Color? courseColor =
+                        ColorUtils.stringToColor(courseColorString);
+
+                    return InkWell(
                       onTap: () {
-                        // Handle icon tap action
-                      },
-                      child: Image.asset(
-                        'assets/searchicon.png',
-                        width: 30,
-                        height: 30,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Positioned(
-              top: 150,
-              left: 10,
-              right: 10,
-              bottom: -1,
-              child: RefreshIndicator(
-                key: _refreshIndicatorKey,
-                onRefresh: _handleRefresh,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
-                      color: Colors.grey.withOpacity(0.3),
-                      width: 1,
-                    ),
-                  ),
-                  child: ListView.builder(
-                    itemCount: filteredRooms.length,
-                    itemBuilder: (context, index) {
-                      final room = filteredRooms[index];
-
-                      // Convert reservation initialTime and finalTime timestamps to DateTime
-                      DateTime initialDateTime = room.initialTime.toDate();
-                      DateTime finalDateTime = room.finalTime.toDate();
-
-                      // Format initialTime and finalTime as desired (e.g., 'h:mm a')
-                      String formattedInitialTime =
-                          DateFormat('h:mm a').format(initialDateTime);
-                      String formattedFinalTime =
-                          DateFormat('h:mm a').format(finalDateTime);
-
-                      String? courseColorString = room.courseColor;
-                      Color? courseColor =
-                          ColorUtils.stringToColor(courseColorString);
-
-                      return InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => GuardDetailsPage(
-                                room:
-                                    room, // Pass the selected room object to the GuardDetailsPage
-                              ),
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => GuardDetailsPage(
+                              room:
+                                  room, // Pass the selected room object to the GuardDetailsPage
                             ),
-                          );
-                        },
-                        child: Card(
-                          elevation: 4,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: courseColor ?? Colors.transparent,
-                                  width: 10,
-                                ),
+                        );
+                      },
+                      child: Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border(
+                              bottom: BorderSide(
+                                color: courseColor ?? Colors.transparent,
+                                width: 10,
                               ),
                             ),
-                            // Inside the ListView.builder
-                            // Inside the ListView.builder
-                            child: ListTile(
-                              tileColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
+                          ),
+                          // Inside the ListView.builder
+                          // Inside the ListView.builder
+                          child: ListTile(
+                            tileColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            contentPadding: const EdgeInsets.all(8),
+                            title: Text(
+                              '${room.roomName ?? 'N/A'}',
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Poppins',
                               ),
-                              contentPadding: const EdgeInsets.all(8),
-                              title: Text(
-                                '${room.roomName ?? 'N/A'}',
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Poppins',
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${room.subjectName ?? 'N/A'}',
+                                  style: const TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                Text(
+                                  '${room.professorName} \nStatus: ${room.status}',
+                                  style: const TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            trailing: Container(
+                              width: MediaQuery.of(context).size.width *
+                                  0.33, // 25% of screen width
+                              child: Stack(
                                 children: [
-                                  Text(
-                                    '${room.subjectName ?? 'N/A'}',
-                                    style: const TextStyle(
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w500,
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: Align(
+                                      alignment: Alignment.topRight,
+                                      child: Text(
+                                        '${room.courseName ?? 'N/A'}',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          color: courseColor,
+                                          fontFamily: 'Poppins',
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                  Text(
-                                    '${room.professorName} \nStatus: ${room.status}',
-                                    style: const TextStyle(
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w300,
+                                  Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    child: Align(
+                                      alignment: Alignment.bottomRight,
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 1),
+                                        height: 20,
+                                        decoration: BoxDecoration(
+                                          color: Colors.black,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            const Icon(
+                                              Icons.access_time,
+                                              color: Colors.white,
+                                              size: 15,
+                                            ),
+                                            const SizedBox(width: 4),
+                                            Text(
+                                              '$formattedInitialTime - $formattedFinalTime',
+                                              style: const TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontSize: 10.5,
+                                                fontWeight: FontWeight.normal,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
-                              trailing: Container(
-                                width: MediaQuery.of(context).size.width *
-                                    0.33, // 25% of screen width
-                                child: Stack(
-                                  children: [
-                                    Positioned(
-                                      top: 0,
-                                      right: 0,
-                                      child: Align(
-                                        alignment: Alignment.topRight,
-                                        child: Text(
-                                          '${room.courseName ?? 'N/A'}',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: courseColor,
-                                            fontFamily: 'Poppins',
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      bottom: 0,
-                                      right: 0,
-                                      child: Align(
-                                        alignment: Alignment.bottomRight,
-                                        child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 1),
-                                          height: 20,
-                                          decoration: BoxDecoration(
-                                            color: Colors.black,
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              const Icon(
-                                                Icons.access_time,
-                                                color: Colors.white,
-                                                size: 15,
-                                              ),
-                                              const SizedBox(width: 4),
-                                              Text(
-                                                '$formattedInitialTime - $formattedFinalTime',
-                                                style: const TextStyle(
-                                                  fontFamily: 'Poppins',
-                                                  fontSize: 10.5,
-                                                  fontWeight: FontWeight.normal,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              dense: true,
                             ),
+                            dense: true,
                           ),
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
-              ))
-        ]));
+              ),
+            ))
+      ]),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Handle the button press here, navigate to the new class/page
+          // For example, you can use Navigator to push a new route
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  ManualAdd(), // Replace 'NewClassPage' with the actual class you want to navigate to
+            ),
+          );
+        },
+        child: Icon(Icons.add),
+      ),
+    );
   }
 }

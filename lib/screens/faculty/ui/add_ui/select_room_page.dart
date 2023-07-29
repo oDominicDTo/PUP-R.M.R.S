@@ -8,7 +8,6 @@ import '../../../../main.dart';
 import '../../utils/selection_variables.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-
 class SelectRoomPage extends StatelessWidget {
   final String subjectId;
   final String professorId;
@@ -41,8 +40,7 @@ class SelectRoomPage extends StatelessWidget {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Confirmation'),
-            content:
-            Text('Are you sure you want to reserve ${room.roomName}?'),
+            content: Text('Are you sure you want to reserve ${room.roomName}?'),
             actions: [
               TextButton(
                 child: const Text('Yes'),
@@ -62,8 +60,9 @@ class SelectRoomPage extends StatelessWidget {
       );
 
       if (result == true) {
-        final isRoomRestricted = await FirestoreUtils.isRoomRestrictedForSubject(
-            courseId, subjectId, room.roomName);
+        final isRoomRestricted =
+            await FirestoreUtils.isRoomRestrictedForSubject(
+                courseId, subjectId, room.roomName);
 
         if (isRoomRestricted) {
           _showRestrictedRoomAlert(context, room);
@@ -93,7 +92,7 @@ class SelectRoomPage extends StatelessWidget {
       type: AlertType.warning,
       title: 'Restricted Room',
       desc:
-      'The selected room is restricted for this subject and cannot be reserved.',
+          'Access to this room is restricted. Please seek assistance from the guard post. ',
       buttons: [
         DialogButton(
           child: Text(
@@ -126,9 +125,9 @@ class SelectRoomPage extends StatelessWidget {
           courseId, subjectId);
       final course = await FirestoreUtils.getCourseById(courseId);
       final currentDate = DateTime.now();
-      final startOfDay = DateTime(
-          currentDate.year, currentDate.month, currentDate.day);
-      final endOfDay = startOfDay.add( const Duration(days: 1));
+      final startOfDay =
+          DateTime(currentDate.year, currentDate.month, currentDate.day);
+      final endOfDay = startOfDay.add(const Duration(days: 1));
 
       final existingReservation = await reservationsCollection
           .where('subjectName', isEqualTo: subject.subjectName)
@@ -167,10 +166,11 @@ class SelectRoomPage extends StatelessWidget {
         // Navigate back to the HomeProfessorPage after adding the reservation
         navigatorKey.currentState?.pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => const ProfPage()),
-              (route) => false,
+          (route) => false,
         );
       } else {
-        _showSnackBar(context, 'A reservation for this subject already exists');
+        _showSnackBar(context,
+            'Another reservation with the identical time slot already exists in this room. Kindly choose an alternative room.');
       }
     } catch (error) {
       // Handle any errors from Firestore queries
@@ -234,7 +234,8 @@ class SelectRoomPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 20),
                         Expanded(
-                          child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                          child: StreamBuilder<
+                              QuerySnapshot<Map<String, dynamic>>>(
                             stream: FirebaseFirestore.instance
                                 .collection('buildings')
                                 .doc(SelectedBuilding.buildingId)
@@ -250,13 +251,16 @@ class SelectRoomPage extends StatelessWidget {
                                 );
                               }
 
-                              if (snapshot.connectionState == ConnectionState.waiting) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
                                 return const Center(
                                   child: CircularProgressIndicator(),
                                 );
                               }
 
-                              final rooms = snapshot.data?.docs.map((doc) => Room.fromSnapshot(doc)).toList();
+                              final rooms = snapshot.data?.docs
+                                  .map((doc) => Room.fromSnapshot(doc))
+                                  .toList();
 
                               if (rooms == null || rooms.isEmpty) {
                                 return const Center(
@@ -270,11 +274,15 @@ class SelectRoomPage extends StatelessWidget {
                                   final room = rooms[index];
                                   return Card(
                                     shape: RoundedRectangleBorder(
-                                      side: const BorderSide(color: Colors.black, width: 1.0),
+                                      side: const BorderSide(
+                                          color: Colors.black, width: 1.0),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: ListTile(
-                                      title: Text(room.roomName,textAlign: TextAlign.center,),
+                                      title: Text(
+                                        room.roomName,
+                                        textAlign: TextAlign.center,
+                                      ),
                                       onTap: () {
                                         _showConfirmationDialog(context, room);
                                       },
