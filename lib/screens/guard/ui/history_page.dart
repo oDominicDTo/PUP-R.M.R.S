@@ -1,9 +1,15 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:appdevelopment/screens/guard/utils/guard_firestore_utils.dart';
 import 'package:appdevelopment/screens/guard/utils/guard_color_utils.dart';
 import '../../../models/retrieve_reservation_model.dart';
+
+import 'package:csv/csv.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key}) : super(key: key);
@@ -28,7 +34,7 @@ class _HistoryPageState extends State<HistoryPage> {
   Future<void> _handleRefresh() async {
     try {
       final List<RetrieveReservation> allReservations =
-      await FireStoreUtilsForGuard.getAllReservationsForGuard();
+          await FireStoreUtilsForGuard.getAllReservationsForGuard();
 
       // Update the rooms list with professor names
       final updatedReservations = await fetchProfessorNames(allReservations);
@@ -56,7 +62,7 @@ class _HistoryPageState extends State<HistoryPage> {
         final professorName =
             professorData['displayName'] as String? ?? 'Unknown';
         final updatedReservation =
-        reservation.copyWith(professorName: professorName);
+            reservation.copyWith(professorName: professorName);
         updatedReservations.add(updatedReservation);
       } else {
         updatedReservations.add(reservation);
@@ -88,6 +94,103 @@ class _HistoryPageState extends State<HistoryPage> {
         selectedDate = picked;
         filterRooms();
       });
+    }
+  }
+
+  Future<void> requestPermission() async {
+    var status = await Permission.storage.request();
+    if (status.isGranted) {
+      // Permission is granted. Export the file.
+      _exportDataToCsv();
+    } else {
+      // Permission is denied. Show a dialog or message to the user.
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Permission Denied'),
+          content: Text('Please grant storage permission to export the file.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  void _exportDataToCsv() async {
+    try {
+      List<List<dynamic>> csvData = [
+        // Add CSV header row
+        [
+          'Room Name',
+          'Subject Name',
+          'Professor Name',
+          'Course Name',
+          'Start Time',
+          'End Time'
+        ],
+        // Add data rows
+        ...filteredRooms.map((room) => [
+              room.roomName ?? 'N/A',
+              room.subjectName ?? 'N/A',
+              room.professorName,
+              room.courseName ?? 'N/A',
+              DateFormat('h:mm a').format(room.initialTime.toDate()),
+              DateFormat('h:mm a').format(room.finalTime.toDate()),
+            ]),
+      ];
+
+      // Get the CSV string
+      String csvString = const ListToCsvConverter().convert(csvData);
+
+      // Save the CSV string to a file only if permission is granted
+      final status = await Permission.storage.status;
+      if (status.isGranted) {
+        // Get the CSV string
+        String csvString = const ListToCsvConverter().convert(csvData);
+
+        // Save the CSV string to a file
+        final String csvFileName = "reservations.csv";
+        final directory = await getApplicationDocumentsDirectory();
+        final file = File("${directory!.path}/$csvFileName");
+        await file.writeAsString(csvString);
+
+        // Show a message indicating the export was successful
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Data exported to $csvFileName")),
+        );
+        print('file exported');
+      } else {
+        // Permission is denied. Show a dialog or message to the user.
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Permission Denied'),
+            content:
+                Text('Please grant storage permission to export the file.\n'
+                    'To grant the permission, go to your device settings, '
+                    'find the app, and enable the "Storage" permission.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
+    } catch (error) {
+      print('Error exporting data: $error');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error exporting data")),
+      );
     }
   }
 
@@ -165,7 +268,10 @@ class _HistoryPageState extends State<HistoryPage> {
                       child: const Row(
                         children: [
                           SizedBox(width: 5),
-                          Icon(Icons.calendar_today_outlined, size: 30,),
+                          Icon(
+                            Icons.calendar_today_outlined,
+                            size: 30,
+                          ),
                           SizedBox(width: 4),
                           Text(
                             "< Calendar",
@@ -183,9 +289,12 @@ class _HistoryPageState extends State<HistoryPage> {
                     alignment: Alignment.centerRight,
                     child: GestureDetector(
                       onTap: () {
-                        // Handle icon tap action
+                        requestPermission(); // Call the requestPermission function
                       },
-                      child:Icon(Icons.drive_folder_upload_outlined, size: 30,),
+                      child: Icon(
+                        Icons.drive_folder_upload_outlined,
+                        size: 30,
+                      ),
                     ),
                   ),
                 ],
@@ -219,13 +328,13 @@ class _HistoryPageState extends State<HistoryPage> {
 
                     // Format initialTime and finalTime as desired (e.g., 'h:mm a')
                     String formattedInitialTime =
-                    DateFormat('h:mm a').format(initialDateTime);
+                        DateFormat('h:mm a').format(initialDateTime);
                     String formattedFinalTime =
-                    DateFormat('h:mm a').format(finalDateTime);
+                        DateFormat('h:mm a').format(finalDateTime);
 
                     String? courseColorString = room.courseColor;
                     Color? courseColor =
-                    ColorUtils.stringToColor(courseColorString);
+                        ColorUtils.stringToColor(courseColorString);
 
                     return Card(
                       elevation: 4,
@@ -316,7 +425,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                       ),
                                       child: Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                         children: [
                                           const Icon(
                                             Icons.access_time,
